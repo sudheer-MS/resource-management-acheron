@@ -1,15 +1,44 @@
-<p>
-    <mat-toolbar>
-        <span>My Application</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    </mat-toolbar>
-</p>
+<mat-tab-group mat-align-tabs="start">
+    <h1>adad</h1>
+    <mat-tab label="Dashboard">Content 1</mat-tab>
+    <mat-tab label="Resource Management">
+        <mat-toolbar [ngClass]="'toolbar'">
+            <div [ngClass]="'toolbar'">
+                <h1 [ngStyle]="{
+            marginRight: '20px',
+            fontFamily: 'Roboto',
+            fontSize: '20px'
+          }">
+                    Resource Management
+                </h1>
+
+                <mat-button-toggle-group name="resource-management" aria-label="Resource Management">
+                    <mat-button-toggle [checked]="true" value="projects ">Projects</mat-button-toggle>
+                    <mat-button-toggle value="resources ">Resources</mat-button-toggle>
+                    <mat-button-toggle value="allocation ">Allocation</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+
+            <div [ngClass]="'toolbar'">
+                <button [ngClass]="'display-fields-button'" type="button">
+          Display Fields
+        </button>
+                <h1 [ngStyle]="{ marginRight: '10px' }">
+                    {{ currentDate | date: "MMMM" }} {{ currentDate | date: "YYYY" }}
+                </h1>
+                <div [ngClass]="'toolbar'">
+                    <button type="button" [ngClass]="'arrow-button'">
+            <mat-icon>arrow_back_ios</mat-icon>
+          </button>
+                    <button type="button" [ngClass]="'arrow-button'">
+            <mat-icon>arrow_forward_ios</mat-icon>
+          </button>
+                </div>
+                <mat-button-toggle-group [ngStyle]="{ marginLeft: '10px' }" name="calendar-buttons" aria-label="Calendar Buttons">
+                    <mat-button-toggle [checked]="true" value="month">Month</mat-button-toggle>
+                    <mat-button-toggle value="week">Week</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </mat-toolbar>
+    </mat-tab>
+</mat-tab-group>

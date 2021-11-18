@@ -10,6 +10,9 @@ import { ResourceCardComponent } from './resource-card/resource-card.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     MatSliderModule,
   ],
   exports: [ResourceManagerComponent],
