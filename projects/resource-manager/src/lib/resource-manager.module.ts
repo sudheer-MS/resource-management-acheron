@@ -2,19 +2,31 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { ResourceManagerComponent } from './resource-manager.component';
-
-
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { HeaderComponent } from './header/header.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { FilterComponent } from './filter/filter.component';
+import { ResourceCardComponent } from './resource-card/resource-card.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
-    ResourceManagerComponent
+    ResourceManagerComponent,
+    SidebarComponent,
+    HeaderComponent,
+    CalendarComponent,
+    FilterComponent,
+    ResourceCardComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserAnimationsModule,
-    MatSliderModule
+    MatToolbarModule,
+    MatIconModule,
+    MatSliderModule,
   ],
-  exports: [
-    ResourceManagerComponent
-  ]
+  exports: [ResourceManagerComponent],
 })
-export class ResourceManagerModule { }
+export class ResourceManagerModule {}
