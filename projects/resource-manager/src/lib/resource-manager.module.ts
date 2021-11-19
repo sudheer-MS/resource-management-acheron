@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatTabsModule,
     MatButtonModule,
+    MatExpansionModule,
     MatButtonToggleModule,
     MatSliderModule,
   ],
