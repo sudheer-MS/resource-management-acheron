@@ -13,6 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,13 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     BrowserAnimationsModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatTabsModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatCheckboxModule,
     MatButtonToggleModule,
     MatSliderModule,
   ],
