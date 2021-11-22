@@ -15,6 +15,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
+import { DisplayFieldsComponent } from './display-fields/display-fields.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     FilterComponent,
     ResourceCardComponent,
     SearchBarComponent,
+    DisplayFieldsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -35,6 +39,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatExpansionModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    MatSelectModule,
     MatSliderModule,
   ],
   exports: [ResourceManagerComponent],
