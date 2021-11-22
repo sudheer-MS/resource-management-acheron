@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'lib-display-fields',
   templateUrl: './display-fields.component.html',
-  styleUrls: ['./display-fields.component.css'],
+  styleUrls: ['./display-fields.component.scss'],
 })
 export class DisplayFieldsComponent implements OnInit {
   selectedValue: string = 'task';
