@@ -1,24 +1,3 @@
-<div ngClass="button-container">
-    <div *ngIf="selectButton == 'month'" ngClass="date-container">
-        <h1 ngClass="month-name">{{ monthDate | date: "MMMM" }}</h1>
-        <h1 ngClass="month-name">{{ monthDate | date: "yyyy" }}</h1>
-    </div>
-    <div *ngIf="selectButton == 'week'" ngClass="date-container">
-        <h1 ngClass="month-name">{{ weekDate | date: "MMMM" }}</h1>
-        <h1 ngClass="month-name">{{ weekDate | date: "yyyy" }}</h1>
-    </div>
-    <!-- <div>
-        <mat-icon ngClass="arrow-button" (click)="onClickBack()">arrow_back_ios</mat-icon>
-        <mat-icon ngClass="arrow-button" (click)="onClickNextMonth()">arrow_forward_ios</mat-icon>
-    </div> -->
-    <div ngClass="button-container">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'month' }" value="month">Month</mat-button-toggle>
-            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'week' }" value="week">Week</mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-</div>
-
 <div *ngIf="selectButton == 'month'">
     <div ngClass="dates-container">
         <div [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'" *ngFor="let day of month">
