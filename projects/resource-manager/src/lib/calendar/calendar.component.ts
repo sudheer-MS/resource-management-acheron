@@ -26,14 +26,15 @@ import { CalendarService } from '../services/calendar/calendar.service';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  
   currentDate = format(new Date(), 'MM/dd/yyyy');
-  month: any[] = [];
-  week: any[] = [];
-  monthDate: any = new Date();
-  weekDate: any = new Date();
+  month: Date[] = []; //currentmonthdates
+  week: Date[] = []; //curentweekdates
+  monthDate: Date = new Date();
+  weekDate: Date = new Date();
   selectButton: string = 'month';
-  panelOpenState = false;
-  tasks: any = [
+  panelOpenState:boolean = false;
+  tasks: any[] = [
     {
       taskName: 'Task A',
       startDate: new Date(2021, 10, 18),
@@ -79,11 +80,11 @@ export class CalendarComponent implements OnInit {
       startDate: new Date(2021, 0, 4),
       endDate: new Date(2022, 11, 30),
     },
-  ];
+  ];//model create
+  // tasks:any[]=[];
+  currentWeekTasks: any[] = [];
 
-  currentWeekTasks: any = [];
-
-  currentMonthTasks: any = [];
+  currentMonthTasks: any[] = [];
 
   constructor(private _calendarService: CalendarService) {}
 
@@ -198,7 +199,7 @@ export class CalendarComponent implements OnInit {
       this.monthDate.getFullYear() === startDate.getFullYear()
     ) {
       let days = startDate.getDate() - 1;
-      margin = days * 3.2 + 'rem';
+      margin = days * 2.76 + 'rem';
       return margin;
     }
     return 0 + 'rem';
@@ -212,7 +213,7 @@ export class CalendarComponent implements OnInit {
       isSameYear(this.weekDate, startDate)
     ) {
       let days = getDay(startDate);
-      margin = days * 13.6 + 0.3 + 'rem';
+      margin = days * 11.8 + 'rem';
       return margin;
     }
     return 0 + 'rem';
@@ -230,13 +231,13 @@ export class CalendarComponent implements OnInit {
     // Check if startDate and endDate are in same month
     if (isSameMonth(startDate, endDate)) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.76 + 'rem';
       return width;
     }
     // Check if endDate month and current month are same month
     else if (isSameMonth(currentMonth, endDate)) {
       calculateDifference = differenceInDays(endDate, findStartDateOfEndMonth);
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.76 + 'rem';
       return width;
     }
     // Check if startDate month and current month are same month
@@ -245,23 +246,26 @@ export class CalendarComponent implements OnInit {
         findEndDateOfStartMonth,
         startDate
       );
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.76 + 'rem';
       return width;
     }
     // check if both startDate and endDate are not related to current month
     else {
-      width = noOfDaysInCurrentMonth * 3.2 + 'rem';
+      width = noOfDaysInCurrentMonth * 2.76 + 'rem';
       return width;
     }
   };
 
   weekWidth = (startDate: Date, endDate: Date) => {
     let calculateDifference: any;
-    let checkSameWeek = isSameWeek(endDate, startDate);
     let width: any;
-    if (checkSameWeek) {
+    if (isSameWeek(endDate, startDate)) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 13.6 + 'rem';
+      width = (calculateDifference + 1) * 11.8 + 'rem';
+      return width;
+    } else if (isSameWeek(endDate, this.weekDate)) {
+      calculateDifference = differenceInDays(endDate, this.weekDate);
+      width = (calculateDifference + 1) * 11.8 + 'rem';
       return width;
     }
   };
