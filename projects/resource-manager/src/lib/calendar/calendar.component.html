@@ -1,43 +1,8 @@
-<!-- <div ngClass="button-container">
-  <div *ngIf="selectButton == 'month'" ngClass="date-container">
-      <h1 ngClass="month-name">{{ monthDate | date: "MMMM" }}</h1>
-      <h1 ngClass="month-name">{{ monthDate | date: "yyyy" }}</h1>
-    </div>
-    <div *ngIf="selectButton == 'week'" ngClass="date-container">
-      <h1 ngClass="month-name">{{ weekDate | date: "MMMM" }}</h1>
-      <h1 ngClass="month-name">{{ weekDate | date: "yyyy" }}</h1>
-    </div>
-    <div>
-      <mat-icon ngClass="arrow-button" (click)="onClickBack()"
-        >arrow_back_ios</mat-icon
-      >
-      <mat-icon ngClass="arrow-button" (click)="onClickNext()"
-        >arrow_forward_ios</mat-icon
-      >
-    </div>
-    <div ngClass="button-container">
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle
-          [ngClass]="{ 'select-button': selectButton == 'month' }"
-          value="month"
-          (click)="onToggleButton('month')"
-          >Month</mat-button-toggle
-        >
-        <mat-button-toggle
-          [ngClass]="{ 'select-button': selectButton == 'week' }"
-          value="week"
-          (click)="onToggleButton('week')"
-          >Week</mat-button-toggle
-        >
-      </mat-button-toggle-group>
-    </div>
-  </div> -->
-
-<div *ngIf="selectButton == 'month'">
+<div *ngIf="selectButton == 'Month'">
   <div ngClass="dates-container">
     <div
       [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
-      *ngFor="let day of month"
+      *ngFor="let day of currentMonthDates"
     >
       <p>{{ day | date: "EEE" }}</p>
       <p>{{ day | date: "d" }}</p>
@@ -67,13 +32,13 @@
   </div>
 </div>
 
-<div *ngIf="selectButton == 'week'" ngClass="calendar-container">
+<div *ngIf="selectButton == 'Week'" ngClass="calendar-container">
   <div ngClass="week-dates-container">
     <div
       [ngClass]="
         formatDate(day) != currentDate ? 'week-date' : 'week-current-date'
       "
-      *ngFor="let day of week"
+      *ngFor="let day of curentWeekDates"
     >
       <p>{{ day | date: "EEEE" }}</p>
       <p>{{ day | date: "d" }}</p>

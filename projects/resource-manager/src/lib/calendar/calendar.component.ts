@@ -189,7 +189,7 @@ export class CalendarComponent implements OnInit {
     return format(date, 'MM/dd/yyyy');
   };
 
-  monthLeftSpace = (startDate: Date):string => {
+  monthLeftSpace = (startDate: Date): string => {
     let margin;
 
     // check if startDate and currentDate are equal
@@ -204,7 +204,7 @@ export class CalendarComponent implements OnInit {
     return 0 + 'rem';
   };
 
-  weekLeftSpace = (startDate: Date):string => {
+  weekLeftSpace = (startDate: Date): string => {
     let margin;
     // check if startDate and currentDate are equal
     if (
@@ -219,7 +219,7 @@ export class CalendarComponent implements OnInit {
     return 0 + 'rem';
   };
 
-  monthWidth = (startDate: Date, endDate: Date):string => {
+  monthWidth = (startDate: Date, endDate: Date): string => {
     let width;
     let calculateDifference: number;
 
