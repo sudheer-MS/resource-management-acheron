@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'lib-filter',
@@ -12,6 +12,12 @@ export class FilterComponent implements OnInit {
   regionForm: FormGroup;
   statusForm: FormGroup;
   categoryForm: FormGroup;
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+  startDate = new FormControl('');
+  endDate = new FormControl('');
   constructor(private formBuilder: FormBuilder) {
     this.priorityForm = formBuilder.group({
       high: false,

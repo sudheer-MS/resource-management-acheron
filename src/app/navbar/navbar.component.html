@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <div>
+    <img src="https://www.otsolex.com/hubfs/acheron.png" [ngClass]="'logo'" />
+  </div>
+  <h1 [ngClass]="'dashboard-heading'">Dashboard</h1>
+  <h1 [ngClass]="'resource-heading'">Resource Management</h1>
+
+  <div [ngClass]="'menu-container'">
+    <div [ngClass]="'icon-container'">
+      <mat-icon>search</mat-icon>
+      <mat-icon>notifications_none</mat-icon>
+      <mat-icon>menu</mat-icon>
+    </div>
+    <div [ngClass]="'user-image-container'">
+      <img
+        src="data:image/jpeg;base64,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"
+        [ngClass]="'user-image'"
+      />
+      <span>Priyanka</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </div>
+  </div>
+</mat-toolbar>

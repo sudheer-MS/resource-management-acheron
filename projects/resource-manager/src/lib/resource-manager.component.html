@@ -1,5 +1,5 @@
-<div>
-    <header [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate"></header>
+<div class="mat-typography mat-app-background">
+    <lib-header [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate"></lib-header>
     <div ngClass="style">
         <lib-sidebar></lib-sidebar>
         <lib-calendar [monthDate]="monthDate" [selectButton]="selectButton"></lib-calendar>
