@@ -23,7 +23,11 @@
   </div>
 
   <div [ngClass]="'toolbar'">
-    <button [ngClass]="'display-fields-button'" type="button">
+    <button
+      [ngClass]="'display-fields-button'"
+      type="button"
+      (click)="openDisplayFields()"
+    >
       Display Fields
     </button>
     <h1 [ngStyle]="{ marginRight: '10px' }">
