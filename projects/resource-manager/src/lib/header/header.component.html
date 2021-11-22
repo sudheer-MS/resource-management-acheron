@@ -23,21 +23,25 @@
   </div>
 
   <div [ngClass]="'toolbar'">
-    <button
-      [ngClass]="'display-fields-button'"
-      type="button"
-      (click)="openDisplayFields()"
-    >
+    <button [ngClass]="'display-fields-button'" type="button">
       Display Fields
     </button>
     <h1 [ngStyle]="{ marginRight: '10px' }">
-      {{ currentDate | date: "MMMM" }} {{ currentDate | date: "YYYY" }}
+      {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
     </h1>
     <div [ngClass]="'toolbar'">
-      <button type="button" [ngClass]="'arrow-button'">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickBackward()"
+      >
         <mat-icon>arrow_back_ios</mat-icon>
       </button>
-      <button type="button" [ngClass]="'arrow-button'">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickForward()"
+      >
         <mat-icon>arrow_forward_ios</mat-icon>
       </button>
     </div>
@@ -46,10 +50,15 @@
       name="calendar-buttons"
       aria-label="Calendar Buttons"
     >
-      <mat-button-toggle [checked]="true" value="month"
+      <mat-button-toggle
+        [checked]="true"
+        value="month"
+        (click)="onToggleButton('month')"
         >Month</mat-button-toggle
       >
-      <mat-button-toggle value="week">Week</mat-button-toggle>
+      <mat-button-toggle value="week" (click)="onToggleButton('week')"
+        >Week</mat-button-toggle
+      >
     </mat-button-toggle-group>
   </div>
 </mat-toolbar>
