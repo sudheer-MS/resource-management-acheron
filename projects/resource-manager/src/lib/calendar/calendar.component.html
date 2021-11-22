@@ -7,14 +7,14 @@
         <h1 ngClass="month-name">{{ weekDate | date: "MMMM" }}</h1>
         <h1 ngClass="month-name">{{ weekDate | date: "yyyy" }}</h1>
     </div>
-    <div>
+    <!-- <div>
         <mat-icon ngClass="arrow-button" (click)="onClickBack()">arrow_back_ios</mat-icon>
-        <mat-icon ngClass="arrow-button" (click)="onClickNext()">arrow_forward_ios</mat-icon>
-    </div>
+        <mat-icon ngClass="arrow-button" (click)="onClickNextMonth()">arrow_forward_ios</mat-icon>
+    </div> -->
     <div ngClass="button-container">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'month' }" value="month" (click)="onToggleButton('month')">Month</mat-button-toggle>
-            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'week' }" value="week" (click)="onToggleButton('week')">Week</mat-button-toggle>
+            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'month' }" value="month">Month</mat-button-toggle>
+            <mat-button-toggle [ngClass]="{ 'select-button': selectButton == 'week' }" value="week">Week</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 </div>

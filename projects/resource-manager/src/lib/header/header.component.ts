@@ -1,13 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { format } from 'date-fns';
+
 
 @Component({
-  selector: 'lib-header',
+  selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   currentDate: Date = new Date();
-  constructor() {}
+
+  @Input()
+  onClickForward!: () => any;
+
+  @Input()
+  onClickBackward!: () => any;
+
+  @Input()
+  onToggleButton!: (value:string) => any;
+
+  @Input() monthDate = new Date();
 
   ngOnInit(): void {}
+
+  
 }

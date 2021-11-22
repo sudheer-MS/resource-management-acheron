@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   format,
   isSameMonth,
@@ -25,15 +25,16 @@ import { CalendarService } from '../services/calendar/calendar.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
+
 export class CalendarComponent implements OnInit {
+
   currentDate = format(new Date(), 'MM/dd/yyyy');
-  month: any[] = [];
-  week: any[] = [];
-  monthDate: any = new Date();
-  weekDate: any = new Date();
-  selectButton: string = 'month';
+  month: Date[] = [];
+  week: Date[] = [];
+  //monthDate: Date = new Date();
+  weekDate: Date = new Date();
   panelOpenState = false;
-  tasks: any = [
+  tasks: Object[] = [
     {
       taskName: 'Task A',
       startDate: new Date(2021, 10, 18),
@@ -91,12 +92,17 @@ export class CalendarComponent implements OnInit {
     this.week = this._calendarService.takeWeek(date)();
   };
 
+  @Input() monthDate= new Date();
+
+
+  @Input() selectButton = "";
+
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
     this._calendarService
       .takeMonth(date)()
       .forEach((eachWeek: any) =>
-        eachWeek.forEach((eachDay: Date) => {
+        eachWeek.forEach((eachDay: Date) => { 
           if (isSameMonth(eachDay, date)) {
             monthData.push(eachDay);
           }
@@ -108,6 +114,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.getWeekData(this.weekDate);
     this.getMonthData(this.monthDate);
+    this.selectButton = "month"
 
     this.currentMonthTasks = this.tasks.filter((eachTask: any) =>
       isSameMonth(eachTask.startDate, this.monthDate)
@@ -118,13 +125,9 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  onToggleButton = (value: string) => {
-    if (value == 'month') {
-      this.selectButton = 'month';
-    } else {
-      this.selectButton = 'week';
-    }
-  };
+  ngOnChanges(): void{
+    this.ngOnInit();
+  }
 
   onClickBack = () => {
     let firstDayMonth = startOfMonth(this.monthDate);
@@ -144,7 +147,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    console.log(this.currentMonthTasks);
+    //console.log(this.currentMonthTasks);
     this.currentWeekTasks = this.tasks.filter(
       (eachTask: any) =>
         isSameWeek(eachTask.startDate, this.weekDate) ||
@@ -156,7 +159,8 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  onClickNext = () => {
+  onClickNext = ():void => {
+    console.log("called");
     let lastDayMonth = lastDayOfMonth(this.monthDate);
     this.monthDate = addDays(lastDayMonth, 1);
     this.getMonthData(this.monthDate);
@@ -185,7 +189,7 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  formatDate = (date: any) => {
+  formatDate = (date: Date) => {
     return format(date, 'MM/dd/yyyy');
   };
 

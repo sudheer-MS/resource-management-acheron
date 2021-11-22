@@ -1,7 +1,7 @@
 <div>
-    <lib-header></lib-header>
+    <header [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate"></header>
     <div ngClass="style">
         <lib-sidebar></lib-sidebar>
-        <lib-calendar></lib-calendar>
+        <lib-calendar [monthDate]="monthDate" [selectButton]="selectButton"></lib-calendar>
     </div>
 </div>
