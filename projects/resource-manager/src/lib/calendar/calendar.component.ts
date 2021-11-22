@@ -26,14 +26,13 @@ import { CalendarService } from '../services/calendar/calendar.service';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  
   currentDate = format(new Date(), 'MM/dd/yyyy');
-  month: Date[] = []; //currentmonthdates
-  week: Date[] = []; //curentweekdates
+  currentMonthDates: Date[] = [];
+  curentWeekDates: Date[] = [];
   monthDate: Date = new Date();
   weekDate: Date = new Date();
   selectButton: string = 'month';
-  panelOpenState:boolean = false;
+  panelOpenState: boolean = false;
   tasks: any[] = [
     {
       taskName: 'Task A',
@@ -80,8 +79,8 @@ export class CalendarComponent implements OnInit {
       startDate: new Date(2021, 0, 4),
       endDate: new Date(2022, 11, 30),
     },
-  ];//model create
-  // tasks:any[]=[];
+  ];
+
   currentWeekTasks: any[] = [];
 
   currentMonthTasks: any[] = [];
@@ -89,7 +88,7 @@ export class CalendarComponent implements OnInit {
   constructor(private _calendarService: CalendarService) {}
 
   getWeekData = (date: Date) => {
-    this.week = this._calendarService.takeWeek(date)();
+    this.curentWeekDates = this._calendarService.takeWeek(date)();
   };
 
   getMonthData = (date: Date) => {
@@ -103,7 +102,7 @@ export class CalendarComponent implements OnInit {
           }
         })
       );
-    this.month = monthData;
+    this.currentMonthDates = monthData;
   };
 
   ngOnInit(): void {
@@ -145,7 +144,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    console.log(this.currentMonthTasks);
+
     this.currentWeekTasks = this.tasks.filter(
       (eachTask: any) =>
         isSameWeek(eachTask.startDate, this.weekDate) ||
@@ -186,12 +185,12 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  formatDate = (date: any) => {
+  formatDate = (date: Date): string => {
     return format(date, 'MM/dd/yyyy');
   };
 
-  monthLeftSpace = (startDate: Date) => {
-    let margin: any;
+  monthLeftSpace = (startDate: Date):string => {
+    let margin;
 
     // check if startDate and currentDate are equal
     if (
@@ -205,8 +204,9 @@ export class CalendarComponent implements OnInit {
     return 0 + 'rem';
   };
 
-  weekLeftSpace = (startDate: Date) => {
-    let margin: any;
+  weekLeftSpace = (startDate: Date):string => {
+    let margin;
+    // check if startDate and currentDate are equal
     if (
       isSameWeek(this.weekDate, startDate) &&
       isSameMonth(this.weekDate, startDate) &&
@@ -219,9 +219,9 @@ export class CalendarComponent implements OnInit {
     return 0 + 'rem';
   };
 
-  monthWidth = (startDate: Date, endDate: Date) => {
-    let width: any;
-    let calculateDifference: any;
+  monthWidth = (startDate: Date, endDate: Date):string => {
+    let width;
+    let calculateDifference: number;
 
     let currentMonth = this.monthDate;
     let findStartDateOfEndMonth = startOfMonth(endDate);
@@ -257,7 +257,7 @@ export class CalendarComponent implements OnInit {
   };
 
   weekWidth = (startDate: Date, endDate: Date) => {
-    let calculateDifference: any;
+    let calculateDifference: number;
     let width: any;
     if (isSameWeek(endDate, startDate)) {
       calculateDifference = differenceInDays(endDate, startDate);

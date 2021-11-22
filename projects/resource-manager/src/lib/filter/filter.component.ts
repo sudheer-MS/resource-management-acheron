@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'lib-filter',
@@ -8,8 +8,32 @@ import { FormGroup } from '@angular/forms';
 })
 export class FilterComponent implements OnInit {
   panelOpenState: boolean = false;
-
-  constructor() {}
-
+  priorityForm: FormGroup;
+  regionForm: FormGroup;
+  statusForm: FormGroup;
+  categoryForm: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
+    this.priorityForm = formBuilder.group({
+      high: false,
+      low: false,
+    });
+    this.regionForm = formBuilder.group({
+      region: '',
+      imea: false,
+      latam: false,
+      emea: false,
+      nac: false,
+      epac: false,
+    });
+    this.statusForm = formBuilder.group({
+      defined: false,
+      inProgress: false,
+    });
+    this.categoryForm = formBuilder.group({
+      na: false,
+      qa: false,
+      series: false,
+    });
+  }
   ngOnInit(): void {}
 }
