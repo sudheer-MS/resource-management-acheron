@@ -1,69 +1,55 @@
-<div *ngIf="selectButton == 'Month'">
-  <div ngClass="dates-container">
-    <div
-      [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
-      *ngFor="let day of currentMonthDates"
-    >
-      <p>{{ day | date: "EEE" }}</p>
-      <p>{{ day | date: "d" }}</p>
-      <hr />
+<div *ngIf="selectButton == 'month'">
+    <div ngClass="dates-container">
+        <div [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'" *ngFor="let day of month">
+            <p>{{ day | date: "EEE" }}</p>
+            <p>{{ day | date: "d" }}</p>
+            <hr />
+        </div>
     </div>
-  </div>
-  <div [ngStyle]="{ 'padding-top': '90px' }">
-    <mat-accordion *ngFor="let task of currentMonthTasks">
-      <mat-expansion-panel
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-        [ngStyle]="{
+    <div [ngStyle]="{ 'padding-top': '90px' }">
+        <mat-accordion *ngFor="let task of currentMonthTasks">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
           'margin-left': monthLeftSpace(task.startDate),
           width: monthWidth(task.startDate, task.endDate),
           position: 'relative'
-        }"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
-          <mat-panel-description>
-            {{ task.startDate | date }} - {{ task.endDate | date }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
+        }">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{ task.taskName }} </mat-panel-title>
+                    <mat-panel-description>
+                        {{ task.startDate | date }} - {{ task.endDate | date }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>
 
-<div *ngIf="selectButton == 'Week'" ngClass="calendar-container">
-  <div ngClass="week-dates-container">
-    <div
-      [ngClass]="
+<div *ngIf="selectButton == 'week'" ngClass="calendar-container">
+    <div ngClass="week-dates-container">
+        <div [ngClass]="
         formatDate(day) != currentDate ? 'week-date' : 'week-current-date'
-      "
-      *ngFor="let day of curentWeekDates"
-    >
-      <p>{{ day | date: "EEEE" }}</p>
-      <p>{{ day | date: "d" }}</p>
-      <hr />
+      " *ngFor="let day of week">
+            <p>{{ day | date: "EEEE" }}</p>
+            <p>{{ day | date: "d" }}</p>
+            <hr />
+        </div>
     </div>
-  </div>
-  <div [ngStyle]="{ 'padding-top': '120px' }">
-    <mat-accordion *ngFor="let task of currentWeekTasks">
-      <mat-expansion-panel
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-        [ngStyle]="{
+    <div [ngStyle]="{ 'padding-top': '120px' }">
+        <mat-accordion *ngFor="let task of currentWeekTasks">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
           'margin-left': weekLeftSpace(task.startDate),
           width: weekWidth(task.startDate, task.endDate),
           position: 'relative'
-        }"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
-          <mat-panel-description>
-            {{ task.startDate | date }} - {{ task.endDate | date }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
+        }">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{ task.taskName }} </mat-panel-title>
+                    <mat-panel-description>
+                        {{ task.startDate | date }} - {{ task.endDate | date }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>
