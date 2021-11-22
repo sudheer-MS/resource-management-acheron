@@ -95,7 +95,7 @@ export class CalendarComponent implements OnInit {
   @Input() monthDate= new Date();
 
 
-  @Input() selectButton = "";
+  @Input() selectButton = '';
 
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
@@ -114,7 +114,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.getWeekData(this.weekDate);
     this.getMonthData(this.monthDate);
-    this.selectButton = "month"
+    console.log(this.selectButton);
 
     this.currentMonthTasks = this.tasks.filter((eachTask: any) =>
       isSameMonth(eachTask.startDate, this.monthDate)

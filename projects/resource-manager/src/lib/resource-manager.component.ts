@@ -12,7 +12,7 @@ export class ResourceManagerComponent implements OnInit {
 
 
   monthDate: Date = new Date();
-  selectButton: string = ""
+  selectButton: string = "month"
   nmonthDate = format(this.monthDate, 'MM/dd/yyyy')
 
   constructor(private _calendarService: CalendarService) { }
