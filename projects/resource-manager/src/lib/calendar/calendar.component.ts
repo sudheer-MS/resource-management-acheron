@@ -25,12 +25,10 @@ import { CalendarService } from '../services/calendar/calendar.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-
 export class CalendarComponent implements OnInit {
-
   currentDate = format(new Date(), 'MM/dd/yyyy');
   currentMonthDates: Date[] = [];
-  curentWeekDates: Date[] = [];
+  currentWeekDates: Date[] = [];
   //monthDate: Date = new Date();
   weekDate: Date = new Date();
   panelOpenState = false;
@@ -89,11 +87,10 @@ export class CalendarComponent implements OnInit {
   constructor(private _calendarService: CalendarService) {}
 
   getWeekData = (date: Date) => {
-    this.curentWeekDates = this._calendarService.takeWeek(date)();
+    this.currentWeekDates = this._calendarService.takeWeek(date)();
   };
 
-  @Input() monthDate= new Date();
-
+  @Input() monthDate = new Date();
 
   @Input() selectButton = '';
 
@@ -102,7 +99,7 @@ export class CalendarComponent implements OnInit {
     this._calendarService
       .takeMonth(date)()
       .forEach((eachWeek: any) =>
-        eachWeek.forEach((eachDay: Date) => { 
+        eachWeek.forEach((eachDay: Date) => {
           if (isSameMonth(eachDay, date)) {
             monthData.push(eachDay);
           }
@@ -125,7 +122,7 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  ngOnChanges(): void{
+  ngOnChanges(): void {
     this.ngOnInit();
   }
 
@@ -147,7 +144,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-  
+
     this.currentWeekTasks = this.tasks.filter(
       (eachTask: any) =>
         isSameWeek(eachTask.startDate, this.weekDate) ||
@@ -159,8 +156,8 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  onClickNext = ():void => {
-    console.log("called");
+  onClickNext = (): void => {
+    console.log('called');
     let lastDayMonth = lastDayOfMonth(this.monthDate);
     this.monthDate = addDays(lastDayMonth, 1);
     this.getMonthData(this.monthDate);
@@ -202,7 +199,7 @@ export class CalendarComponent implements OnInit {
       this.monthDate.getFullYear() === startDate.getFullYear()
     ) {
       let days = startDate.getDate() - 1;
-      margin = days * 2.76 + 'rem';
+      margin = days * 2.75 + 'rem';
       return margin;
     }
     return 0 + 'rem';
@@ -235,13 +232,13 @@ export class CalendarComponent implements OnInit {
     // Check if startDate and endDate are in same month
     if (isSameMonth(startDate, endDate)) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 2.76 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // Check if endDate month and current month are same month
     else if (isSameMonth(currentMonth, endDate)) {
       calculateDifference = differenceInDays(endDate, findStartDateOfEndMonth);
-      width = (calculateDifference + 1) * 2.76 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // Check if startDate month and current month are same month
@@ -250,12 +247,12 @@ export class CalendarComponent implements OnInit {
         findEndDateOfStartMonth,
         startDate
       );
-      width = (calculateDifference + 1) * 2.76 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // check if both startDate and endDate are not related to current month
     else {
-      width = noOfDaysInCurrentMonth * 2.76 + 'rem';
+      width = noOfDaysInCurrentMonth * 2.75 + 'rem';
       return width;
     }
   };
@@ -273,4 +270,3 @@ export class CalendarComponent implements OnInit {
     }
   };
 }
-
