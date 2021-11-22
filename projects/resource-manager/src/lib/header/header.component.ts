@@ -19,9 +19,10 @@ export class HeaderComponent implements OnInit {
   onClickBackward!: () => any;
 
   @Input()
-  onToggleButton!: (value:string) => any;
+  onToggleButton!: (value: string) => any;
 
   @Input() monthDate = new Date();
+
   constructor(public dialog: MatDialog) {}
 
   openDisplayFields() {
@@ -33,6 +34,4 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  
 }

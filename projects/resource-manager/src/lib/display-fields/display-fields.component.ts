@@ -15,17 +15,17 @@ export class DisplayFieldsComponent implements OnInit {
     this.displayTaskFields = fb.group({
       name: true,
       startDate: true,
-      owner: true,
+      owner: false,
       duration: true,
-      endDate: true,
+      endDate: false,
       priority: true,
     });
 
     this.displayProjectFields = fb.group({
       name: true,
-      startDate: true,
+      startDate: false,
       owner: true,
-      duration: true,
+      duration: false,
       endDate: true,
       priority: true,
     });
@@ -34,9 +34,9 @@ export class DisplayFieldsComponent implements OnInit {
       name: true,
       startDate: true,
       owner: true,
-      duration: true,
+      duration: false,
       endDate: true,
-      priority: true,
+      priority: false,
     });
   }
 
