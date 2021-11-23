@@ -19,8 +19,11 @@
         <button [ngClass]="'display-fields-button'" type="button" (click)="openDisplayFields()">
       Display Fields
     </button>
-        <h1 [ngStyle]="{ marginRight: '10px' }">
+        <h1 *ngIf="selectButton=='month'" [ngStyle]="{ marginRight: '10px' }">
             {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
+        </h1>
+        <h1 *ngIf="selectButton=='week'" [ngStyle]="{ marginRight: '10px' }">
+            {{ weekDate | date: "MMMM" }} {{ weekDate | date: "YYYY" }}
         </h1>
         <div [ngClass]="'toolbar'">
             <button type="button" [ngClass]="'arrow-button'" (click)="onClickBackward()">
