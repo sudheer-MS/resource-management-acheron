@@ -28,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskAllocationComponent } from './task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
+import { ProjectsComponent } from './projects/projects/projects.component';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -38,6 +39,7 @@ import { EmployeeAllocationComponent } from './employee-allocation/employee-allo
     ResourceCardComponent,
     SearchBarComponent,
     DisplayFieldsComponent,
+    ProjectsComponent,
     TaskAllocationComponent,
     EmployeeAllocationComponent,
   ],

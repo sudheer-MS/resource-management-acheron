@@ -1,1 +1,11 @@
-<p>projects works!</p>
+<div class="mat-typography mat-app-background">
+    <lib-header [weekDate]="weekDate" [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="nmonthDate" [selectButton]="selectButton" (tabValueEvent)="onChangeTab($event)"></lib-header>
+    <div ngClass="style" *ngIf="tabValue=='Projects'">
+        <lib-sidebar></lib-sidebar>
+        <lib-calendar [weekDate]="weekDate" [buttonValue]="buttonValue" [monthDate]="monthDate" [selectButton]="selectButton"></lib-calendar>
+    </div>
+    <div ngClass="style" *ngIf="tabValue=='Resources'">
+        <lib-sidebar></lib-sidebar>
+        <lib-calendar></lib-calendar>
+    </div>
+</div>
