@@ -26,6 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { TaskAllocationComponent } from './task-allocation/task-allocation.component';
+import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -36,6 +38,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ResourceCardComponent,
     SearchBarComponent,
     DisplayFieldsComponent,
+    TaskAllocationComponent,
+    EmployeeAllocationComponent,
   ],
   imports: [
     BrowserAnimationsModule,

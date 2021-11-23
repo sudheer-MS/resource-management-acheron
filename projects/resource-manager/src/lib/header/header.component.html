@@ -11,12 +11,12 @@
         <mat-button-toggle-group name="resource-management" aria-label="Resource Management">
             <mat-button-toggle [checked]="true" value="projects ">Projects</mat-button-toggle>
             <mat-button-toggle value="resources ">Resources</mat-button-toggle>
-            <mat-button-toggle value="allocation ">Allocation</mat-button-toggle>
+            <mat-button-toggle value="allocation " (click)="openTaskAllocation()">Allocation</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
     <div [ngClass]="'toolbar'">
-        <button [ngClass]="'display-fields-button'" type="button">
+        <button [ngClass]="'display-fields-button'" type="button" (click)="openDisplayFields()">
       Display Fields
     </button>
         <h1 *ngIf="selectButton=='month'" [ngStyle]="{ marginRight: '10px' }">

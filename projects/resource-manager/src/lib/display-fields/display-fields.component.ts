@@ -4,21 +4,43 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'lib-display-fields',
   templateUrl: './display-fields.component.html',
-  styleUrls: ['./display-fields.component.css'],
+  styleUrls: ['./display-fields.component.scss'],
 })
 export class DisplayFieldsComponent implements OnInit {
-  selectedValue: string = '';
-  displayFields: FormGroup;
+  selectedValue: string = 'task';
+  displayTaskFields: FormGroup;
+  displayProjectFields: FormGroup;
+  displayCampaignFields: FormGroup;
   constructor(fb: FormBuilder) {
-    this.displayFields = fb.group({
-      name: false,
-      startDate: false,
+    this.displayTaskFields = fb.group({
+      name: true,
+      startDate: true,
       owner: false,
-      duration: false,
+      duration: true,
       endDate: false,
+      priority: true,
+    });
+
+    this.displayProjectFields = fb.group({
+      name: true,
+      startDate: false,
+      owner: true,
+      duration: false,
+      endDate: true,
+      priority: true,
+    });
+
+    this.displayCampaignFields = fb.group({
+      name: true,
+      startDate: true,
+      owner: true,
+      duration: false,
+      endDate: true,
       priority: false,
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.selectedValue);
+  }
 }
