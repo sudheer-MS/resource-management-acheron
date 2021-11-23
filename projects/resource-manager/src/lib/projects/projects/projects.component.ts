@@ -13,18 +13,17 @@ export class ProjectsComponent implements OnInit {
   selectButton: string = "month"
   buttonValue: string = '';
   weekDate: Date = new Date();
-  nmonthDate = format(this.monthDate, 'MM/dd/yyyy')
   tabValue:string = '';
 
   constructor(private _calendarService: CalendarService) { }
 
   ngOnInit(): void {
+    this.tabValue = 'Projects';
   }
 
   onClickForward = () => {
     let lastDayMonth = lastDayOfMonth(this.monthDate);
     this.monthDate = addDays(lastDayMonth, 1);
-    this.nmonthDate = format(this.monthDate, 'MM/dd/yyyy')
     let lastDayWeek = lastDayOfWeek(this.weekDate);
     this.weekDate = addDays(lastDayWeek, 1);
     this.buttonValue = 'next';
@@ -33,7 +32,6 @@ export class ProjectsComponent implements OnInit {
   onClickBackward = () => {
     let firstDayMonth = startOfMonth(this.monthDate);
     this.monthDate = subDays(firstDayMonth, 1);
-    this.nmonthDate = format(this.monthDate, 'MM/dd/yyyy')
     let firstDayWeek = startOfWeek(this.weekDate);
     this.weekDate = subDays(firstDayWeek,1);
     this.buttonValue = 'prev'
