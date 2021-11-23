@@ -29,6 +29,7 @@ export class ResourceManagerComponent implements OnInit {
     let lastDayWeek = lastDayOfWeek(this.weekDate);
     this.weekDate = addDays(lastDayWeek, 1);
     this.buttonValue = 'next';
+    console.log(this.monthDate)
   }
   onClickBackward = () => {
     let firstDayMonth = startOfMonth(this.monthDate);
