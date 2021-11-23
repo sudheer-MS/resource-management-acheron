@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   format,
   isSameMonth,
@@ -27,13 +27,12 @@ import { CalendarService } from '../services/calendar/calendar.service';
 })
 export class CalendarComponent implements OnInit {
   currentDate = format(new Date(), 'MM/dd/yyyy');
-  month: any[] = [];
-  week: any[] = [];
-  monthDate: any = new Date();
-  weekDate: any = new Date();
-  selectButton: string = 'month';
+  currentMonthDates: Date[] = [];
+  currentWeekDates: Date[] = [];
+  //monthDate: Date = new Date();
+  weekDate: Date = new Date();
   panelOpenState = false;
-  tasks: any = [
+  tasks: Object[] = [
     {
       taskName: 'Task A',
       startDate: new Date(2021, 10, 18),
@@ -81,15 +80,19 @@ export class CalendarComponent implements OnInit {
     },
   ];
 
-  currentWeekTasks: any = [];
+  currentWeekTasks: any[] = [];
 
-  currentMonthTasks: any = [];
+  currentMonthTasks: any[] = [];
 
   constructor(private _calendarService: CalendarService) {}
 
   getWeekData = (date: Date) => {
-    this.week = this._calendarService.takeWeek(date)();
+    this.currentWeekDates = this._calendarService.takeWeek(date)();
   };
+
+  @Input() monthDate = new Date();
+
+  @Input() selectButton = '';
 
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
@@ -102,12 +105,13 @@ export class CalendarComponent implements OnInit {
           }
         })
       );
-    this.month = monthData;
+    this.currentMonthDates = monthData;
   };
 
   ngOnInit(): void {
     this.getWeekData(this.weekDate);
     this.getMonthData(this.monthDate);
+    console.log(this.selectButton);
 
     this.currentMonthTasks = this.tasks.filter((eachTask: any) =>
       isSameMonth(eachTask.startDate, this.monthDate)
@@ -118,13 +122,9 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  onToggleButton = (value: string) => {
-    if (value == 'month') {
-      this.selectButton = 'month';
-    } else {
-      this.selectButton = 'week';
-    }
-  };
+  ngOnChanges(): void {
+    this.ngOnInit();
+  }
 
   onClickBack = () => {
     let firstDayMonth = startOfMonth(this.monthDate);
@@ -144,7 +144,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    console.log(this.currentMonthTasks);
+
     this.currentWeekTasks = this.tasks.filter(
       (eachTask: any) =>
         isSameWeek(eachTask.startDate, this.weekDate) ||
@@ -156,7 +156,8 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  onClickNext = () => {
+  onClickNext = (): void => {
+    console.log('called');
     let lastDayMonth = lastDayOfMonth(this.monthDate);
     this.monthDate = addDays(lastDayMonth, 1);
     this.getMonthData(this.monthDate);
@@ -185,12 +186,12 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  formatDate = (date: any) => {
+  formatDate = (date: Date) => {
     return format(date, 'MM/dd/yyyy');
   };
 
-  monthLeftSpace = (startDate: Date) => {
-    let margin: any;
+  monthLeftSpace = (startDate: Date): string => {
+    let margin;
 
     // check if startDate and currentDate are equal
     if (
@@ -198,29 +199,30 @@ export class CalendarComponent implements OnInit {
       this.monthDate.getFullYear() === startDate.getFullYear()
     ) {
       let days = startDate.getDate() - 1;
-      margin = days * 3.2 + 'rem';
+      margin = days * 2.75 + 'rem';
       return margin;
     }
     return 0 + 'rem';
   };
 
-  weekLeftSpace = (startDate: Date) => {
-    let margin: any;
+  weekLeftSpace = (startDate: Date): string => {
+    let margin;
+    // check if startDate and currentDate are equal
     if (
       isSameWeek(this.weekDate, startDate) &&
       isSameMonth(this.weekDate, startDate) &&
       isSameYear(this.weekDate, startDate)
     ) {
       let days = getDay(startDate);
-      margin = days * 13.6 + 0.3 + 'rem';
+      margin = days * 11.8 + 'rem';
       return margin;
     }
     return 0 + 'rem';
   };
 
-  monthWidth = (startDate: Date, endDate: Date) => {
-    let width: any;
-    let calculateDifference: any;
+  monthWidth = (startDate: Date, endDate: Date): string => {
+    let width;
+    let calculateDifference: number;
 
     let currentMonth = this.monthDate;
     let findStartDateOfEndMonth = startOfMonth(endDate);
@@ -230,13 +232,13 @@ export class CalendarComponent implements OnInit {
     // Check if startDate and endDate are in same month
     if (isSameMonth(startDate, endDate)) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // Check if endDate month and current month are same month
     else if (isSameMonth(currentMonth, endDate)) {
       calculateDifference = differenceInDays(endDate, findStartDateOfEndMonth);
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // Check if startDate month and current month are same month
@@ -245,23 +247,25 @@ export class CalendarComponent implements OnInit {
         findEndDateOfStartMonth,
         startDate
       );
-      width = (calculateDifference + 1) * 3.2 + 'rem';
+      width = (calculateDifference + 1) * 2.75 + 'rem';
       return width;
     }
     // check if both startDate and endDate are not related to current month
     else {
-      width = noOfDaysInCurrentMonth * 3.2 + 'rem';
+      width = noOfDaysInCurrentMonth * 2.75 + 'rem';
       return width;
     }
   };
-
   weekWidth = (startDate: Date, endDate: Date) => {
-    let calculateDifference: any;
-    let checkSameWeek = isSameWeek(endDate, startDate);
+    let calculateDifference: number;
     let width: any;
-    if (checkSameWeek) {
+    if (isSameWeek(endDate, startDate)) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 13.6 + 'rem';
+      width = (calculateDifference + 1) * 11.8 + 'rem';
+      return width;
+    } else if (isSameWeek(endDate, this.weekDate)) {
+      calculateDifference = differenceInDays(endDate, this.weekDate);
+      width = (calculateDifference + 1) * 11.8 + 'rem';
       return width;
     }
   };
