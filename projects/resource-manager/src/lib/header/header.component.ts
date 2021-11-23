@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
   @Input()
   onToggleButton!: (value: string) => any;
 
-  @Input() monthDate = '';
+  @Input() monthDate: Date = new Date();
 
-  @Input() weekDate = new Date();
+  @Input() weekDate: Date = new Date();
 
   @Input() selectButton = '';
 
