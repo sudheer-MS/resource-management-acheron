@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'lib-task-allocation',
@@ -6,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-allocation.component.scss'],
 })
 export class TaskAllocationComponent implements OnInit {
-  constructor() {}
+  
+  taskFormAllocation: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.taskFormAllocation = formBuilder.group({
+      startDate: '',
+      endDate: '',
+      actualStartDate: '',
+      actualEndDate: '',
+      status:'',
+      priority: '',
+    });
+  }
 
   ngOnInit(): void {}
 }
