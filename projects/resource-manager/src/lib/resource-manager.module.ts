@@ -28,7 +28,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskAllocationComponent } from './task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
-import { ResourceManagerRoutingModule } from './resource-manager-routing.module';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -61,7 +60,6 @@ import { ResourceManagerRoutingModule } from './resource-manager-routing.module'
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    ResourceManagerRoutingModule,
   ],
   exports: [ResourceManagerComponent],
 })
