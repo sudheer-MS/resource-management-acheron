@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ResourcesRoutingModule } from './resources-routing.module';
-
+import { ResourcesComponent } from './resources/resources.component';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    ResourcesRoutingModule
-  ]
+  declarations: [
+    ResourcesComponent
+  ],
+  imports: [CommonModule],
 })
-export class ResourcesModule { }
+export class ResourcesModule {}

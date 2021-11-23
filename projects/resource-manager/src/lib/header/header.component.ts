@@ -21,7 +21,11 @@ export class HeaderComponent implements OnInit {
   @Input()
   onToggleButton!: (value: string) => any;
 
-  @Input() monthDate = new Date();
+  @Input() monthDate = '';
+
+  @Input() weekDate = new Date();
+
+  @Input() selectButton = '';
 
   constructor(public dialog: MatDialog) {}
 

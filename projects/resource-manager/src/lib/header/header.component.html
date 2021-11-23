@@ -14,10 +14,10 @@
       name="resource-management"
       aria-label="Resource Management"
     >
-      <mat-button-toggle [checked]="true" value="projects "
+      <mat-button-toggle [checked]="true" value="projects"
         >Projects</mat-button-toggle
       >
-      <mat-button-toggle value="resources ">Resources</mat-button-toggle>
+      <mat-button-toggle value="resources">Resources</mat-button-toggle>
       <mat-button-toggle value="allocation " (click)="openTaskAllocation()"
         >Allocation</mat-button-toggle
       >
@@ -32,8 +32,11 @@
     >
       Display Fields
     </button>
-    <h1 [ngStyle]="{ marginRight: '10px' }">
+    <h1 *ngIf="selectButton == 'month'" [ngStyle]="{ marginRight: '10px' }">
       {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
+    </h1>
+    <h1 *ngIf="selectButton == 'week'" [ngStyle]="{ marginRight: '10px' }">
+      {{ weekDate | date: "MMMM" }} {{ weekDate | date: "YYYY" }}
     </h1>
     <div [ngClass]="'toolbar'">
       <button
