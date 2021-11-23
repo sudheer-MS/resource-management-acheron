@@ -1,41 +1,73 @@
 <mat-toolbar [ngClass]="'toolbar'">
-    <div [ngClass]="'toolbar'">
-        <h1 [ngStyle]="{
+  <div [ngClass]="'toolbar'">
+    <h1
+      [ngStyle]="{
         marginRight: '20px',
         fontFamily: 'Roboto',
         fontSize: '20px'
-      }">
-            Resource Management
-        </h1>
+      }"
+    >
+      Resource Management
+    </h1>
 
-        <mat-button-toggle-group name="resource-management" aria-label="Resource Management">
-            <mat-button-toggle [checked]="true" value="projects ">Projects</mat-button-toggle>
-            <mat-button-toggle value="resources ">Resources</mat-button-toggle>
-            <mat-button-toggle value="allocation " (click)="openTaskAllocation()">Allocation</mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
+    <mat-button-toggle-group
+      name="resource-management"
+      aria-label="Resource Management"
+    >
+      <mat-button-toggle [checked]="true" value="projects"
+        >Projects</mat-button-toggle
+      >
+      <mat-button-toggle value="resources">Resources</mat-button-toggle>
+      <mat-button-toggle value="allocation " (click)="openTaskAllocation()"
+        >Allocation</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
 
-    <div [ngClass]="'toolbar'">
-        <button [ngClass]="'display-fields-button'" type="button" (click)="openDisplayFields()">
+  <div [ngClass]="'toolbar'">
+    <button
+      [ngClass]="'display-fields-button'"
+      type="button"
+      (click)="openDisplayFields()"
+    >
       Display Fields
     </button>
-        <h1 *ngIf="selectButton=='month'" [ngStyle]="{ marginRight: '10px' }">
-            {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
-        </h1>
-        <h1 *ngIf="selectButton=='week'" [ngStyle]="{ marginRight: '10px' }">
-            {{ weekDate | date: "MMMM" }} {{ weekDate | date: "YYYY" }}
-        </h1>
-        <div [ngClass]="'toolbar'">
-            <button type="button" [ngClass]="'arrow-button'" (click)="onClickBackward()">
+    <h1 *ngIf="selectButton == 'month'" [ngStyle]="{ marginRight: '10px' }">
+      {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
+    </h1>
+    <h1 *ngIf="selectButton == 'week'" [ngStyle]="{ marginRight: '10px' }">
+      {{ weekDate | date: "MMMM" }} {{ weekDate | date: "YYYY" }}
+    </h1>
+    <div [ngClass]="'toolbar'">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickBackward()"
+      >
         <mat-icon>arrow_back_ios</mat-icon>
       </button>
-            <button type="button" [ngClass]="'arrow-button'" (click)="onClickForward()">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickForward()"
+      >
         <mat-icon>arrow_forward_ios</mat-icon>
       </button>
-        </div>
-        <mat-button-toggle-group [ngStyle]="{ marginLeft: '10px' }" name="calendar-buttons" aria-label="Calendar Buttons">
-            <mat-button-toggle [checked]="true" value="month" (click)="onToggleButton('month')">Month</mat-button-toggle>
-            <mat-button-toggle value="week" (click)="onToggleButton('week')">Week</mat-button-toggle>
-        </mat-button-toggle-group>
     </div>
+    <mat-button-toggle-group
+      [ngStyle]="{ marginLeft: '10px' }"
+      name="calendar-buttons"
+      aria-label="Calendar Buttons"
+    >
+      <mat-button-toggle
+        [checked]="true"
+        value="month"
+        (click)="onToggleButton('month')"
+        >Month</mat-button-toggle
+      >
+      <mat-button-toggle value="week" (click)="onToggleButton('week')"
+        >Week</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
 </mat-toolbar>
