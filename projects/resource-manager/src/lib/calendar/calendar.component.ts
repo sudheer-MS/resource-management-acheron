@@ -31,8 +31,6 @@ export class CalendarComponent implements OnInit {
   currentDate = format(new Date(), 'MM/dd/yyyy');
   month: Date[] = [];
   week: Date[] = [];
-  //monthDate: Date = new Date();
-  weekDate: Date = new Date();
   panelOpenState = false;
   tasks: Object[] = [
     {
@@ -94,8 +92,11 @@ export class CalendarComponent implements OnInit {
 
   @Input() monthDate= new Date();
 
+  @Input() weekDate = new Date();
 
   @Input() selectButton = '';
+
+  @Input() buttonValue='';
 
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
@@ -114,7 +115,6 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.getWeekData(this.weekDate);
     this.getMonthData(this.monthDate);
-    console.log(this.selectButton);
 
     this.currentMonthTasks = this.tasks.filter((eachTask: any) =>
       isSameMonth(eachTask.startDate, this.monthDate)
@@ -126,16 +126,16 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnChanges(): void{
-    this.ngOnInit();
+    if(this.buttonValue=='next'){
+      this.onClickNext();
+    }else if(this.buttonValue=='prev'){
+      this.onClickBack();
+    }
   }
 
   onClickBack = () => {
     let firstDayMonth = startOfMonth(this.monthDate);
-    this.monthDate = subDays(firstDayMonth, 1);
     this.getMonthData(this.monthDate);
-
-    let firstDayWeek = startOfWeek(this.weekDate);
-    this.weekDate = subDays(firstDayWeek, 1);
     this.getWeekData(this.weekDate);
 
     this.currentMonthTasks = this.tasks.filter(
@@ -160,13 +160,8 @@ export class CalendarComponent implements OnInit {
   };
 
   onClickNext = ():void => {
-    console.log("called");
     let lastDayMonth = lastDayOfMonth(this.monthDate);
-    this.monthDate = addDays(lastDayMonth, 1);
     this.getMonthData(this.monthDate);
-
-    let lastDayWeek = lastDayOfWeek(this.weekDate);
-    this.weekDate = addDays(lastDayWeek, 1);
     this.getWeekData(this.weekDate);
 
     this.currentMonthTasks = this.tasks.filter(
@@ -196,7 +191,6 @@ export class CalendarComponent implements OnInit {
   monthLeftSpace = (startDate: Date) => {
     let margin: any;
 
-    // check if startDate and currentDate are equal
     if (
       this.monthDate.getMonth() === startDate.getMonth() &&
       this.monthDate.getFullYear() === startDate.getFullYear()

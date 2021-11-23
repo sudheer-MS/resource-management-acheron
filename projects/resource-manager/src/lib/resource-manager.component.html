@@ -1,7 +1,7 @@
 <div class="mat-typography mat-app-background">
-    <lib-header [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate"></lib-header>
+    <lib-header [weekDate]="weekDate" [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="nmonthDate" [selectButton]="selectButton"></lib-header>
     <div ngClass="style">
         <lib-sidebar></lib-sidebar>
-        <lib-calendar [monthDate]="monthDate" [selectButton]="selectButton"></lib-calendar>
+        <lib-calendar [weekDate]="weekDate" [buttonValue]="buttonValue" [monthDate]="monthDate" [selectButton]="selectButton"></lib-calendar>
     </div>
 </div>
