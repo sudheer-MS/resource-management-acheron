@@ -114,12 +114,23 @@ export class CalendarComponent implements OnInit {
     this.getWeekData(this.weekDate);
     this.getMonthData(this.monthDate);
 
-    this.currentMonthTasks = this.tasks.filter((eachTask: any) =>
-      isSameMonth(eachTask.startDate, this.monthDate)
+    this.currentMonthTasks = this.tasks.filter(
+      (eachTask: any) =>
+        isSameMonth(eachTask.startDate, this.monthDate) ||
+        isSameMonth(eachTask.endDate, this.monthDate) ||
+        isWithinInterval(this.monthDate, {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
+        })
     );
-
-    this.currentWeekTasks = this.tasks.filter((eachTask: any) =>
-      isSameWeek(eachTask.startDate, this.weekDate)
+    this.currentWeekTasks = this.tasks.filter(
+      (eachTask: any) =>
+        isSameWeek(eachTask.startDate, this.weekDate) ||
+        isSameWeek(eachTask.endDate, this.weekDate) ||
+        isWithinInterval(this.weekDate, {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
+        })
     );
   }
 
