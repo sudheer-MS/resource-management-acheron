@@ -36,6 +36,8 @@
               [ngStyle]="{
                 'margin-left.px': 5
               }"
+              matTooltip="Info about the action"
+              matTooltipPosition="right"
             >
               info_outline
             </mat-icon>
@@ -61,14 +63,14 @@
               <mat-label>Choose a date</mat-label>
               <input
                 matInput
-                [matDatepicker]="picker"
+                [matDatepicker]="plannedStartDate"
                 formControlName="startDate"
               />
               <mat-datepicker-toggle
                 matSuffix
-                [for]="picker"
+                [for]="plannedStartDate"
               ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #plannedStartDate></mat-datepicker>
             </mat-form-field>
           </div>
           <div>
@@ -77,14 +79,14 @@
               <mat-label>Choose a date</mat-label>
               <input
                 matInput
-                [matDatepicker]="picker"
+                [matDatepicker]="plannedEndDate"
                 formControlName="endDate"
               />
               <mat-datepicker-toggle
                 matSuffix
-                [for]="picker"
+                [for]="plannedEndDate"
               ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #plannedEndDate></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -104,14 +106,14 @@
               <mat-label>Choose a date</mat-label>
               <input
                 matInput
-                [matDatepicker]="picker"
+                [matDatepicker]="actualStartDate"
                 formControlName="actualStartDate"
               />
               <mat-datepicker-toggle
                 matSuffix
-                [for]="picker"
+                [for]="actualStartDate"
               ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #actualStartDate></mat-datepicker>
             </mat-form-field>
           </div>
           <div>
@@ -120,14 +122,14 @@
               <mat-label>Choose a date</mat-label>
               <input
                 matInput
-                [matDatepicker]="picker"
+                [matDatepicker]="actualEndDate"
                 formControlName="actualEndDate"
               />
               <mat-datepicker-toggle
                 matSuffix
-                [for]="picker"
+                [for]="actualEndDate"
               ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #actualEndDate></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
