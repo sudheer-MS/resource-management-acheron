@@ -1,0 +1,143 @@
+.resource-allocation-container {
+    width: 570px;
+    height: 768px;
+    left: 0px;
+    top: 0px;
+    background: #fafafa;
+}
+
+.resource-container {
+    width: 570px;
+    height: 108px;
+    left: 0px;
+    top: 0px;
+    background: #eeeeee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.recommended-resource-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 272px;
+    height: 86px;
+    left: 32px;
+    top: 152px;
+    background: #ffffff;
+    border: 1px solid #cfd9e2;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.drop-down-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.drop-down-spacing {
+    margin-left: 32px;
+    margin-right: 12px;
+}
+
+.description-container {
+    height: 48px;
+    left: 32px;
+    right: 142px;
+    top: calc(50% - 48px / 2 + 242px);
+    /* White */
+    background: #ffffff;
+    /* UI Element */
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 44px;
+    margin-bottom: 0px;
+    p {
+        margin-right: 9.6px;
+    }
+}
+
+.cancel-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 20px;
+    background: #fffffe;
+    mix-blend-mode: normal;
+    /* CTA 1 */
+    border: 1px solid #6f52d7;
+    box-sizing: border-box;
+    border-radius: 4px;
+    p {
+        width: 41px;
+        height: 16px;
+        left: calc(50% - 41px / 2);
+        top: calc(50% - 16px / 2);
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 15px;
+        /* identical to box height */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.01em;
+        /* CTA 1 */
+        color: #6f52d7;
+        mix-blend-mode: normal;
+        /* Inside Auto Layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 8px;
+    }
+}
+
+.save-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 20px;
+    background: #6f52d7;
+    border-radius: 4px;
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 8px;
+    p {
+        width: 29px;
+        height: 18px;
+        left: calc(50% - 29px / 2);
+        top: calc(50% - 18px / 2);
+        /* Button */
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        /* identical to box height, or 138% */
+        text-align: center;
+        letter-spacing: 0.2px;
+        text-transform: capitalize;
+        color: #fffffe;
+        mix-blend-mode: normal;
+        /* Inside Auto Layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 8px;
+    }
+}

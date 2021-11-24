@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
+import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 
 @Component({
   selector: 'lib-header',
@@ -51,6 +52,20 @@ export class HeaderComponent implements OnInit {
 
   openTaskAllocation() {
     const dialogRef = this.dialog.open(TaskAllocationComponent, {
+      height: '100vh',
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      position: {
+        right: '0',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
       height: '100vh',
       width: '40vw',
       panelClass: 'custom-dialog-container',
