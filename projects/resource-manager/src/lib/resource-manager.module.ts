@@ -29,6 +29,8 @@ import { TaskAllocationComponent } from './task-allocation/task-allocation.compo
 import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { ResourcesComponent } from './resources/resources/resources.component';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -39,7 +41,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ResourceCardComponent,
     SearchBarComponent,
     DisplayFieldsComponent,
+    ProjectsComponent,
     TaskAllocationComponent,
+    ResourcesComponent,
     EmployeeAllocationComponent,
   ],
   imports: [

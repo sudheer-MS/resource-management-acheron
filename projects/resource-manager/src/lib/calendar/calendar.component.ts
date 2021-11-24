@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import {
   format,
   isSameMonth,
@@ -88,13 +88,13 @@ export class CalendarComponent implements OnInit {
     this.currentWeekDates = this._calendarService.takeWeek(date)();
   };
 
-  @Input() monthDate = new Date();
+  @Input() monthDate:Date = new Date();
 
-  @Input() weekDate = new Date();
+  @Input() weekDate:Date = new Date();
 
-  @Input() selectButton = '';
+  @Input() activeView:string = '';
 
-  @Input() buttonValue = '';
+  @Input() buttonValue:string = '';
 
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
@@ -134,11 +134,14 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  ngOnChanges(): void {
-    if (this.buttonValue == 'next') {
-      this.onClickNext();
-    } else if (this.buttonValue == 'prev') {
-      this.onClickBack();
+  ngOnChanges(changes:SimpleChanges): void {
+    console.log(changes);
+    if(!changes['activeView']){
+      if (this.buttonValue == 'next') {
+        this.onClickNext();
+      } else if (this.buttonValue == 'prev') {
+        this.onClickBack();
+      }
     }
   }
 
