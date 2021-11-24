@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() weekDate: Date = new Date();
 
-  @Input() selectButton:string = '';
+  @Input() activeView:string = '';
 
   tabValue = "";
 
@@ -44,10 +44,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onToggle = (event:any) => {
-    this.tabValue = event.target.textContent;
+  onToggle = (value:string) => {
+    this.tabValue = value;
     this.tabValueEvent.emit(this.tabValue);
-    //console.log(event.target.textContent);
   }
 
   openTaskAllocation() {

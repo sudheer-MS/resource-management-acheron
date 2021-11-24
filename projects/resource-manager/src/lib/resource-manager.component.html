@@ -1,1 +1,5 @@
-<lib-projects></lib-projects>
+<div class="mat-typography mat-app-background">
+    <lib-header [weekDate]="weekDate" [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate" [activeView]="activeView" (tabValueEvent)="onChangeTab($event)"></lib-header>
+    <lib-projects *ngIf="tabValue=='Projects'" [monthDate]="monthDate" [weekDate]="weekDate" [buttonValue]="buttonValue" [activeView]="activeView"></lib-projects>
+    <lib-resources *ngIf="tabValue=='Resources'"></lib-resources>
+</div>

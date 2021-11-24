@@ -28,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TaskAllocationComponent } from './task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
+import { ResourcesComponent } from './resources/resources/resources.component';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -40,6 +41,7 @@ import { ProjectsComponent } from './projects/projects/projects.component';
     DisplayFieldsComponent,
     ProjectsComponent,
     TaskAllocationComponent,
+    ResourcesComponent,
     EmployeeAllocationComponent,
   ],
   imports: [
