@@ -1,7 +1,7 @@
-<mat-toolbar [ngClass]="'task-container'" mat-dialog-title>
+<mat-toolbar [ngClass]="'task-title-container'" mat-dialog-title>
   <div>
-    <h1>Jenny - Task Allocation</h1>
-    <p [ngStyle]="{ 'font-size.px': 14 }">Available for 16 Hours</p>
+    <h1 [ngClass]="'task-title'">Jenny - Task Allocation</h1>
+    <p [ngClass]="'available-hrs'">Available for 16 Hours</p>
   </div>
   <div>
     <button
@@ -16,196 +16,157 @@
 </mat-toolbar>
 <form>
   <div mat-dialog-content class="mat-typography">
-    <section class="example-section" [formGroup]="taskFormAllocation">
-      <div
-        [ngStyle]="{
-          'margin-left.px': 20,
-          'margin-top.px': 15
-        }"
-      >
+    <section
+      class="example-section"
+      [formGroup]="taskFormAllocation"
+      [ngClass]="'form-container'"
+    >
+      <div>
+        <div [ngClass]="'recommended-label'">
+          <p [ngClass]="'label-name'">Recommended Tasks</p>
+          <mat-icon> info_outline </mat-icon>
+        </div>
+        <mat-form-field appearance="fill" [ngClass]="'label-width'">
+          <mat-label>Task</mat-label>
+          <mat-select formControlName="task">
+            <mat-option value="one">TASK A</mat-option>
+            <mat-option value="two">TASK B</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div [ngClass]="'each-row-container'">
         <div>
-          <div
-            [ngStyle]="{
-              display: 'flex',
-              'flex-direction': 'row',
-              'justify-content': 'flex-start'
-            }"
-          >
-            <p>Recommended Tasks</p>
-            <mat-icon
-              [ngStyle]="{
-                'margin-left.px': 5
-              }"
-            >
-              info_outline
-            </mat-icon>
-          </div>
-          <mat-form-field appearance="fill">
-            <mat-label>Task</mat-label>
-            <textarea matInput formControlName="task"></textarea>
+          <p [ngClass]="'label-name'">Planned Start Date</p>
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDate"
+              formControlName="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div
-          [ngStyle]="{
-            display: 'flex',
-            'flex-direction': 'row',
-            'justify-content': 'flex-start'
-          }"
-        >
-          <div>
-            <p>Planned Start Date</p>
-            <mat-form-field
-              appearance="fill"
-              [ngStyle]="{ 'margin-right.px': 14 }"
-            >
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="startDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div>
-            <p>Planned End Date</p>
-            <mat-form-field appearance="fill">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="endDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div
-          [ngStyle]="{
-            display: 'flex',
-            'flex-direction': 'row',
-            'justify-content': 'flex-start'
-          }"
-        >
-          <div>
-            <p>Actual Start Date</p>
-            <mat-form-field
-              appearance="fill"
-              [ngStyle]="{ 'margin-right.px': 14 }"
-            >
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="actualStartDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div>
-            <p>Actual End Date</p>
-            <mat-form-field appearance="fill">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="actualEndDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div
-          [ngStyle]="{
-            display: 'flex',
-            'flex-direction': 'row',
-            'justify-content': 'flex-start'
-          }"
-        >
-          <div>
-            <p>Allocation</p>
-            <mat-form-field
-              appearance="fill"
-              [ngStyle]="{ 'margin-right.px': 14 }"
-            >
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="allocation">
-                <mat-option value="one">Role</mat-option>
-                <mat-option value="two">Role</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <p>Role</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Role</mat-label>
-              <input matInput formControlName="role" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div
-          [ngStyle]="{
-            display: 'flex',
-            'flex-direction': 'row',
-            'justify-content': 'flex-start'
-          }"
-        >
-          <div>
-            <p>Status</p>
-            <mat-form-field
-              appearance="fill"
-              [ngStyle]="{ 'margin-right.px': 14 }"
-            >
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="status">
-                <mat-option value="one">INPROGRESS</mat-option>
-                <mat-option value="two">ONHOLD</mat-option>
-                <mat-option value="two">COMPLETED</mat-option>
-                <mat-option value="two">DEFINED</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <p>Priority</p>
-            <mat-form-field appearance="fill">
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="priority">
-                <mat-option value="one">HIGH</mat-option>
-                <mat-option value="two">LOW</mat-option>
-                <mat-option value="two">MEDIUM</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
         <div>
-          <p>Description</p>
+          <p [ngClass]="'label-name'">Planned End Date</p>
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDate"
+              formControlName="endDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Actual Start Date</p>
           <mat-form-field
-            class="example-full-width"
             appearance="fill"
-            [ngStyle]="{
-              width: '100%'
-            }"
+            [ngClass]="'label-margin'"
           >
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description"></textarea>
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="actualStartDate"
+              formControlName="actualStartDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="actualStartDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #actualStartDate></mat-datepicker>
           </mat-form-field>
         </div>
+        <div>
+          <p [ngClass]="'label-name'">Actual End Date</p>
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="actualEndDate"
+              formControlName="actualEndDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="actualEndDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #actualEndDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Allocation</p>
+          <mat-form-field
+            appearance="fill"
+            [ngClass]="'label-margin'"
+          >
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="allocation">
+              <mat-option value="one">Role</mat-option>
+              <mat-option value="two">Role</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Role</p>
+          <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <input matInput formControlName="role" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Status</p>
+          <mat-form-field
+            appearance="fill"
+            [ngClass]="'label-margin'"
+          >
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="one">INPROGRESS</mat-option>
+              <mat-option value="two">ONHOLD</mat-option>
+              <mat-option value="two">COMPLETED</mat-option>
+              <mat-option value="two">DEFINED</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Priority</p>
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="one">HIGH</mat-option>
+              <mat-option value="two">LOW</mat-option>
+              <mat-option value="two">MEDIUM</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <p [ngClass]="'label-name'">Description</p>
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          [ngStyle]="{
+            width: '100%'
+          }"
+        >
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
       </div>
     </section>
   </div>
@@ -215,9 +176,8 @@
         mat-stroked-button
         mat-dialog-close
         color="primary"
-        [ngStyle]="{
-          'margin-right.px': 10
-        }"
+        [ngClass]="'button'"
+        
       >
         Cancel
       </button>

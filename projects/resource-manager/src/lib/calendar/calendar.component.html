@@ -1,5 +1,5 @@
 <div *ngIf="selectButton == 'month'">
-  <div ngClass="dates-container">
+  <div ngClass="month-dates-container">
     <div
       [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
       *ngFor="let day of currentMonthDates"
@@ -9,7 +9,7 @@
       <hr />
     </div>
   </div>
-  <div [ngStyle]="{ 'padding-top': '90px' }">
+  <div [ngClass]="'task-allocation-container'">
     <mat-accordion *ngFor="let task of currentMonthTasks">
       <mat-expansion-panel
         (opened)="panelOpenState = true"
@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div *ngIf="selectButton == 'week'" ngClass="calendar-container">
+<div *ngIf="selectButton == 'week'">
   <div ngClass="week-dates-container">
     <div
       [ngClass]="
@@ -45,7 +45,7 @@
       <hr />
     </div>
   </div>
-  <div [ngStyle]="{ 'padding-top': '120px' }">
+  <div [ngClass]="'task-allocation-container'">
     <mat-accordion *ngFor="let task of currentWeekTasks">
       <mat-expansion-panel
         (opened)="panelOpenState = true"

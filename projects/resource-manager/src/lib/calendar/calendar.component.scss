@@ -6,13 +6,7 @@ html {
   font-size: 10px;
 }
 
-.calendar-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.dates-container {
+.month-dates-container {
   display: flex;
   flex-direction: row;
   overflow: auto;
@@ -69,20 +63,6 @@ html {
   font-size: 16px;
 }
 
-.button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  width: 85vw;
-  margin-right: 10px;
-}
-
-.select-button {
-  background-color: rgb(206, 219, 16);
-}
-
-.arrow-button {
-  cursor: pointer;
-  margin-right: 25px;
+.task-allocation-container {
+  padding-top: 90px;
 }
