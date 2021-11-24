@@ -73,10 +73,15 @@
 }
 
 .display-fields-button {
-    margin-right: 10px;
-    color: #6f52d7;
-    border: none;
-    background: none;
-    font-size: 16px;
-    cursor: pointer;
+  margin-right: 10px;
+  color: #6f52d7;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  margin: 0px;
+  padding: 0px !important;
 }

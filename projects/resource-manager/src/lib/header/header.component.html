@@ -22,10 +22,10 @@
       Display Fields
     </button>
         <h1 *ngIf="selectButton == 'month'" [ngStyle]="{ marginRight: '10px' }">
-            {{ monthDate | date: "MMMM" }} {{ monthDate | date: "YYYY" }}
+            {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
         </h1>
         <h1 *ngIf="selectButton == 'week'" [ngStyle]="{ marginRight: '10px' }">
-            {{ weekDate | date: "MMMM" }} {{ weekDate | date: "YYYY" }}
+            {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
         </h1>
         <div [ngClass]="'toolbar'">
             <button type="button" [ngClass]="'arrow-button'" (click)="onClickBackward()">

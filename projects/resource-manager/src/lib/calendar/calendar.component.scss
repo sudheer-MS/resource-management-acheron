@@ -15,17 +15,19 @@ html {
 .dates-container {
   display: flex;
   flex-direction: row;
+  overflow: auto;
   position: absolute;
-  width: 86vw;
-  height: 530px;
+  width: 85vw;
+  height: 575px;
 }
 
 .week-dates-container {
   display: flex;
   flex-direction: row;
+  overflow: auto;
   position: absolute;
-  height: 530px;
-  width: 86vw;
+  height: 575px;
+  width: 85vw;
 }
 
 .week-date {

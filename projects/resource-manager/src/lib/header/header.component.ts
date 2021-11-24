@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { format } from 'date-fns';
-
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
@@ -10,6 +8,7 @@ import { EmployeeAllocationComponent } from '../employee-allocation/employee-all
   selector: 'lib-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
   currentDate: Date = new Date();
@@ -23,9 +22,9 @@ export class HeaderComponent implements OnInit {
   @Input()
   onToggleButton!: (value: string) => any;
 
-  @Input() monthDate = '';
+  @Input() monthDate: Date = new Date();
 
-  @Input() weekDate = new Date();
+  @Input() weekDate: Date = new Date();
 
   @Input() selectButton = '';
 
@@ -43,6 +42,7 @@ export class HeaderComponent implements OnInit {
     const dialogRef = this.dialog.open(TaskAllocationComponent, {
       height: '100vh',
       width: '40vw',
+      panelClass: 'custom-dialog-container',
       position: {
         right: '0',
       },
