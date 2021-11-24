@@ -48,8 +48,8 @@ export class CalendarComponent implements OnInit {
     },
     {
       taskName: 'Task B',
-      startDate: new Date(2021, 10, 12),
-      endDate: new Date(2021, 11, 28),
+      startDate: new Date(2021, 10, 9),
+      endDate: new Date(2021, 10, 11),
     },
     {
       taskName: 'Task C',
@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit {
     {
       taskName: 'Task E',
       startDate: new Date(2021, 9, 6),
-      endDate: new Date(2021, 11, 25),
+      endDate: new Date(2021, 11, 24),
     },
     {
       taskName: 'Task F',
@@ -143,7 +143,6 @@ export class CalendarComponent implements OnInit {
   }
 
   onClickBack = () => {
-    let firstDayMonth = startOfMonth(this.monthDate);
     this.getMonthData(this.monthDate);
     this.getWeekData(this.weekDate);
 
@@ -198,20 +197,25 @@ export class CalendarComponent implements OnInit {
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;
+    let currentMonth = this.monthDate;
+    let noOfDaysInCurrentMonth = getDaysInMonth(currentMonth);
+    let eachContainerWidth = 85 / noOfDaysInCurrentMonth;
 
     if (
       this.monthDate.getMonth() === startDate.getMonth() &&
       this.monthDate.getFullYear() === startDate.getFullYear()
     ) {
       let days = startDate.getDate() - 1;
-      margin = days * 2.72 + 'rem';
+      margin = days * eachContainerWidth + 'vw';
       return margin;
     }
-    return 0 + 'rem';
+    return 0 + 'vw';
   };
 
   weekLeftSpace = (startDate: Date): string => {
     let margin;
+    let eachContainerWidth = 85 / 7;
+
     // check if startDate and currentDate are equal
     if (
       isSameWeek(this.weekDate, startDate) &&
@@ -219,58 +223,81 @@ export class CalendarComponent implements OnInit {
       isSameYear(this.weekDate, startDate)
     ) {
       let days = getDay(startDate);
-      margin = days * 12.1 + 'rem';
+      margin = days * eachContainerWidth + 'vw';
       return margin;
     }
-    return 0 + 'rem';
+    return 0 + 'vw';
   };
 
   monthWidth = (startDate: Date, endDate: Date): string => {
     let width;
     let calculateDifference: number;
-
     let currentMonth = this.monthDate;
     let findStartDateOfEndMonth = startOfMonth(endDate);
     let findEndDateOfStartMonth = endOfMonth(startDate);
     let noOfDaysInCurrentMonth = getDaysInMonth(currentMonth);
+    let noOfDaysInStartMonth = getDaysInMonth(startDate);
+    let noOfDaysInEndMonth = getDaysInMonth(endDate);
 
     // Check if startDate and endDate are in same month
-    if (isSameMonth(startDate, endDate)) {
+    if (isSameMonth(startDate, endDate) && isSameYear(startDate, endDate)) {
+      let eachContainerWidth = 85 / noOfDaysInStartMonth;
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 2.72 + 'rem';
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
     }
     // Check if endDate month and current month are same month
-    else if (isSameMonth(currentMonth, endDate)) {
+    else if (
+      isSameMonth(currentMonth, endDate) &&
+      isSameYear(currentMonth.getFullYear(), endDate.getFullYear())
+    ) {
+      let eachContainerWidth = 85 / noOfDaysInEndMonth;
       calculateDifference = differenceInDays(endDate, findStartDateOfEndMonth);
-      width = (calculateDifference + 1) * 2.72 + 'rem';
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
     }
     // Check if startDate month and current month are same month
-    else if (isSameMonth(startDate, currentMonth)) {
+    else if (
+      isSameMonth(startDate, currentMonth) &&
+      isSameYear(startDate, currentMonth)
+    ) {
+      let eachContainerWidth = 85 / noOfDaysInStartMonth;
       calculateDifference = differenceInDays(
         findEndDateOfStartMonth,
         startDate
       );
-      width = (calculateDifference + 1) * 2.72 + 'rem';
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
     }
     // check if both startDate and endDate are not related to current month
     else {
-        width = (noOfDaysInCurrentMonth - 1) * 2.72 + 'rem';
-        return width;
+      let eachContainerWidth = 85 / noOfDaysInCurrentMonth;
+      width = noOfDaysInCurrentMonth * eachContainerWidth + 'vw';
+      return width;
     }
   };
+
   weekWidth = (startDate: Date, endDate: Date) => {
     let calculateDifference: number;
+    let eachContainerWidth = 85 / 7;
     let width: any;
-    if (isSameWeek(endDate, startDate)) {
+    if (
+      isSameWeek(endDate, startDate) &&
+      isSameMonth(startDate, endDate) &&
+      isSameYear(startDate, endDate)
+    ) {
       calculateDifference = differenceInDays(endDate, startDate);
-      width = (calculateDifference + 1) * 12.1 + 'rem';
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
     } else if (isSameWeek(endDate, this.weekDate)) {
-      calculateDifference = differenceInDays(endDate, this.weekDate);
-      width = (calculateDifference + 1) * 12.1 + 'rem';
+      calculateDifference = differenceInDays(
+        endDate,
+        startOfWeek(this.weekDate)
+      );
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
+      return width;
+    } else {
+      width = 7 * eachContainerWidth + 'vw';
       return width;
     }
   };
