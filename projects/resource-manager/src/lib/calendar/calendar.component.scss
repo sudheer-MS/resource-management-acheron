@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 10px;
-}
-
 .month-dates-container {
   display: flex;
   flex-direction: row;
@@ -39,13 +35,13 @@ html {
 
 .date {
   border: solid 1px rgb(194, 193, 193);
-  width: 3.2rem;
+  width: 3.2vw;
   text-align: center;
 }
 
 .current-date {
   border: solid 1px rgb(194, 193, 193);
-  width: 3.2rem;
+  width: 3.2vw;
   text-align: center;
   background-color: rgb(206, 219, 16);
 }

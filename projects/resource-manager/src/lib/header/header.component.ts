@@ -1,7 +1,11 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter , ViewEncapsulation} from '@angular/core';
+import { format } from 'date-fns';
+
+
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
+import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 
 @Component({
   selector: 'lib-header',
@@ -21,11 +25,15 @@ export class HeaderComponent implements OnInit {
   @Input()
   onToggleButton!: (value: string) => any;
 
-  @Input() monthDate: Date = new Date();
+  @Input() monthDate:Date = new Date ();
 
   @Input() weekDate: Date = new Date();
 
-  @Input() selectButton = '';
+  @Input() activeView:string = '';
+
+  tabValue = "";
+
+  @Output() tabValueEvent = new EventEmitter<string> ();
 
   constructor(public dialog: MatDialog) {}
 
@@ -37,8 +45,27 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  onToggle = (value:string) => {
+    this.tabValue = value;
+    this.tabValueEvent.emit(this.tabValue);
+  }
+
   openTaskAllocation() {
     const dialogRef = this.dialog.open(TaskAllocationComponent, {
+      height: '100vh',
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      position: {
+        right: '0',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
       height: '100vh',
       width: '40vw',
       panelClass: 'custom-dialog-container',
