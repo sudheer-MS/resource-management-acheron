@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
 
 @Component({
   selector: 'lib-task-allocation',
@@ -7,17 +12,20 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./task-allocation.component.scss'],
 })
 export class TaskAllocationComponent implements OnInit {
-  
   taskFormAllocation: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.taskFormAllocation = formBuilder.group({
+    this.taskFormAllocation = this.formBuilder.group({
       startDate: '',
       endDate: '',
       actualStartDate: '',
       actualEndDate: '',
-      status:'',
+      status: '',
       priority: '',
+      task: '',
+      allocation: '',
+      role: ['', Validators.required],
+      description: '',
     });
   }
 
