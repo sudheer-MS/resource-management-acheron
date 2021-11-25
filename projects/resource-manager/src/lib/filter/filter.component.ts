@@ -8,6 +8,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class FilterComponent implements OnInit {
   panelOpenState: boolean = false;
+  regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
+  regionCopy = this.regions;
   priorityForm: FormGroup;
   regionForm: FormGroup;
   statusForm: FormGroup;
@@ -23,14 +25,6 @@ export class FilterComponent implements OnInit {
       high: false,
       low: false,
     });
-    this.regionForm = formBuilder.group({
-      region: '',
-      imea: false,
-      latam: false,
-      emea: false,
-      nac: false,
-      epac: false,
-    });
     this.statusForm = formBuilder.group({
       defined: false,
       inProgress: false,
@@ -40,6 +34,21 @@ export class FilterComponent implements OnInit {
       qa: false,
       series: false,
     });
+    this.regionForm = formBuilder.group({
+      IMEA: false,
+      LATAM: false,
+      EMEA: false,
+      NAC: false,
+      EPAC: false,
+    });
   }
   ngOnInit(): void {}
+  search(event: any): void {
+    let value = (event.target as HTMLInputElement).value;
+    this.regions = this.regionCopy;
+
+    this.regions = this.regions.filter((val) =>
+      val.toLowerCase().includes(value.toLowerCase())
+    );
+  }
 }
