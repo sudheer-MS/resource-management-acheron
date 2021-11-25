@@ -82,15 +82,18 @@ export class CalendarComponent implements OnInit {
 
   currentMonthTasks: any[] = [];
 
+  monthDate: Date = new Date();
+  weekDate: Date = new Date();
+
   constructor(private _calendarService: CalendarService) {}
 
   getWeekData = (date: Date) => {
     this.currentWeekDates = this._calendarService.takeWeek(date)();
   };
 
-  @Input() monthDate:Date = new Date();
+  // @Input() monthDate:Date = new Date();
 
-  @Input() weekDate:Date = new Date();
+  // @Input() weekDate:Date = new Date();
 
   @Input() activeView:string = '';
 
@@ -135,17 +138,22 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges): void {
-    console.log(changes);
-    if(!changes['activeView']){
-      if (this.buttonValue == 'next') {
+    if(changes['buttonValue']){
+      if((changes['buttonValue'].currentValue == 'next') || (changes['buttonValue'].currentValue == 'NEXT')){
         this.onClickNext();
-      } else if (this.buttonValue == 'prev') {
+      }else if((changes['buttonValue'].currentValue == 'prev') || (changes['buttonValue'].currentValue == 'PREV')) {
         this.onClickBack();
       }
+    }else if(changes['activeView']){
+      this.activeView = changes['activeView'].currentValue;
     }
   }
 
   onClickBack = () => {
+    let firstDayMonth = startOfMonth(this.monthDate);
+    this.monthDate = subDays(firstDayMonth, 1);
+    let firstDayWeek = startOfWeek(this.weekDate);
+    this.weekDate = subDays(firstDayWeek,1);
     this.getMonthData(this.monthDate);
     this.getWeekData(this.weekDate);
 
@@ -171,6 +179,10 @@ export class CalendarComponent implements OnInit {
   };
 
   onClickNext = (): void => {
+    let lastDayMonth = lastDayOfMonth(this.monthDate);
+    this.monthDate = addDays(lastDayMonth, 1);
+    let lastDayWeek = lastDayOfWeek(this.weekDate);
+    this.weekDate = addDays(lastDayWeek, 1);
     this.getMonthData(this.monthDate);
     this.getWeekData(this.weekDate);
 
