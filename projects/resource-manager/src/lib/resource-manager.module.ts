@@ -27,6 +27,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskAllocationComponent } from './task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from './employee-allocation/employee-allocation.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { ResourcesComponent } from './resources/resources/resources.component';
 @NgModule({
   declarations: [
     ResourceManagerComponent,
@@ -37,7 +41,9 @@ import { EmployeeAllocationComponent } from './employee-allocation/employee-allo
     ResourceCardComponent,
     SearchBarComponent,
     DisplayFieldsComponent,
+    ProjectsComponent,
     TaskAllocationComponent,
+    ResourcesComponent,
     EmployeeAllocationComponent,
   ],
   imports: [
@@ -59,6 +65,7 @@ import { EmployeeAllocationComponent } from './employee-allocation/employee-allo
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
+    MatTooltipModule,
   ],
   exports: [ResourceManagerComponent],
 })

@@ -1,23 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import {
   format,
   isSameMonth,
   startOfMonth,
-  subDays,
   startOfWeek,
-  lastDayOfMonth,
-  addDays,
-  lastDayOfWeek,
   isSameWeek,
   differenceInDays,
   getDay,
-  getWeek,
   isWithinInterval,
-  getDate,
   getDaysInMonth,
   endOfMonth,
   isSameYear,
-  isSameDay,
 } from 'date-fns';
 import { CalendarService } from '../services/calendar/calendar.service';
 @Component({
@@ -49,7 +42,7 @@ export class CalendarComponent implements OnInit {
     {
       taskName: 'Task B',
       startDate: new Date(2021, 10, 9),
-      endDate: new Date(2021, 10, 11),
+      endDate: new Date(2021, 10, 13),
     },
     {
       taskName: 'Task C',
@@ -84,17 +77,17 @@ export class CalendarComponent implements OnInit {
 
   constructor(private _calendarService: CalendarService) {}
 
+  @Input() monthDate = new Date();
+
+  @Input() weekDate: Date = new Date();
+
+  @Input() activeView: string = '';
+
+  @Input() buttonValue: string = '';
+
   getWeekData = (date: Date) => {
     this.currentWeekDates = this._calendarService.takeWeek(date)();
   };
-
-  @Input() monthDate = new Date();
-
-  @Input() weekDate = new Date();
-
-  @Input() selectButton = '';
-
-  @Input() buttonValue = '';
 
   getMonthData = (date: Date) => {
     let monthData: Date[] = [];
@@ -134,11 +127,14 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  ngOnChanges(): void {
-    if (this.buttonValue == 'next') {
-      this.onClickNext();
-    } else if (this.buttonValue == 'prev') {
-      this.onClickBack();
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (!changes['activeView']) {
+      if (this.buttonValue == 'next') {
+        this.onClickNext();
+      } else if (this.buttonValue == 'prev') {
+        this.onClickBack();
+      }
     }
   }
 
@@ -197,10 +193,10 @@ export class CalendarComponent implements OnInit {
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;
-    let currentMonth = this.monthDate;
-    let noOfDaysInCurrentMonth = getDaysInMonth(currentMonth);
+    let noOfDaysInCurrentMonth = getDaysInMonth(this.monthDate);
     let eachContainerWidth = 85 / noOfDaysInCurrentMonth;
 
+    // check if startDate and currentDate are equal
     if (
       this.monthDate.getMonth() === startDate.getMonth() &&
       this.monthDate.getFullYear() === startDate.getFullYear()
@@ -280,7 +276,8 @@ export class CalendarComponent implements OnInit {
   weekWidth = (startDate: Date, endDate: Date) => {
     let calculateDifference: number;
     let eachContainerWidth = 85 / 7;
-    let width: any;
+    let width;
+
     if (
       isSameWeek(endDate, startDate) &&
       isSameMonth(startDate, endDate) &&

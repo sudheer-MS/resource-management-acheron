@@ -1,19 +1,5 @@
 <div class="mat-typography mat-app-background">
-  <lib-header
-    [weekDate]="weekDate"
-    [onClickForward]="onClickForward"
-    [onClickBackward]="onClickBackward"
-    [onToggleButton]="onToggleButton"
-    [monthDate]="nmonthDate"
-    [selectButton]="selectButton"
-  ></lib-header>
-  <div ngClass="style">
-    <lib-sidebar></lib-sidebar>
-    <lib-calendar
-      [weekDate]="weekDate"
-      [buttonValue]="buttonValue"
-      [monthDate]="monthDate"
-      [selectButton]="selectButton"
-    ></lib-calendar>
-  </div>
+    <lib-header [weekDate]="weekDate" [onClickForward]="onClickForward" [onClickBackward]="onClickBackward" [onToggleButton]="onToggleButton" [monthDate]="monthDate" [activeView]="activeView" (tabValueEvent)="onChangeTab($event)"></lib-header>
+    <lib-projects *ngIf="tabValue=='Projects'" [monthDate]="monthDate" [weekDate]="weekDate" [buttonValue]="buttonValue" [activeView]="activeView"></lib-projects>
+    <lib-resources *ngIf="tabValue=='Resources'"></lib-resources>
 </div>

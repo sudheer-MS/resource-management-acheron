@@ -1,4 +1,7 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter , ViewEncapsulation} from '@angular/core';
+import { format } from 'date-fns';
+
+
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
@@ -22,11 +25,15 @@ export class HeaderComponent implements OnInit {
   @Input()
   onToggleButton!: (value: string) => any;
 
-  @Input() monthDate: Date = new Date();
+  @Input() monthDate:Date = new Date ();
 
   @Input() weekDate: Date = new Date();
 
-  @Input() selectButton = '';
+  @Input() activeView:string = '';
+
+  tabValue = "";
+
+  @Output() tabValueEvent = new EventEmitter<string> ();
 
   constructor(public dialog: MatDialog) {}
 
@@ -36,6 +43,11 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onToggle = (value:string) => {
+    this.tabValue = value;
+    this.tabValueEvent.emit(this.tabValue);
   }
 
   openTaskAllocation() {
