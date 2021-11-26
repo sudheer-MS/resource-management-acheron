@@ -1,55 +1,73 @@
 <div *ngIf="activeView == 'month'">
-    <div ngClass="month-dates-container">
-        <div [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'" *ngFor="let day of currentMonthDates">
-            <p>{{ day | date: "EEE" }}</p>
-            <p>{{ day | date: "d" }}</p>
-            <hr />
-        </div>
+  <div ngClass="month-dates-container">
+    <div
+      [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
+      *ngFor="let day of currentMonthDates"
+    >
+      <p>{{ day | date: "EEE" }}</p>
+      <p>{{ day | date: "d" }}</p>
+      <hr />
     </div>
-    <div [ngClass]="'task-allocation-container'">
-        <mat-accordion *ngFor="let task of currentMonthTasks">
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
+  </div>
+  <div [ngClass]="'task-allocation-container'">
+    <mat-accordion *ngFor="let task of currentMonthTasks">
+      <mat-expansion-panel
+        hideToggle
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+        [ngStyle]="{
           'margin-left': monthLeftSpace(task.startDate),
           width: monthWidth(task.startDate, task.endDate),
           position: 'relative'
-        }">
-                <mat-expansion-panel-header>
-                    <mat-panel-title> {{ task.taskName }} </mat-panel-title>
-                    <mat-panel-description>
-                        {{ task.startDate | date }} - {{ task.endDate | date }}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>I'm visible because I am open</p>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
+        }"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>navigate_next</mat-icon>
+            {{ task.taskName }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ task.startDate | date }} - {{ task.endDate | date }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>
 
 <div *ngIf="activeView == 'week'">
-    <div ngClass="week-dates-container">
-        <div [ngClass]="
+  <div ngClass="week-dates-container">
+    <div
+      [ngClass]="
         formatDate(day) != currentDate ? 'week-date' : 'week-current-date'
-      " *ngFor="let day of currentWeekDates">
-            <p>{{ day | date: "EEEE" }}</p>
-            <p>{{ day | date: "d" }}</p>
-            <hr />
-        </div>
+      "
+      *ngFor="let day of currentWeekDates"
+    >
+      <p>{{ day | date: "EEEE" }}</p>
+      <p>{{ day | date: "d" }}</p>
+      <hr />
     </div>
-</div>
-<div [ngClass]="'task-allocation-container'">
+  </div>
+  <div [ngClass]="'task-allocation-container'">
     <mat-accordion *ngFor="let task of currentWeekTasks">
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+        [ngStyle]="{
           'margin-left': weekLeftSpace(task.startDate),
           width: weekWidth(task.startDate, task.endDate),
           position: 'relative'
-        }">
-            <mat-expansion-panel-header>
-                <mat-panel-title> {{ task.taskName }} </mat-panel-title>
-                <mat-panel-description>
-                    {{ task.startDate | date }} - {{ task.endDate | date }}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
+        }"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
+          <mat-panel-description>
+            {{ task.startDate | date }} - {{ task.endDate | date }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
     </mat-accordion>
+  </div>
 </div>
