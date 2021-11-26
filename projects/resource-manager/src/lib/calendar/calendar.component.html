@@ -1,20 +1,14 @@
 <div *ngIf="activeView == 'month'">
-  <div ngClass="month-dates-container">
-    <div
-      [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
-      *ngFor="let day of currentMonthDates"
-    >
-      <p>{{ day | date: "EEE" }}</p>
-      <p>{{ day | date: "d" }}</p>
-      <hr />
+    <div ngClass="month-dates-container">
+        <div [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'" *ngFor="let day of currentMonthDates">
+            <p>{{ day | date: "EEE" }}</p>
+            <p>{{ day | date: "d" }}</p>
+            <hr />
+        </div>
     </div>
-  </div>
-  <div [ngClass]="'task-allocation-container'">
-    <mat-accordion *ngFor="let task of currentMonthTasks">
-      <mat-expansion-panel
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-        [ngStyle]="{
+    <div [ngClass]="'task-allocation-container'">
+        <mat-accordion *ngFor="let task of currentMonthTasks">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
           'margin-left': monthLeftSpace(task.startDate),
           width: monthWidth(task.startDate, task.endDate),
           position: 'relative'
@@ -32,9 +26,8 @@
 </div>
 
 <div *ngIf="activeView == 'week'">
-  <div ngClass="week-dates-container">
-    <div
-      [ngClass]="
+    <div ngClass="week-dates-container">
+        <div [ngClass]="
         formatDate(day) != currentDate ? 'week-date' : 'week-current-date'
       " *ngFor="let day of currentWeekDates">
             <p>{{ day | date: "EEEE" }}</p>
@@ -42,13 +35,9 @@
             <hr />
         </div>
     </div>
-  </div>
-  <div [ngClass]="'task-allocation-container'">
-    <mat-accordion *ngFor="let task of currentWeekTasks">
-      <mat-expansion-panel
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-        [ngStyle]="{
+    <div [ngClass]="'task-allocation-container'">
+        <mat-accordion *ngFor="let task of currentWeekTasks">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [ngStyle]="{
           'margin-left': weekLeftSpace(task.startDate),
           width: weekWidth(task.startDate, task.endDate),
           position: 'relative'

@@ -10,6 +10,7 @@ export class Project {
     public endDate: Date,
     public priority: Priority,
     public status: Status,
-    public campaign: Campaign
+    public campaign: Campaign,
+    public tasks:Set<Task>
   ) {}
 }
