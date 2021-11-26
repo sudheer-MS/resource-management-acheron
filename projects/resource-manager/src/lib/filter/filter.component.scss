@@ -35,3 +35,9 @@ div::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey;
 }
+
+.filter-count-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

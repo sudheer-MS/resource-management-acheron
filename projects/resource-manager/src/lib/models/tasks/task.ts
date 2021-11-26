@@ -1,7 +1,7 @@
-import { Resource } from 'dist/resource-manager/lib/models/resources/resource';
 import { Priority } from '../enums/priority';
 import { Status } from '../enums/status';
 import { Project } from '../projects/project';
+import { Resource } from '../resources/resource';
 
 export class Task {
   public constructor(

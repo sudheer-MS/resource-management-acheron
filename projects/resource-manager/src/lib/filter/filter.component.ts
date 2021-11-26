@@ -1,13 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
+import { SampleJson } from '../dummyfilter';
+import { Campaign } from '../models/campaigns/campaign';
 @Component({
   selector: 'lib-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
+  campaign: Campaign[] = SampleJson;
   panelOpenState: boolean = false;
+  highFilterCount = 0;
+  lowFilterCount = 0;
+  definedFilterCount = 0;
+  inProgressFilterCount = 0;
+  regionFilterCount = 0;
+  ngOnInit(): void {
+    this.campaign.forEach((campaignVal) => {
+      if (campaignVal.priority == 'HIGH') {
+        this.highFilterCount++;
+      }
+      if (campaignVal.priority == 'LOW') {
+        this.lowFilterCount++;
+      }
+      if (campaignVal.status == 'DEFINED') {
+        this.definedFilterCount++;
+      }
+      if (campaignVal.status == 'IN_PROGRESS') {
+        this.inProgressFilterCount++;
+      }
+    });
+  }
   regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
   regionCopy = this.regions;
   priorityForm: FormGroup;
@@ -42,7 +65,7 @@ export class FilterComponent implements OnInit {
       EPAC: false,
     });
   }
-  ngOnInit(): void {}
+
   search(event: any): void {
     let value = (event.target as HTMLInputElement).value;
     this.regions = this.regionCopy;
