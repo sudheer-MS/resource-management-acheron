@@ -73,26 +73,26 @@
             <mat-expansion-panel-header>
                 <mat-panel-title> Due Date</mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" [formGroup]="startDateForm">
                 <mat-label>Choose Start Date</mat-label>
-                <input matInput [matDatepicker]="picker1" [formControl]="startDate" />
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
+                <input matInput [matDatepicker]="startDate" formControlName="startDate" />
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" [formGroup]="endDateForm">
                 <mat-label>Choose End Date</mat-label>
-                <input matInput [matDatepicker]="picker2" [formControl]="endDate" />
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
+                <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [formGroup]="range" [rangePicker]="picker3">
+                <mat-date-range-input [formGroup]="rangeForm" [rangePicker]="range">
                     <input matStartDate placeholder="Start date" formControlName="start" />
                     <input matEndDate placeholder="End date" formControlName="end" />
                 </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker3></mat-date-range-picker>
+                <mat-datepicker-toggle matSuffix [for]="range"></mat-datepicker-toggle>
+                <mat-date-range-picker #range></mat-date-range-picker>
             </mat-form-field>
         </mat-expansion-panel>
     </div>

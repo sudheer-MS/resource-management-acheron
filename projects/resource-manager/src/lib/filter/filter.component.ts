@@ -10,6 +10,16 @@ import { Campaign } from '../models/campaigns/campaign';
 export class FilterComponent implements OnInit {
   campaign: Campaign[] = SampleJson;
   panelOpenState: boolean = false;
+  regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
+  regionCopy = this.regions;
+  priorityForm: FormGroup;
+  regionForm: FormGroup;
+  statusForm: FormGroup;
+  categoryForm: FormGroup;
+  rangeForm: FormGroup;
+  startDateForm: FormGroup;
+  endDateForm: FormGroup;
+
   highFilterCount = 0;
   lowFilterCount = 0;
   definedFilterCount = 0;
@@ -31,18 +41,7 @@ export class FilterComponent implements OnInit {
       }
     });
   }
-  regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
-  regionCopy = this.regions;
-  priorityForm: FormGroup;
-  regionForm: FormGroup;
-  statusForm: FormGroup;
-  categoryForm: FormGroup;
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
-  startDate = new FormControl('');
-  endDate = new FormControl('');
+
   constructor(private formBuilder: FormBuilder) {
     this.priorityForm = formBuilder.group({
       high: false,
@@ -63,6 +62,16 @@ export class FilterComponent implements OnInit {
       EMEA: false,
       NAC: false,
       EPAC: false,
+    });
+    this.rangeForm = formBuilder.group({
+      start: new FormControl(),
+      end: new FormControl(),
+    });
+    this.startDateForm = formBuilder.group({
+      startDate: new FormControl(''),
+    });
+    this.endDateForm = formBuilder.group({
+      endDate: new FormControl(''),
     });
   }
 
