@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Availability } from '../models/enums/availability';
-import { Resource } from '../models/resources/resource';
+import { Availability } from '../../models/enums/availability';
+import { Resource } from '../../models/resources/resource';
 
 @Component({
   selector: 'lib-employee-allocation',
@@ -23,7 +23,7 @@ export class EmployeeAllocationComponent implements OnInit {
       actualStartDate: new FormControl(''),
       actualEndDate: new FormControl(''),
       description: new FormControl(''),
-    }); 
+    });
   }
   startDate = new Date(1990, 0, 1);
   selectedValue: string = '';

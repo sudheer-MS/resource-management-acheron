@@ -1,11 +1,17 @@
-import { Component, Input, OnInit, Output, EventEmitter , ViewEncapsulation} from '@angular/core';
-import { format } from 'date-fns';
-
-
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
+import { CalendarService } from '../../services/calendar/calendar.service';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'lib-header',
@@ -14,28 +20,20 @@ import { EmployeeAllocationComponent } from '../employee-allocation/employee-all
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
-  currentDate: Date = new Date();
+  tabValue = '';
+  activeView: string;
+  private calendarComponent: CalendarComponent = new CalendarComponent(
+    this.calendarService
+  );
 
-  @Input()
-  onClickForward!: () => any;
+  @Output() tabValueEvent = new EventEmitter<string>();
 
-  @Input()
-  onClickBackward!: () => any;
-
-  @Input()
-  onToggleButton!: (value: string) => any;
-
-  @Input() monthDate:Date = new Date ();
-
-  @Input() weekDate: Date = new Date();
-
-  @Input() activeView:string = '';
-
-  tabValue = "";
-
-  @Output() tabValueEvent = new EventEmitter<string> ();
-
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private calendarService: CalendarService
+  ) {
+    this.activeView = this.calendarService.getActiveView();
+  }
 
   openDisplayFields() {
     const dialogRef = this.dialog.open(DisplayFieldsComponent);
@@ -45,10 +43,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onToggle = (value:string) => {
+  onToggle = (value: string) => {
     this.tabValue = value;
     this.tabValueEvent.emit(this.tabValue);
-  }
+  };
 
   openTaskAllocation() {
     const dialogRef = this.dialog.open(TaskAllocationComponent, {
@@ -64,6 +62,7 @@ export class HeaderComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
       height: '100vh',
@@ -78,5 +77,22 @@ export class HeaderComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  onClickNextMonth = (): void => {
+    this.calendarComponent.onClickNextMonth();
+  };
+
+  onClickNextWeek = (): void => {
+    this.calendarComponent.onClickNextWeek();
+  };
+
+  onClickPreviousMonth = (): void => {
+    this.calendarComponent.onClickPreviousMonth();
+  };
+
+  onClickPreviousWeek = (): void => {
+    this.calendarComponent.onClickPreviousWeek();
+  };
+
   ngOnInit(): void {}
 }

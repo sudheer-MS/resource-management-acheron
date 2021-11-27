@@ -11,22 +11,26 @@ import {
   getDaysInMonth,
   endOfMonth,
   isSameYear,
-  addDays,
-  lastDayOfMonth,
-  lastDayOfWeek,
-  subDays,
 } from 'date-fns';
-import { CalendarService } from '../services/calendar/calendar.service';
+import { CalendarService } from '../../services/calendar/calendar.service';
+
 @Component({
   selector: 'lib-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  panelOpenState: boolean = false;
+  activeView: string;
+
   currentDate = format(new Date(), 'MM/dd/yyyy');
+
+  monthDate: Date = new Date();
+  weekDate: Date = new Date();
+
   currentMonthDates: Date[] = [];
   currentWeekDates: Date[] = [];
-  panelOpenState = false;
+
   tasks: Object[] = [
     {
       taskName: 'Task A',
@@ -76,127 +80,57 @@ export class CalendarComponent implements OnInit {
   ];
 
   currentWeekTasks: any[] = [];
-
   currentMonthTasks: any[] = [];
 
-  monthDate: Date = new Date();
-  weekDate: Date = new Date();
+  constructor(private _calendarService: CalendarService) {
+    this.activeView = this._calendarService.getActiveView();
 
-  constructor(private _calendarService: CalendarService) {}
-
-  @Input() buttonValue: string = '';
-  @Input() activeView: string = '';
-
-  getWeekData = (date: Date) => {
-    this.currentWeekDates = this._calendarService.takeWeek(date)();
-  };
-
-  getMonthData = (date: Date) => {
-    let monthData: Date[] = [];
-    this._calendarService
-      .takeMonth(date)()
-      .forEach((eachWeek: any) =>
-        eachWeek.forEach((eachDay: Date) => {
-          if (isSameMonth(eachDay, date)) {
-            monthData.push(eachDay);
-          }
+    this.currentMonthTasks = this.tasks.filter(
+      (eachTask: any) =>
+        isSameMonth(eachTask.startDate, this.monthDate) ||
+        isSameMonth(eachTask.endDate, this.monthDate) ||
+        isWithinInterval(this.monthDate, {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
         })
-      );
-    this.currentMonthDates = monthData;
-  };
+    );
+
+    this.currentWeekTasks = this.tasks.filter(
+      (eachTask: any) =>
+        isSameWeek(eachTask.startDate, this.weekDate) ||
+        isSameWeek(eachTask.endDate, this.weekDate) ||
+        isWithinInterval(this.weekDate, {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
+        })
+    );
+  }
 
   ngOnInit(): void {
-    this.getWeekData(this.weekDate);
-    this.getMonthData(this.monthDate);
-
-    this.currentMonthTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, this.monthDate) ||
-        isSameMonth(eachTask.endDate, this.monthDate) ||
-        isWithinInterval(this.monthDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-    this.currentWeekTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameWeek(eachTask.startDate, this.weekDate) ||
-        isSameWeek(eachTask.endDate, this.weekDate) ||
-        isWithinInterval(this.weekDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
+    this.currentWeekDates = this._calendarService.getWeekData(this.weekDate);
+    this.currentMonthDates = this._calendarService.getMonthData(this.monthDate);
   }
 
-  ngOnChanges(changes:SimpleChanges): void {
-    if(changes['buttonValue']){
-      if((changes['buttonValue'].currentValue == 'next') || (changes['buttonValue'].currentValue == 'NEXT')){
-        this.onClickNext();
-      }else if((changes['buttonValue'].currentValue == 'prev') || (changes['buttonValue'].currentValue == 'PREV')) {
-        this.onClickBack();
-      }
-    }else if(changes['activeView']){
-      this.activeView = changes['activeView'].currentValue;
-    }
+  onClickNextMonth() {
+    this._calendarService.onClickNextMonth();
+    this.currentMonthDates = this._calendarService.getCurrentMonthDates();
+    console.log(this.currentMonthDates);
   }
-
-  onClickBack = () => {
-    let firstDayMonth = startOfMonth(this.monthDate);
-    this.monthDate = subDays(firstDayMonth, 1);
-    let firstDayWeek = startOfWeek(this.weekDate);
-    this.weekDate = subDays(firstDayWeek,1);
-    this.getMonthData(this.monthDate);
-    this.getWeekData(this.weekDate);
-
-    this.currentMonthTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, this.monthDate) ||
-        isSameMonth(eachTask.endDate, this.monthDate) ||
-        isWithinInterval(this.monthDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-
-    this.currentWeekTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameWeek(eachTask.startDate, this.weekDate) ||
-        isSameWeek(eachTask.endDate, this.weekDate) ||
-        isWithinInterval(this.weekDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-  };
-
-  onClickNext = (): void => {
-    let lastDayMonth = lastDayOfMonth(this.monthDate);
-    this.monthDate = addDays(lastDayMonth, 1);
-    let lastDayWeek = lastDayOfWeek(this.weekDate);
-    this.weekDate = addDays(lastDayWeek, 1);
-    this.getMonthData(this.monthDate);
-    this.getWeekData(this.weekDate);
-
-    this.currentMonthTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, this.monthDate) ||
-        isSameMonth(eachTask.endDate, this.monthDate) ||
-        isWithinInterval(this.monthDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-    this.currentWeekTasks = this.tasks.filter(
-      (eachTask: any) =>
-        isSameWeek(eachTask.startDate, this.weekDate) ||
-        isSameWeek(eachTask.endDate, this.weekDate) ||
-        isWithinInterval(this.weekDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-  };
+  onClickNextWeek() {
+    this._calendarService.onClickNextWeek();
+    this.currentWeekDates = this._calendarService.getCurrentWeekDates();
+    console.log(this.currentWeekDates);
+  }
+  onClickPreviousMonth() {
+    this._calendarService.onClickPreviousMonth();
+    this.currentMonthDates = this._calendarService.getCurrentMonthDates();
+    console.log(this.currentMonthDates);
+  }
+  onClickPreviousWeek() {
+    this._calendarService.onClickPreviousWeek();
+    this.currentWeekDates = this._calendarService.getCurrentWeekDates();
+    console.log(this.currentWeekDates);
+  }
 
   formatDate = (date: Date) => {
     return format(date, 'MM/dd/yyyy');
@@ -310,4 +244,3 @@ export class CalendarComponent implements OnInit {
     }
   };
 }
-

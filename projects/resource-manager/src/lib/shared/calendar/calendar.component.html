@@ -12,7 +12,6 @@
   <div [ngClass]="'task-allocation-container'">
     <mat-accordion *ngFor="let task of currentMonthTasks">
       <mat-expansion-panel
-        hideToggle
         (opened)="panelOpenState = true"
         (closed)="panelOpenState = false"
         [ngStyle]="{
@@ -22,10 +21,7 @@
         }"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>navigate_next</mat-icon>
-            {{ task.taskName }}
-          </mat-panel-title>
+          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
           <mat-panel-description>
             {{ task.startDate | date }} - {{ task.endDate | date }}
           </mat-panel-description>
