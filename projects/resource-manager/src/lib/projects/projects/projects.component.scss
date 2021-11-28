@@ -29,3 +29,8 @@
   display: flex;
   flex-direction: row;
 }
+
+.projects-container {
+  height: 605px;
+  overflow-y: auto;
+}

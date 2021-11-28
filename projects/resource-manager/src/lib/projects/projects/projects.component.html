@@ -9,13 +9,13 @@
 </div>
 <div ngClass="filter-projects-container">
   <lib-filter></lib-filter>
-  <div *ngIf="calendarView == 'month'">
+  <div ngClass="projects-container" *ngIf="calendarView == 'month'">
     <mat-accordion *ngFor="let task of currentMonthTasks">
       <mat-expansion-panel
         (opened)="panelOpenState = true"
         (closed)="panelOpenState = false"
         [ngStyle]="{
-          'margin-left': monthLeftSpace(task.startDate),
+          marginLeft: monthLeftSpace(task.startDate),
           width: monthWidth(task.startDate, task.endDate),
           position: 'relative'
         }"
@@ -30,13 +30,13 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-  <div *ngIf="calendarView == 'week'">
+  <div ngClass="projects-container" *ngIf="calendarView == 'week'">
     <mat-accordion *ngFor="let task of currentWeekTasks">
       <mat-expansion-panel
         (opened)="panelOpenState = true"
         (closed)="panelOpenState = false"
         [ngStyle]="{
-          'margin-left': weekLeftSpace(task.startDate),
+          marginLeft: weekLeftSpace(task.startDate),
           width: weekWidth(task.startDate, task.endDate),
           position: 'relative'
         }"

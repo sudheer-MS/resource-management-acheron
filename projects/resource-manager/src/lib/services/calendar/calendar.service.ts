@@ -238,4 +238,28 @@ export class CalendarService {
 
     this.currentWeekProjects$.next(this.currentWeekProjects);
   };
+
+  updateProjectsOnViewChange = () => {
+    this.currentMonthProjects = this.projects.filter(
+      (eachTask: any) =>
+        isSameMonth(eachTask.startDate, new Date()) ||
+        isSameMonth(eachTask.endDate, new Date()) ||
+        isWithinInterval(new Date(), {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
+        })
+    );
+    this.currentMonthProjects$.next(this.currentMonthProjects);
+
+    this.currentWeekProjects = this.projects.filter(
+      (eachTask: any) =>
+        isSameWeek(eachTask.startDate, new Date()) ||
+        isSameWeek(eachTask.endDate, new Date()) ||
+        isWithinInterval(new Date(), {
+          start: eachTask.startDate,
+          end: eachTask.endDate,
+        })
+    );
+    this.currentWeekProjects$.next(this.currentWeekProjects);
+  };
 }
