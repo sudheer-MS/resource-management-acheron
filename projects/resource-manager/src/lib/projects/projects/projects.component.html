@@ -1,4 +1,54 @@
 <div ngClass="style" lib-projects>
+  <div [ngClass]="'calendar-info-container'">
+    <p [ngClass]="'calendar-info-text'">Refine Search By</p>
+    <p>
+      <mat-icon> unfold_less</mat-icon>
+    </p>
+  </div>
+  <lib-calendar ngClass="calendar-container"></lib-calendar>
+</div>
+<div ngClass="filter-projects-container">
   <lib-filter></lib-filter>
-  <lib-calendar></lib-calendar>
+  <div *ngIf="calendarView == 'month'">
+    <mat-accordion *ngFor="let task of currentMonthTasks">
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+        [ngStyle]="{
+          'margin-left': monthLeftSpace(task.startDate),
+          width: monthWidth(task.startDate, task.endDate),
+          position: 'relative'
+        }"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
+          <mat-panel-description>
+            {{ task.startDate | date }} - {{ task.endDate | date }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div *ngIf="calendarView == 'week'">
+    <mat-accordion *ngFor="let task of currentWeekTasks">
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+        [ngStyle]="{
+          'margin-left': weekLeftSpace(task.startDate),
+          width: weekWidth(task.startDate, task.endDate),
+          position: 'relative'
+        }"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ task.taskName }} </mat-panel-title>
+          <mat-panel-description>
+            {{ task.startDate | date }} - {{ task.endDate | date }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>

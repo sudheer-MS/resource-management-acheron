@@ -1,17 +1,11 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 import { CalendarService } from '../../services/calendar/calendar.service';
-import { CalendarComponent } from '../calendar/calendar.component';
+import { BehaviorSubject } from 'rxjs';
+import { HeaderService } from '../../services/header/header.service';
 
 @Component({
   selector: 'lib-header',
@@ -20,19 +14,17 @@ import { CalendarComponent } from '../calendar/calendar.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
-  tabValue = '';
-  activeView: string;
-  private calendarComponent: CalendarComponent = new CalendarComponent(
-    this.calendarService
-  );
+  calendarView: string;
 
-  @Output() tabValueEvent = new EventEmitter<string>();
+  monthDate: Date = new Date();
+  weekDate: Date = new Date();
 
   constructor(
     public dialog: MatDialog,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private headerService: HeaderService
   ) {
-    this.activeView = this.calendarService.getActiveView();
+    this.calendarView = this.calendarService.calendarView;
   }
 
   openDisplayFields() {
@@ -43,9 +35,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onToggle = (value: string) => {
-    this.tabValue = value;
-    this.tabValueEvent.emit(this.tabValue);
+  onToggle = (currentTabValue: string) => {
+    this.headerService.onChangeTabValue(currentTabValue);
   };
 
   openTaskAllocation() {
@@ -79,20 +70,38 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickNextMonth = (): void => {
-    this.calendarComponent.onClickNextMonth();
+    this.calendarService.onClickNextMonth();
+    this.calendarService.onChangeCurrentMonthProjects();
   };
 
   onClickNextWeek = (): void => {
-    this.calendarComponent.onClickNextWeek();
+    this.calendarService.onClickNextWeek();
+    this.calendarService.onChangeCurrentWeekProjects();
   };
 
   onClickPreviousMonth = (): void => {
-    this.calendarComponent.onClickPreviousMonth();
+    this.calendarService.onClickPreviousMonth();
+    this.calendarService.onChangeCurrentMonthProjects();
   };
 
   onClickPreviousWeek = (): void => {
-    this.calendarComponent.onClickPreviousWeek();
+    this.calendarService.onClickPreviousWeek();
+    this.calendarService.onChangeCurrentWeekProjects();
   };
 
-  ngOnInit(): void {}
+  onClickCalendarViewButton = (currentCalendarView: string): void => {
+    this.calendarService.onChangeCalendarView(currentCalendarView);
+  };
+
+  ngOnInit(): void {
+    this.calendarService.calendarView$.subscribe(
+      (currentCalendarView: string) => (this.calendarView = currentCalendarView)
+    );
+    this.calendarService.monthDate$.subscribe(
+      (currentMonthDate: Date) => (this.monthDate = currentMonthDate)
+    );
+    this.calendarService.weekDate$.subscribe(
+      (currentWeekDate: Date) => (this.weekDate = currentWeekDate)
+    );
+  }
 }

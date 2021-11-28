@@ -17,10 +17,10 @@
       <mat-button-toggle
         [checked]="true"
         value="projects"
-        (click)="onToggle('Projects')"
+        (click)="onToggle('projects')"
         >Projects</mat-button-toggle
       >
-      <mat-button-toggle value="resources" (click)="onToggle('Resources')"
+      <mat-button-toggle value="resources" (click)="onToggle('resources')"
         >Resources</mat-button-toggle
       >
       <mat-button-toggle value="allocation " (click)="openTaskAllocation()"
@@ -37,13 +37,13 @@
     >
       Display Fields
     </button>
-    <!-- <h1 *ngIf="activeView == 'month'" [ngStyle]="{ marginRight: '10px' }">
-            {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
-        </h1>
-        <h1 *ngIf="activeView == 'week'" [ngStyle]="{ marginRight: '10px' }">
-            {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
-        </h1> -->
-    <div [ngClass]="'toolbar'" *ngIf="activeView == 'month'">
+    <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
+      {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
+    </h1>
+    <h1 *ngIf="calendarView == 'week'" [ngStyle]="{ marginRight: '10px' }">
+      {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
+    </h1>
+    <div [ngClass]="'toolbar'" *ngIf="calendarView == 'month'">
       <button
         type="button"
         [ngClass]="'arrow-button'"
@@ -59,7 +59,7 @@
         <mat-icon>arrow_forward_ios</mat-icon>
       </button>
     </div>
-    <div [ngClass]="'toolbar'" *ngIf="activeView == 'week'">
+    <div [ngClass]="'toolbar'" *ngIf="calendarView == 'week'">
       <button
         type="button"
         [ngClass]="'arrow-button'"
@@ -80,10 +80,17 @@
       name="calendar-buttons"
       aria-label="Calendar Buttons"
     >
-      <mat-button-toggle [checked]="true" value="month"
+      <mat-button-toggle
+        [checked]="true"
+        value="month"
+        (click)="onClickCalendarViewButton('month')"
         >Month</mat-button-toggle
       >
-      <mat-button-toggle value="week">Week</mat-button-toggle>
+      <mat-button-toggle
+        value="week"
+        (click)="onClickCalendarViewButton('week')"
+        >Week</mat-button-toggle
+      >
     </mat-button-toggle-group>
   </div>
 </mat-toolbar>
