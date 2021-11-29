@@ -1,3 +1,6 @@
 <lib-header></lib-header>
-<lib-projects *ngIf="tabValue == 'projects'"></lib-projects>
+<lib-projects
+  *ngIf="tabValue == 'projects'"
+  [projects]="projects"
+></lib-projects>
 <lib-resources *ngIf="tabValue == 'resources'"></lib-resources>

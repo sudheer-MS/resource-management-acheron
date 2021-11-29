@@ -2,15 +2,38 @@
   box-sizing: border-box;
 }
 
+.style {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+}
+
 .mat-expanded .mat-expansion-panel-header-title .mat-icon {
   transform: rotate(90deg);
+}
+
+.calendar-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #728192;
+  padding: 10px;
+  width: 15vw;
+  height: 66px;
+  border: solid 1px rgb(194, 193, 193);
+}
+
+.calendar-info-text {
+  font-family: Roboto;
+  font-weight: 400;
+  color: #728192;
 }
 
 .month-dates-container {
   display: flex;
   flex-direction: row;
   overflow: auto;
-  position: absolute;
   width: 85vw;
   height: 673px;
 }
@@ -19,7 +42,6 @@
   display: flex;
   flex-direction: row;
   overflow: auto;
-  position: absolute;
   width: 85vw;
   height: 673px;
 }
@@ -61,4 +83,57 @@
   align-items: center;
   justify-content: center;
   font-size: 16px;
+}
+
+//
+//
+.filter-projects-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 66px;
+}
+
+.projects-container {
+  height: 605px;
+  width: 85vw;
+}
+
+.mat-expanded .mat-expansion-panel-header-title .mat-icon {
+  transform: rotate(90deg);
+}
+
+.campaign-allocation-container {
+  padding-top: 90px;
+}
+
+.campaign-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.campaign-content {
+  font-size: 12px;
+  background-color: #eeeeee;
+}
+
+.task-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-cards {
+  margin-right: 10px;
+  min-width: 220px;
+  max-height: 110px;
+  background-color: #ab94ff;
+  color: #ffffff;
+  font-family: Roboto;
+  cursor: pointer;
 }

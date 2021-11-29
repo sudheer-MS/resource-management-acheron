@@ -29,153 +29,6 @@ export class CalendarService {
   weekDate: Date = new Date();
   weekDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(this.weekDate);
 
-  currentMonthDates: Date[] = [];
-  currentMonthDates$: BehaviorSubject<Date[]> = new BehaviorSubject<Date[]>(
-    this.currentMonthDates
-  );
-  currentWeekDates: Date[] = [];
-  currentWeekDates$: BehaviorSubject<Date[]> = new BehaviorSubject<Date[]>(
-    this.currentWeekDates
-  );
-
-  currentWeekProjects: any[] = [];
-  currentWeekProjects$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
-    this.currentWeekProjects
-  );
-  currentMonthProjects: any[] = [];
-  currentMonthProjects$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
-    this.currentMonthProjects
-  );
-
-  projects: Object[] = [
-    {
-      campaignName: 'Campaign A',
-      startDate: new Date(2021, 10, 6),
-      endDate: new Date(2021, 10, 26),
-      name: 'John',
-      priority: 'HIGH',
-      projectList: [
-        {
-          projectName: 'Project A',
-          startDate: new Date(2021, 10, 6),
-          endDate: new Date(2021, 10, 26),
-          name: 'Andrus',
-          priority: 'LOW',
-          taskList: [
-            {
-              taskName: 'Task A',
-              startDate: new Date(2021, 10, 6),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-            {
-              taskName: 'Task AB',
-              startDate: new Date(2021, 10, 6),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-          ],
-        },
-        {
-          projectName: 'Project AB',
-          startDate: new Date(2021, 10, 6),
-          endDate: new Date(2021, 10, 26),
-          name: 'Andrus',
-          priority: 'LOW',
-          taskList: [
-            {
-              taskName: 'Task AB',
-              startDate: new Date(2021, 10, 6),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      campaignName: 'Campaign B',
-      startDate: new Date(2021, 11, 6),
-      endDate: new Date(2021, 11, 26),
-      name: 'John',
-      priority: 'HIGH',
-      projectList: [
-        {
-          projectName: 'Project B',
-          startDate: new Date(2021, 11, 6),
-          endDate: new Date(2021, 11, 26),
-          name: 'Andrus',
-          priority: 'LOW',
-          taskList: [
-            {
-              taskName: 'Task B',
-              startDate: new Date(2021, 11, 6),
-              endDate: new Date(2021, 11, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      campaignName: 'Campaign C',
-      startDate: new Date(2021, 10, 20),
-      endDate: new Date(2022, 11, 26),
-      name: 'John',
-      priority: 'HIGH',
-      projectList: [
-        {
-          projectName: 'Project A',
-          startDate: new Date(2021, 10, 20),
-          endDate: new Date(2021, 10, 26),
-          name: 'Andrus',
-          priority: 'LOW',
-          taskList: [
-            {
-              taskName: 'Task A',
-              startDate: new Date(2021, 10, 20),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-            {
-              taskName: 'Task AB',
-              startDate: new Date(2021, 10, 20),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-          ],
-        },
-        {
-          projectName: 'Project AB',
-          startDate: new Date(2021, 10, 20),
-          endDate: new Date(2021, 10, 26),
-          name: 'Andrus',
-          priority: 'LOW',
-          taskList: [
-            {
-              taskName: 'Task AB',
-              startDate: new Date(2021, 10, 20),
-              endDate: new Date(2021, 10, 26),
-              name: 'Riya',
-              priority: 'Low',
-            },
-          ],
-        },
-      ],
-    },
-  ];
-
-  constructor() {
-    this.onChangeCurrentMonthProjects();
-    this.onChangeCurrentWeekProjects();
-  }
-
   takeWeek(start: Date) {
     let date = startOfWeek(startOfDay(start));
 
@@ -219,7 +72,6 @@ export class CalendarService {
       return range;
     };
   };
-
   getWeekData = (date: Date): Date[] => {
     this.currentWeekDates = this.takeWeek(date)();
     return this.currentWeekDates;
@@ -237,6 +89,17 @@ export class CalendarService {
     this.currentMonthDates = monthData;
     return monthData;
   };
+
+  currentMonthDates: Date[] = [];
+  currentMonthDates$: BehaviorSubject<Date[]> = new BehaviorSubject<Date[]>(
+    this.getMonthData(this.monthDate)
+  );
+  currentWeekDates: Date[] = [];
+  currentWeekDates$: BehaviorSubject<Date[]> = new BehaviorSubject<Date[]>(
+    this.getWeekData(this.weekDate)
+  );
+
+  constructor() {}
 
   onClickPreviousMonth = (): void => {
     let firstDayMonth = startOfMonth(this.monthDate);
@@ -285,57 +148,5 @@ export class CalendarService {
 
   getCurrentWeekDates = (): Date[] => {
     return this.currentWeekDates;
-  };
-
-  onChangeCurrentMonthProjects = () => {
-    this.currentMonthProjects = this.projects.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, this.monthDate) ||
-        isSameMonth(eachTask.endDate, this.monthDate) ||
-        isWithinInterval(this.monthDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-
-    this.currentMonthProjects$.next(this.currentMonthProjects);
-  };
-
-  onChangeCurrentWeekProjects = () => {
-    this.currentWeekProjects = this.projects.filter(
-      (eachTask: any) =>
-        isSameWeek(eachTask.startDate, this.weekDate) ||
-        isSameWeek(eachTask.endDate, this.weekDate) ||
-        isWithinInterval(this.weekDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-
-    this.currentWeekProjects$.next(this.currentWeekProjects);
-  };
-
-  updateProjectsOnViewChange = () => {
-    this.currentMonthProjects = this.projects.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, new Date()) ||
-        isSameMonth(eachTask.endDate, new Date()) ||
-        isWithinInterval(new Date(), {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-    this.currentMonthProjects$.next(this.currentMonthProjects);
-
-    this.currentWeekProjects = this.projects.filter(
-      (eachTask: any) =>
-        isSameWeek(eachTask.startDate, new Date()) ||
-        isSameWeek(eachTask.endDate, new Date()) ||
-        isWithinInterval(new Date(), {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
-        })
-    );
-    this.currentWeekProjects$.next(this.currentWeekProjects);
   };
 }

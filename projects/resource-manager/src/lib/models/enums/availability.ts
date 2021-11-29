@@ -1,3 +1,0 @@
-export enum Availability {
-  CUSTOM,
-}

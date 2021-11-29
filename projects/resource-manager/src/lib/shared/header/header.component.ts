@@ -4,7 +4,6 @@ import { DisplayFieldsComponent } from '../display-fields/display-fields.compone
 import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 import { CalendarService } from '../../services/calendar/calendar.service';
-import { BehaviorSubject } from 'rxjs';
 import { HeaderService } from '../../services/header/header.service';
 
 @Component({
@@ -71,22 +70,18 @@ export class HeaderComponent implements OnInit {
 
   onClickNextMonth = (): void => {
     this.calendarService.onClickNextMonth();
-    this.calendarService.onChangeCurrentMonthProjects();
   };
 
   onClickNextWeek = (): void => {
     this.calendarService.onClickNextWeek();
-    this.calendarService.onChangeCurrentWeekProjects();
   };
 
   onClickPreviousMonth = (): void => {
     this.calendarService.onClickPreviousMonth();
-    this.calendarService.onChangeCurrentMonthProjects();
   };
 
   onClickPreviousWeek = (): void => {
     this.calendarService.onClickPreviousWeek();
-    this.calendarService.onChangeCurrentWeekProjects();
   };
 
   onClickCalendarViewButton = (currentCalendarView: string): void => {

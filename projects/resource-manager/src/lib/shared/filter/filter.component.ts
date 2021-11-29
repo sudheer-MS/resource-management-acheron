@@ -9,7 +9,7 @@ import { Campaign } from '../../models/campaigns/campaign';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-  campaign: Campaign[] = SampleJson;
+  campaign: Object[] = [];
   panelOpenState: boolean = false;
   highFilterCount = 0;
   lowFilterCount = 0;
@@ -17,20 +17,20 @@ export class FilterComponent implements OnInit {
   inProgressFilterCount = 0;
   regionFilterCount = 0;
   ngOnInit(): void {
-    this.campaign.forEach((campaignVal) => {
-      if (campaignVal.priority == 'HIGH') {
-        this.highFilterCount++;
-      }
-      if (campaignVal.priority == 'LOW') {
-        this.lowFilterCount++;
-      }
-      if (campaignVal.status == 'DEFINED') {
-        this.definedFilterCount++;
-      }
-      if (campaignVal.status == 'IN_PROGRESS') {
-        this.inProgressFilterCount++;
-      }
-    });
+    // this.campaign.forEach((campaignVal) => {
+    //   if (campaignVal.priority == 'HIGH') {
+    //     this.highFilterCount++;
+    //   }
+    //   if (campaignVal.priority == 'LOW') {
+    //     this.lowFilterCount++;
+    //   }
+    //   if (campaignVal.status == 'DEFINED') {
+    //     this.definedFilterCount++;
+    //   }
+    //   if (campaignVal.status == 'IN_PROGRESS') {
+    //     this.inProgressFilterCount++;
+    //   }
+    // });
   }
   regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
   regionCopy = this.regions;

@@ -58,6 +58,7 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatRadioModule,
     MatTooltipModule,
+    MatCardModule,
   ],
   exports: [
     CommonModule,
@@ -73,7 +74,6 @@ import { MatCardModule } from '@angular/material/card';
     DisplayFieldsComponent,
     TaskAllocationComponent,
     EmployeeAllocationComponent,
-    MatCardModule,
   ],
 })
 export class SharedModule {}

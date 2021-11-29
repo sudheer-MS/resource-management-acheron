@@ -2,7 +2,7 @@ import { Campaign } from './models/campaigns/campaign';
 import { Priority } from './models/enums/priority';
 import { Status } from './models/enums/status';
 
-export const SampleJson: Campaign[] = [
+export const SampleJson: Object[] = [
   {
     campaignId: 1,
     campaignName: 'ABC',
