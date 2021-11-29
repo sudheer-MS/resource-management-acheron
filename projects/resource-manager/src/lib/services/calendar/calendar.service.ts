@@ -49,49 +49,125 @@ export class CalendarService {
 
   projects: Object[] = [
     {
-      taskName: 'Task A',
-      startDate: new Date(2021, 10, 18),
-      endDate: new Date(2021, 10, 22),
-    },
-    {
-      taskName: 'Task AB',
-      startDate: new Date(2021, 10, 18),
+      campaignName: 'Campaign A',
+      startDate: new Date(2021, 10, 6),
       endDate: new Date(2021, 10, 26),
+      name: 'John',
+      priority: 'HIGH',
+      projectList: [
+        {
+          projectName: 'Project A',
+          startDate: new Date(2021, 10, 6),
+          endDate: new Date(2021, 10, 26),
+          name: 'Andrus',
+          priority: 'LOW',
+          taskList: [
+            {
+              taskName: 'Task A',
+              startDate: new Date(2021, 10, 6),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+            {
+              taskName: 'Task AB',
+              startDate: new Date(2021, 10, 6),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+          ],
+        },
+        {
+          projectName: 'Project AB',
+          startDate: new Date(2021, 10, 6),
+          endDate: new Date(2021, 10, 26),
+          name: 'Andrus',
+          priority: 'LOW',
+          taskList: [
+            {
+              taskName: 'Task AB',
+              startDate: new Date(2021, 10, 6),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+          ],
+        },
+      ],
     },
     {
-      taskName: 'Task ABC',
-      startDate: new Date(2021, 10, 13),
-      endDate: new Date(2021, 10, 17),
+      campaignName: 'Campaign B',
+      startDate: new Date(2021, 11, 6),
+      endDate: new Date(2021, 11, 26),
+      name: 'John',
+      priority: 'HIGH',
+      projectList: [
+        {
+          projectName: 'Project B',
+          startDate: new Date(2021, 11, 6),
+          endDate: new Date(2021, 11, 26),
+          name: 'Andrus',
+          priority: 'LOW',
+          taskList: [
+            {
+              taskName: 'Task B',
+              startDate: new Date(2021, 11, 6),
+              endDate: new Date(2021, 11, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+          ],
+        },
+      ],
     },
     {
-      taskName: 'Task B',
-      startDate: new Date(2021, 10, 9),
-      endDate: new Date(2021, 10, 13),
-    },
-    {
-      taskName: 'Task C',
-      startDate: new Date(2021, 11, 13),
-      endDate: new Date(2021, 11, 21),
-    },
-    {
-      taskName: 'Task D',
-      startDate: new Date(2021, 9, 3),
-      endDate: new Date(2021, 9, 25),
-    },
-    {
-      taskName: 'Task E',
-      startDate: new Date(2021, 9, 6),
-      endDate: new Date(2021, 11, 24),
-    },
-    {
-      taskName: 'Task F',
-      startDate: new Date(2021, 0, 4),
-      endDate: new Date(2021, 11, 30),
-    },
-    {
-      taskName: 'Task G',
-      startDate: new Date(2021, 0, 4),
-      endDate: new Date(2022, 11, 30),
+      campaignName: 'Campaign C',
+      startDate: new Date(2021, 10, 20),
+      endDate: new Date(2022, 11, 26),
+      name: 'John',
+      priority: 'HIGH',
+      projectList: [
+        {
+          projectName: 'Project A',
+          startDate: new Date(2021, 10, 20),
+          endDate: new Date(2021, 10, 26),
+          name: 'Andrus',
+          priority: 'LOW',
+          taskList: [
+            {
+              taskName: 'Task A',
+              startDate: new Date(2021, 10, 20),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+            {
+              taskName: 'Task AB',
+              startDate: new Date(2021, 10, 20),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+          ],
+        },
+        {
+          projectName: 'Project AB',
+          startDate: new Date(2021, 10, 20),
+          endDate: new Date(2021, 10, 26),
+          name: 'Andrus',
+          priority: 'LOW',
+          taskList: [
+            {
+              taskName: 'Task AB',
+              startDate: new Date(2021, 10, 20),
+              endDate: new Date(2021, 10, 26),
+              name: 'Riya',
+              priority: 'Low',
+            },
+          ],
+        },
+      ],
     },
   ];
 

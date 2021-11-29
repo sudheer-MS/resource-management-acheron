@@ -34,3 +34,45 @@
   height: 605px;
   overflow-y: auto;
 }
+
+// ----------------
+
+.mat-expanded .mat-expansion-panel-header-title .mat-icon {
+  transform: rotate(90deg);
+}
+
+.campaign-allocation-container {
+  padding-top: 90px;
+}
+
+.campaign-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.campaign-content {
+  font-size: 12px;
+  background-color: #eeeeee;
+}
+
+.task-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-cards {
+  margin-right: 10px;
+  min-width: 220px;
+  max-height: 110px;
+  background-color: #ab94ff;
+  color: #ffffff;
+  font-family: Roboto;
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   getDaysInMonth,
   isSameWeek,
@@ -9,8 +10,10 @@ import {
   endOfMonth,
   differenceInDays,
   startOfWeek,
+  endOfWeek,
 } from 'date-fns';
 import { CalendarService } from '../../services/calendar/calendar.service';
+import { EmployeeAllocationComponent } from '../../shared/employee-allocation/employee-allocation.component';
 
 @Component({
   selector: 'lib-projects',
@@ -24,8 +27,13 @@ export class ProjectsComponent implements OnInit {
   currentMonthTasks: any = [];
   weekDate: Date = new Date();
   monthDate: any = new Date();
+  projectPanelOpenState: boolean = false;
+  campaignPanelOpenState: boolean = false;
 
-  constructor(private calendarService: CalendarService) {
+  constructor(
+    private calendarService: CalendarService,
+    public dialog: MatDialog
+  ) {
     this.calendarView = this.calendarService.calendarView;
     this.currentMonthTasks = this.calendarService.currentMonthProjects;
     this.currentWeekTasks = this.calendarService.currentWeekProjects;
@@ -151,9 +159,31 @@ export class ProjectsComponent implements OnInit {
       );
       width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
+    } else if (isSameWeek(startDate, this.weekDate)) {
+      calculateDifference = differenceInDays(
+        endOfWeek(this.weekDate),
+        startDate
+      );
+      width = (calculateDifference + 1) * eachContainerWidth + 'vw';
+      return width;
     } else {
       width = 7 * eachContainerWidth + 'vw';
       return width;
     }
   };
+
+  openEmployeeDialog() {
+    const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
+      height: '100vh',
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      position: {
+        right: '0',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
