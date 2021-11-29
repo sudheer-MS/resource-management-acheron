@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SampleJson } from '../../dummyfilter';
 import { Campaign } from '../../models/campaigns/campaign';
+import { FilterService } from '../../services/filter/filter.service';
 
 @Component({
   selector: 'lib-filter',
@@ -44,7 +45,10 @@ export class FilterComponent implements OnInit {
   });
   startDate = new FormControl('');
   endDate = new FormControl('');
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private filterService: FilterService
+  ) {
     this.priorityForm = formBuilder.group({
       high: false,
       low: false,
@@ -75,4 +79,10 @@ export class FilterComponent implements OnInit {
       val.toLowerCase().includes(value.toLowerCase())
     );
   }
+  onChangePriorityForm = (priorityForm: FormGroup) => {
+    this.filterService.onChangePriority(priorityForm);
+  };
+  onChangeStatusForm = (statusForm: FormGroup) => {
+    this.filterService.onChangeStatus(statusForm);
+  };
 }
