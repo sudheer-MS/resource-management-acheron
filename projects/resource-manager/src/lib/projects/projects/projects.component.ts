@@ -1,19 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  getDaysInMonth,
-  isSameWeek,
-  isSameMonth,
-  isSameYear,
-  getDay,
-  startOfMonth,
-  endOfMonth,
-  differenceInDays,
-  startOfWeek,
-  endOfWeek,
-} from 'date-fns';
 import { CalendarService } from '../../services/calendar/calendar.service';
-import { EmployeeAllocationComponent } from '../../shared/employee-allocation/employee-allocation.component';
 
 @Component({
   selector: 'lib-projects',
