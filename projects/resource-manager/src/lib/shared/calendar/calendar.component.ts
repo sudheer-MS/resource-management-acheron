@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-
 import {
   differenceInDays,
   endOfMonth,
@@ -16,7 +15,9 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { Campaign } from '../../models/campaigns/campaign';
 import { CalendarService } from '../../services/calendar/calendar.service';
+import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 
@@ -37,22 +38,16 @@ export class CalendarComponent implements OnInit {
   currentMonthDates: Date[] = [];
   currentWeekDates: Date[] = [];
 
-  currentWeekProjects: any[] = [];
-  currentMonthProjects: any[] = [];
+  currentWeekProjects: Campaign[] = [];
+  currentMonthProjects: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  priorityFilter: any = {
-    high: false,
-    low: false,
-  };
-  statusFilter: any = {
-    defined: false,
-    inProgress: false,
-  };
+  @Output() priorityFilter = new EventEmitter();
+  @Output() statusFilter = new EventEmitter();
 
-  @Input() projects: Object[] = [];
+  @Input() projects: Campaign[] = [];
 
   constructor(
     private _calendarService: CalendarService,
@@ -63,6 +58,8 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(new Date());
+
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;

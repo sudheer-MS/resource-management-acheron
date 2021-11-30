@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SampleJson } from '../../dummyfilter';
 import { Campaign } from '../../models/campaigns/campaign';
 import { FilterService } from '../../services/filter/filter.service';
@@ -13,32 +12,42 @@ import { FilterService } from '../../services/filter/filter.service';
 export class FilterComponent implements OnInit {
   campaign: Object[] = [];
   panelOpenState: boolean = false;
-  highFilterCount = 0;
-  lowFilterCount = 0;
-  definedFilterCount = 0;
-  inProgressFilterCount = 0;
-  regionFilterCount = 0;
-
   regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
   regionCopy = this.regions;
   priorityForm: FormGroup;
   regionForm: FormGroup;
   statusForm: FormGroup;
   categoryForm: FormGroup;
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
-  startDate = new FormControl('');
-  endDate = new FormControl('');
+  rangeForm: FormGroup;
+  startDateForm: FormGroup;
+  endDateForm: FormGroup;
 
   @Output() priorityFilter = new EventEmitter();
   @Output() statusFilter = new EventEmitter();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private filterService: FilterService
-  ) {
+  highFilterCount = 0;
+  lowFilterCount = 0;
+  definedFilterCount = 0;
+  inProgressFilterCount = 0;
+  regionFilterCount = 0;
+  ngOnInit(): void {
+    // this.campaign.forEach((campaignVal) => {
+    //   if (campaignVal.priority == 'HIGH') {
+    //     this.highFilterCount++;
+    //   }
+    //   if (campaignVal.priority == 'LOW') {
+    //     this.lowFilterCount++;
+    //   }
+    //   if (campaignVal.status == 'DEFINED') {
+    //     this.definedFilterCount++;
+    //   }
+    //   if (campaignVal.status == 'IN_PROGRESS') {
+    //     this.inProgressFilterCount++;
+    //   }
+    // });
+  }
+
+  constructor(private formBuilder: FormBuilder) {
     this.priorityForm = this.formBuilder.group({
       high: false,
       low: false,
@@ -59,33 +68,26 @@ export class FilterComponent implements OnInit {
       NAC: false,
       EPAC: false,
     });
-  }
-
-  ngOnInit(): void {
-    // this.campaign.forEach((campaignVal) => {
-    //   if (campaignVal.priority == 'HIGH') {
-    //     this.highFilterCount++;
-    //   }
-    //   if (campaignVal.priority == 'LOW') {
-    //     this.lowFilterCount++;
-    //   }
-    //   if (campaignVal.status == 'DEFINED') {
-    //     this.definedFilterCount++;
-    //   }
-    //   if (campaignVal.status == 'IN_PROGRESS') {
-    //     this.inProgressFilterCount++;
-    //   }
-    // });
+    this.rangeForm = this.formBuilder.group({
+      start: new FormControl(),
+      end: new FormControl(),
+    });
+    this.startDateForm = this.formBuilder.group({
+      startDate: new FormControl(''),
+    });
+    this.endDateForm = this.formBuilder.group({
+      endDate: new FormControl(''),
+    });
   }
 
   search(event: any): void {
     let value = (event.target as HTMLInputElement).value;
     this.regions = this.regionCopy;
+
     this.regions = this.regions.filter((val) =>
       val.toLowerCase().includes(value.toLowerCase())
     );
   }
-
   onChangePriority = (priorityForm: FormGroup) => {
     this.priorityFilter.emit(priorityForm.value);
   };
