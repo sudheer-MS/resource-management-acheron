@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 import {
   differenceInDays,
   endOfMonth,
@@ -16,7 +17,6 @@ import {
   startOfWeek,
 } from 'date-fns';
 import { CalendarService } from '../../services/calendar/calendar.service';
-import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 
@@ -43,20 +43,23 @@ export class CalendarComponent implements OnInit {
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  priorityFilter: FormGroup;
-  statusFilter: FormGroup;
+  priorityFilter: any = {
+    high: false,
+    low: false,
+  };
+  statusFilter: any = {
+    defined: false,
+    inProgress: false,
+  };
 
   @Input() projects: Object[] = [];
 
   constructor(
     private _calendarService: CalendarService,
     private headerService: HeaderService,
-    private filterService: FilterService,
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
-    this.priorityFilter = this.filterService.priorityForm;
-    this.statusFilter = this.filterService.statusForm;
   }
 
   ngOnInit(): void {
@@ -85,15 +88,6 @@ export class CalendarComponent implements OnInit {
     );
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
-    );
-
-    this.filterService.priorityForm$.subscribe(
-      (currentPriorityFilter: FormGroup) =>
-        (this.priorityFilter = currentPriorityFilter)
-    );
-    this.filterService.statusForm$.subscribe(
-      (currentStatusFilter: FormGroup) =>
-        (this.statusFilter = currentStatusFilter)
     );
   }
 
