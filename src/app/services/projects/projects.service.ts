@@ -23,6 +23,12 @@ export class ProjectsService {
           campaign.projects.map((project) => {
             project.startDate = new Date(project.startDate);
             project.endDate = new Date(project.endDate);
+            project.tasks.map((task) => {
+              task.startDate = new Date(task.startDate);
+              task.endDate = new Date(task.endDate);
+              return task;
+            });
+            return project;
           });
           return campaign;
         });
