@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SampleJson } from '../../dummyfilter';
 import { Campaign } from '../../models/campaigns/campaign';
@@ -21,6 +21,9 @@ export class FilterComponent implements OnInit {
   rangeForm: FormGroup;
   startDateForm: FormGroup;
   endDateForm: FormGroup;
+
+  @Output() priorityFilter = new EventEmitter();
+  @Output() statusFilter = new EventEmitter();
 
   highFilterCount = 0;
   lowFilterCount = 0;
@@ -45,34 +48,34 @@ export class FilterComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder) {
-    this.priorityForm = formBuilder.group({
+    this.priorityForm = this.formBuilder.group({
       high: false,
       low: false,
     });
-    this.statusForm = formBuilder.group({
+    this.statusForm = this.formBuilder.group({
       defined: false,
       inProgress: false,
     });
-    this.categoryForm = formBuilder.group({
+    this.categoryForm = this.formBuilder.group({
       na: false,
       qa: false,
       series: false,
     });
-    this.regionForm = formBuilder.group({
+    this.regionForm = this.formBuilder.group({
       IMEA: false,
       LATAM: false,
       EMEA: false,
       NAC: false,
       EPAC: false,
     });
-    this.rangeForm = formBuilder.group({
+    this.rangeForm = this.formBuilder.group({
       start: new FormControl(),
       end: new FormControl(),
     });
-    this.startDateForm = formBuilder.group({
+    this.startDateForm = this.formBuilder.group({
       startDate: new FormControl(''),
     });
-    this.endDateForm = formBuilder.group({
+    this.endDateForm = this.formBuilder.group({
       endDate: new FormControl(''),
     });
   }
@@ -85,4 +88,11 @@ export class FilterComponent implements OnInit {
       val.toLowerCase().includes(value.toLowerCase())
     );
   }
+  onChangePriority = (priorityForm: FormGroup) => {
+    this.priorityFilter.emit(priorityForm.value);
+  };
+
+  onChangeStatus = (statusForm: FormGroup) => {
+    this.priorityFilter.emit(statusForm.value);
+  };
 }

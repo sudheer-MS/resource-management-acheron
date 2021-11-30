@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -44,24 +44,22 @@ export class CalendarComponent implements OnInit {
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  priorityFilter: FormGroup;
-  statusFilter: FormGroup;
+  @Output() priorityFilter = new EventEmitter();
+  @Output() statusFilter = new EventEmitter();
 
   @Input() projects: Campaign[] = [];
 
   constructor(
     private _calendarService: CalendarService,
     private headerService: HeaderService,
-    private filterService: FilterService,
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
-    this.priorityFilter = this.filterService.priorityForm;
-    this.statusFilter = this.filterService.statusForm;
   }
 
   ngOnInit(): void {
     console.log(new Date());
+
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
@@ -87,15 +85,6 @@ export class CalendarComponent implements OnInit {
     );
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
-    );
-
-    this.filterService.priorityForm$.subscribe(
-      (currentPriorityFilter: FormGroup) =>
-        (this.priorityFilter = currentPriorityFilter)
-    );
-    this.filterService.statusForm$.subscribe(
-      (currentStatusFilter: FormGroup) =>
-        (this.statusFilter = currentStatusFilter)
     );
   }
 
