@@ -12,8 +12,8 @@ import {
   startOfWeek,
   endOfWeek,
 } from 'date-fns';
+import { Campaign } from '../../models/campaigns/campaign';
 import { CalendarService } from '../../services/calendar/calendar.service';
-import { EmployeeAllocationComponent } from '../../shared/employee-allocation/employee-allocation.component';
 
 @Component({
   selector: 'lib-projects',
@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit {
   weekDate: Date = new Date();
   monthDate: any = new Date();
 
-  @Input() projects: Object[] = [];
+  @Input() projects: Campaign[] = [];
 
   constructor(private calendarService: CalendarService) {
     this.calendarView = this.calendarService.calendarView;

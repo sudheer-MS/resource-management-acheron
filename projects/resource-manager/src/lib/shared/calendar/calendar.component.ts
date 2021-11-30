@@ -15,6 +15,7 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { Campaign } from '../../models/campaigns/campaign';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
@@ -37,8 +38,8 @@ export class CalendarComponent implements OnInit {
   currentMonthDates: Date[] = [];
   currentWeekDates: Date[] = [];
 
-  currentWeekProjects: any[] = [];
-  currentMonthProjects: any[] = [];
+  currentWeekProjects: Campaign[] = [];
+  currentMonthProjects: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
@@ -46,7 +47,7 @@ export class CalendarComponent implements OnInit {
   priorityFilter: FormGroup;
   statusFilter: FormGroup;
 
-  @Input() projects: Object[] = [];
+  @Input() projects: Campaign[] = [];
 
   constructor(
     private _calendarService: CalendarService,
@@ -60,6 +61,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(new Date());
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;

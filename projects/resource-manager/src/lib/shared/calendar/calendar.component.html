@@ -43,13 +43,13 @@
                   {{ campaign.startDate | date: "MMM d" }} -
                   {{ campaign.endDate | date: "MMM d" }}
                 </p>
-                <p>{{ campaign.name }}</p>
+                <p>{{ campaign.campaignName }}</p>
               </div>
               <p>{{ campaign.priority }} PRIORITY</p>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div>
-            <mat-accordion *ngFor="let project of campaign.projectList">
+            <mat-accordion *ngFor="let project of campaign.projects">
               <mat-expansion-panel
                 hideToggle
                 (opened)="projectPanelOpenState = true"
@@ -67,13 +67,13 @@
                         {{ project.startDate | date: "MMM d" }} -
                         {{ project.endDate | date: "MMM d" }}
                       </p>
-                      <p>{{ project.name }}</p>
+                      <p>{{ project.projectName }}</p>
                     </div>
                     <p>{{ project.priority }} PRIORITY</p>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div [ngClass]="'task-container'">
-                  <div *ngFor="let task of project.taskList">
+                  <div *ngFor="let task of project.tasks">
                     <mat-card
                       [ngClass]="'task-cards'"
                       (click)="openEmployeeDialog()"
@@ -89,7 +89,7 @@
                         </div>
                         <div [ngClass]="'task-card-content'">
                           <p>{{ task.priority }}</p>
-                          <p>{{ task.name }}</p>
+                          <p>{{ task.taskName }}</p>
                         </div>
                       </mat-card-content>
                     </mat-card>
@@ -153,13 +153,13 @@
                   {{ campaign.startDate | date: "MMM d" }} -
                   {{ campaign.endDate | date: "MMM d" }}
                 </p>
-                <p>{{ campaign.name }}</p>
+                <p>{{ campaign.campaignName }}</p>
               </div>
               <p>{{ campaign.priority }} PRIORITY</p>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div>
-            <mat-accordion *ngFor="let project of campaign.projectList">
+            <mat-accordion *ngFor="let project of campaign.projects">
               <mat-expansion-panel
                 hideToggle
                 (opened)="projectPanelOpenState = true"
@@ -176,13 +176,13 @@
                         {{ project.startDate | date: "MMM d" }} -
                         {{ project.endDate | date: "MMM d" }}
                       </p>
-                      <p>{{ project.name }}</p>
+                      <p>{{ project.projectName }}</p>
                     </div>
                     <p>{{ project.priority }} PRIORITY</p>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div [ngClass]="'task-container'">
-                  <div *ngFor="let task of project.taskList">
+                  <div *ngFor="let task of project.tasks">
                     <mat-card
                       [ngClass]="'task-cards'"
                       (click)="openEmployeeDialog()"
@@ -198,7 +198,7 @@
                         </div>
                         <div [ngClass]="'task-card-content'">
                           <p>{{ task.priority }}</p>
-                          <p>{{ task.name }}</p>
+                          <p>{{ task.taskName }}</p>
                         </div>
                       </mat-card-content>
                     </mat-card>
