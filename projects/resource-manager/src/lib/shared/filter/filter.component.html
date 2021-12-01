@@ -6,7 +6,7 @@
             </mat-expansion-panel-header>
             <section [formGroup]="priorityForm">
                 <div [ngClass]="'filter-count-container'">
-                    <mat-checkbox formControlName="high" (change)="onChangePriority(priorityForm)">High</mat-checkbox>
+                    <mat-checkbox formControlName="high" (change)="onChangePriority(priorityForm)" [(ngModel)]="uncheckCondition" >High</mat-checkbox>
                     <p>{{ highFilterCount }}</p>
                 </div>
 
