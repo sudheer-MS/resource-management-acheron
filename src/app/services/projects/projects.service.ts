@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Campaign } from 'src/app/models/campaigns/campaign';
 import { map } from 'rxjs/operators';
+import { Project } from 'src/app/models/projects/project';
+import { Task } from 'src/app/models/tasks/task';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +18,13 @@ export class ProjectsService {
     const url = this.BASEURL + '/campaigns';
     return this.httpClient.get<Campaign[]>(url).pipe(
       map((campaigns) => {
-        return campaigns.map((campaign) => {
+        campaigns.map((campaign: Campaign) => {
           campaign.startDate = new Date(campaign.startDate);
           campaign.endDate = new Date(campaign.endDate);
-          campaign.projects.map((project) => {
+          campaign.projects = campaign.projects.map((project: Project) => {
             project.startDate = new Date(project.startDate);
             project.endDate = new Date(project.endDate);
-            project.tasks.map((task) => {
+            project.tasks = project.tasks.map((task: Task) => {
               // task.startDate = new Date(task.startDate);
               // task.endDate = new Date(task.endDate);
               return task;
@@ -31,6 +33,7 @@ export class ProjectsService {
           });
           return campaign;
         });
+        return campaigns;
       })
     );
   };

@@ -29,6 +29,17 @@
     </mat-button-toggle-group>
   </div>
 
+  <div>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let chip of filterChips" [removable]="removable"
+        >{{ chip }}
+        <button matChipRemove>
+          <mat-icon (click)="removeChips(chip)">cancel</mat-icon>
+        </button>
+      </mat-chip></mat-chip-list
+    >
+  </div>
+
   <div [ngClass]="'toolbar'">
     <button
       [ngClass]="'display-fields-button'"

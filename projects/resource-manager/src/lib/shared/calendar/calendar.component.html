@@ -11,6 +11,11 @@
         [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
         *ngFor="let day of currentMonthDates"
       >
+        <div
+          *ngIf="formatDate(day) == currentDate"
+          ngClass="vertical-line"
+          [ngStyle]="{ marginLeft: VerticalTimeLeftSpace() }"
+        ></div>
         <p>{{ day | date: "EEE" }}</p>
         <p>{{ day | date: "d" }}</p>
         <hr />
@@ -18,10 +23,7 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter
-      (priorityFilter)="priorityFilter = $event"
-      (statusFilter)="statusFilter = $event"
-    ></lib-filter>
+    <lib-filter></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion *ngFor="let campaign of currentMonthProjects">
         <mat-expansion-panel
@@ -37,8 +39,8 @@
           }"
         >
           <mat-expansion-panel-header>
-            <mat-panel-title
-              ><mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
+            <mat-panel-title>
+              <mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
             </mat-panel-title>
             <mat-panel-description [ngClass]="'campaign-card'">
               <div [ngClass]="'campaign-card'">
@@ -60,8 +62,8 @@
                 [ngStyle]="{ 'margin-bottom': '10px' }"
               >
                 <mat-expansion-panel-header>
-                  <mat-panel-title
-                    ><mat-icon>navigate_next</mat-icon>
+                  <mat-panel-title>
+                    <mat-icon>navigate_next</mat-icon>
                     {{ project.projectName }}</mat-panel-title
                   >
                   <mat-panel-description [ngClass]="'campaign-card'">
@@ -122,6 +124,11 @@
         "
         *ngFor="let day of currentWeekDates"
       >
+        <div
+          *ngIf="formatDate(day) == currentDate"
+          ngClass="vertical-line"
+          [ngStyle]="{ marginLeft: verticalTimeWeekLeftSpace() }"
+        ></div>
         <p>{{ day | date: "EEEE" }}</p>
         <p>{{ day | date: "d" }}-{{ day | date: "MMM" }}</p>
         <hr />
@@ -129,10 +136,7 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter
-      (priorityFilter)="priorityFilter = $event"
-      (statusFilter)="statusFilter = $event"
-    ></lib-filter>
+    <lib-filter></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion
         *ngFor="let campaign of currentWeekProjects"
@@ -150,8 +154,8 @@
           }"
         >
           <mat-expansion-panel-header>
-            <mat-panel-title
-              ><mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
+            <mat-panel-title>
+              <mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
             </mat-panel-title>
             <mat-panel-description [ngClass]="'campaign-card'">
               <div [ngClass]="'campaign-card'">
@@ -172,8 +176,8 @@
                 (closed)="projectPanelOpenState = false"
               >
                 <mat-expansion-panel-header>
-                  <mat-panel-title
-                    ><mat-icon>navigate_next</mat-icon>
+                  <mat-panel-title>
+                    <mat-icon>navigate_next</mat-icon>
                     {{ project.projectName }}</mat-panel-title
                   >
                   <mat-panel-description [ngClass]="'campaign-card'">

@@ -137,3 +137,9 @@
   font-family: Roboto;
   cursor: pointer;
 }
+
+.vertical-line {
+  border-left: 1px solid green;
+  height: 100%;
+  position: absolute;
+}

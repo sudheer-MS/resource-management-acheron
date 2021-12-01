@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 import {
   differenceInDays,
+  differenceInHours,
   endOfMonth,
   endOfWeek,
   format,
@@ -15,7 +17,11 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { of } from 'rxjs';
 import { Campaign } from '../../models/campaigns/campaign';
+import { Priority } from '../../models/filter-models/priority/priority';
+import { Status } from '../../models/filter-models/status/status';
+import { Project } from '../../models/projects/project';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
@@ -38,28 +44,40 @@ export class CalendarComponent implements OnInit {
   currentMonthDates: Date[] = [];
   currentWeekDates: Date[] = [];
 
-  currentWeekProjects: Campaign[] = [];
-  currentMonthProjects: Campaign[] = [];
+  currentWeekProjects: any[] = [];
+  currentMonthProjects: any[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  @Output() priorityFilter = new EventEmitter();
-  @Output() statusFilter = new EventEmitter();
+  priorityFilter: Priority;
+  statusFilter: Status;
 
-  @Input() projects: Campaign[] = [];
+  @Input() projects: Object[] = [];
 
   constructor(
     private _calendarService: CalendarService,
     private headerService: HeaderService,
+    private _filterService: FilterService,
+
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
+    this.priorityFilter = {
+      high: false,
+      low: false,
+      medium: false,
+    };
+    this.statusFilter = {
+      defined: false,
+      inProgress: false,
+      completed: false,
+      onHold: false,
+    };
   }
 
   ngOnInit(): void {
-    console.log(new Date());
-
+    this.VerticalTimeLeftSpace();
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
@@ -85,6 +103,12 @@ export class CalendarComponent implements OnInit {
     );
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
+    );
+    this._filterService.priorityFilter$.subscribe(
+      (priorityFilter: Priority) => (this.priorityFilter = priorityFilter)
+    );
+    this._filterService.statusFilter$.subscribe(
+      (statusFilter: Status) => (this.statusFilter = statusFilter)
     );
   }
 
@@ -115,6 +139,15 @@ export class CalendarComponent implements OnInit {
         })
     );
   };
+
+  onChangePriorityFilter = () => {
+    for (let [key, value] of Object.entries(this.priorityFilter)) {
+      if (value == true) {
+        this.currentMonthProjects.filter((campaign: Campaign) => {});
+      }
+    }
+  };
+  onChangeStatusFilter = () => {};
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;
@@ -245,4 +278,36 @@ export class CalendarComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  VerticalTimeLeftSpace = () => {
+    const currentDateTime = new Date();
+    let eachContainerWidth = 85 / getDaysInMonth(this.monthDate);
+    const eachHourWidth = eachContainerWidth / 24;
+    const hoursDifference = differenceInHours(
+      currentDateTime,
+      new Date(
+        currentDateTime.getFullYear(),
+        currentDateTime.getMonth(),
+        currentDateTime.getDate()
+      )
+    );
+    const leftSpace = eachHourWidth * hoursDifference;
+    return `${leftSpace}vw`;
+  };
+
+  verticalTimeWeekLeftSpace = () => {
+    const currentDateTime = new Date();
+    let eachContainerWidth = 85 / 7;
+    const eachHourWidth = eachContainerWidth / 24;
+    const hoursDifference = differenceInHours(
+      currentDateTime,
+      new Date(
+        currentDateTime.getFullYear(),
+        currentDateTime.getMonth(),
+        currentDateTime.getDate()
+      )
+    );
+    const leftSpace = eachHourWidth * hoursDifference;
+    return `${leftSpace}vw`;
+  };
 }
