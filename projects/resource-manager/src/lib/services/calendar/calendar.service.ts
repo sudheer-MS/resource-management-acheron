@@ -72,6 +72,7 @@ export class CalendarService {
       return range;
     };
   };
+
   getWeekData = (date: Date): Date[] => {
     this.currentWeekDates = this.takeWeek(date)();
     return this.currentWeekDates;
