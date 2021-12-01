@@ -118,19 +118,30 @@ export class HeaderComponent implements OnInit {
 
     this.filterSevice.priorityFilter$.subscribe((priorityFilter: Priority) => {
       this.priorityFilter = priorityFilter;
-      this.onchangefilter();
+      this.onchangePriorityFilter();
     });
     this.filterSevice.statusFilter$.subscribe((statusFilter: Status) => {
       this.statusFilter = statusFilter;
-      this.onchangefilter();
+      this.onchangeStatusFilter();
     });
   }
 
-  onchangefilter() {
-    this.priorityFilter;
-    this.statusFilter;
-
+  onchangePriorityFilter() {
     for (let [key, value] of Object.entries(this.priorityFilter)) {
+      if (value == true) {
+        if (!this.filterChips.includes(key)) {
+          this.filterChips.push(key);
+        }
+      } else if (value == false) {
+        if (this.filterChips.includes(key)) {
+          this.filterChips = this.filterChips.filter((chip) => key != chip);
+        }
+      }
+    }
+  }
+
+  onchangeStatusFilter() {
+    for (let [key, value] of Object.entries(this.statusFilter)) {
       if (value == true) {
         if (!this.filterChips.includes(key)) {
           this.filterChips.push(key);

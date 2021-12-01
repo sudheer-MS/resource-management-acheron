@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import {
   differenceInDays,
+  differenceInHours,
   endOfMonth,
   endOfWeek,
   format,
@@ -54,6 +55,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.VerticalTimeLeftSpace();
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
@@ -239,4 +241,36 @@ export class CalendarComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  VerticalTimeLeftSpace = () => {
+    const currentDateTime = new Date();
+    let eachContainerWidth = 85 / getDaysInMonth(this.monthDate);
+    const eachHourWidth = eachContainerWidth / 24;
+    const hoursDifference = differenceInHours(
+      currentDateTime,
+      new Date(
+        currentDateTime.getFullYear(),
+        currentDateTime.getMonth(),
+        currentDateTime.getDate()
+      )
+    );
+    const leftSpace = eachHourWidth * hoursDifference;
+    return `${leftSpace}vw`;
+  };
+
+  verticalTimeWeekLeftSpace = () => {
+    const currentDateTime = new Date();
+    let eachContainerWidth = 85 / 7;
+    const eachHourWidth = eachContainerWidth / 24;
+    const hoursDifference = differenceInHours(
+      currentDateTime,
+      new Date(
+        currentDateTime.getFullYear(),
+        currentDateTime.getMonth(),
+        currentDateTime.getDate()
+      )
+    );
+    const leftSpace = eachHourWidth * hoursDifference;
+    return `${leftSpace}vw`;
+  };
 }

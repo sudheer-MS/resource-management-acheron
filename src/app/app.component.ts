@@ -140,7 +140,6 @@ export class AppComponent {
     this.projectsService
       .getAllProjects()
       .subscribe((responseProjects: Campaign[]) => {
-        console.log(responseProjects);
         this.projects = responseProjects;
       });
   }

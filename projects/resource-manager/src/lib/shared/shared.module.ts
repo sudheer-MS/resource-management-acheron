@@ -26,7 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatNativeDateModule,
     MatRadioModule,
     MatTooltipModule,
-    MatCardModule,MatChipsModule,
+    MatCardModule,
+    MatChipsModule,
   ],
   exports: [
     CommonModule,

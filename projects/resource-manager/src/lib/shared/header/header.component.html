@@ -1,8 +1,3 @@
-
-{{priorityFilter|json}}
-{{statusFilter|json}}
-
-
 <mat-toolbar [ngClass]="'toolbar'">
   <div [ngClass]="'toolbar'">
     <h1
@@ -34,17 +29,16 @@
     </mat-button-toggle-group>
   </div>
 
-
-  <div>  
+  <div>
     <mat-chip-list #chipList>
-      <mat-chip *ngFor="let chip of filterChips" [removable]="removable" >{{chip}}
-        <button matChipRemove >
-          <mat-icon >cancel</mat-icon>
+      <mat-chip *ngFor="let chip of filterChips" [removable]="removable"
+        >{{ chip }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
         </button>
-     </mat-chip></mat-chip-list></div>
-
-
-
+      </mat-chip></mat-chip-list
+    >
+  </div>
 
   <div [ngClass]="'toolbar'">
     <button
