@@ -1,6 +1,7 @@
 import { AvailableStatus } from '../enums/available-status';
 
 export class Availability {
+  static CUSTOM: any;
   public constructor(
     public availableId: number,
     public availableType: string,
