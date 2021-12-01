@@ -14,7 +14,7 @@ export class ProjectsService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProjects = (): Observable<Campaign[]> => {
-    const url = this.BASEURL + '/campaignVO';
+    const url = this.BASEURL + '/campaigns';
     return this.httpClient.get<Campaign[]>(url).pipe(
       map((campaigns) => {
         return campaigns.map((campaign) => {
@@ -24,8 +24,8 @@ export class ProjectsService {
             project.startDate = new Date(project.startDate);
             project.endDate = new Date(project.endDate);
             project.tasks.map((task) => {
-              task.startDate = new Date(task.startDate);
-              task.endDate = new Date(task.endDate);
+              // task.startDate = new Date(task.startDate);
+              // task.endDate = new Date(task.endDate);
               return task;
             });
             return project;
