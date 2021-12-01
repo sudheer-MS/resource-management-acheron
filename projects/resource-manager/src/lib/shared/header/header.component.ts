@@ -17,10 +17,10 @@ import { Status } from '../../models/filter-models/status/status';
 })
 export class HeaderComponent implements OnInit {
   calendarView: string;
-removable=false;
+  removable = false;
   monthDate: Date = new Date();
   weekDate: Date = new Date();
-  filterChips:string[]=[]
+  filterChips: string[] = [];
 
   priorityFilter: Priority = {
     high: false,
@@ -34,10 +34,11 @@ removable=false;
     completed: false,
     onHold: false,
   };
-    constructor(
+  constructor(
     public dialog: MatDialog,
     private calendarService: CalendarService,
-    private headerService: HeaderService,private filterSevice:FilterService
+    private headerService: HeaderService,
+    private filterSevice: FilterService
   ) {
     this.calendarView = this.calendarService.calendarView;
   }
@@ -115,44 +116,30 @@ removable=false;
       (currentWeekDate: Date) => (this.weekDate = currentWeekDate)
     );
 
-    this.filterSevice.priorityFilter$.subscribe((priorityFilter:Priority)=>{
-      this.priorityFilter=priorityFilter
-      this.onchangefilter()
-    })
-    this.filterSevice.statusFilter$.subscribe((statusFilter:Status)=>{
-      this.statusFilter=statusFilter
-      this.onchangefilter()
-
-    })
-
-
-  
+    this.filterSevice.priorityFilter$.subscribe((priorityFilter: Priority) => {
+      this.priorityFilter = priorityFilter;
+      this.onchangefilter();
+    });
+    this.filterSevice.statusFilter$.subscribe((statusFilter: Status) => {
+      this.statusFilter = statusFilter;
+      this.onchangefilter();
+    });
   }
 
+  onchangefilter() {
+    this.priorityFilter;
+    this.statusFilter;
 
-  onchangefilter(){
-    this.priorityFilter
-    this.statusFilter
-   
     for (let [key, value] of Object.entries(this.priorityFilter)) {
-      console.log(key, value);
-      if(value==true){
-        if(!this.filterChips.includes(key)){
-          this.filterChips.push(key)
-        
+      if (value == true) {
+        if (!this.filterChips.includes(key)) {
+          this.filterChips.push(key);
         }
-        
-
+      } else if (value == false) {
+        if (this.filterChips.includes(key)) {
+          this.filterChips = this.filterChips.filter((chip) => key != chip);
+        }
       }
-      else if( value==false) {
-       this.filterChips.filter((chip)=>
-         key!=chip
-       )
-      }
-   
-     
-      
-      
-  }
+    }
   }
 }
