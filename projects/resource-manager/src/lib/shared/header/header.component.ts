@@ -117,11 +117,11 @@ removable=false;
 
     this.filterSevice.priorityFilter$.subscribe((priorityFilter:Priority)=>{
       this.priorityFilter=priorityFilter
-      this.onchangefilter()
+      this.onchangePriorityFilter()
     })
     this.filterSevice.statusFilter$.subscribe((statusFilter:Status)=>{
       this.statusFilter=statusFilter
-      this.onchangefilter()
+      this.onchangeStatusFilter()
 
     })
 
@@ -130,29 +130,32 @@ removable=false;
   }
 
 
-  onchangefilter(){
-    this.priorityFilter
-    this.statusFilter
-   
+  onchangePriorityFilter() {
+    
     for (let [key, value] of Object.entries(this.priorityFilter)) {
-      console.log(key, value);
-      if(value==true){
-        if(!this.filterChips.includes(key)){
-          this.filterChips.push(key)
-        
+      if (value == true) {
+        if (!this.filterChips.includes(key)) {
+          this.filterChips.push(key);
         }
-        
-
+      } else if (value == false) {
+        if (this.filterChips.includes(key)) {
+          this.filterChips = this.filterChips.filter((chip) => key != chip);
+        }
       }
-      else if( value==false) {
-       this.filterChips.filter((chip)=>
-         key!=chip
-       )
-      }
-   
-     
-      
-      
+    }
   }
+
+  onchangeStatusFilter(){
+    for (let [key, value] of Object.entries(this.statusFilter)) {
+      if (value == true) {
+        if (!this.filterChips.includes(key)) {
+          this.filterChips.push(key);
+        }
+      } else if (value == false) {
+        if (this.filterChips.includes(key)) {
+          this.filterChips = this.filterChips.filter((chip) => key != chip);
+        }
+      }
+    }
   }
 }
