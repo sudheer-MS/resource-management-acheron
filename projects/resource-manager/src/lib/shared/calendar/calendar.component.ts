@@ -58,8 +58,6 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(new Date());
-
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
