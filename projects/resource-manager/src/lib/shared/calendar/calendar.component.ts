@@ -47,11 +47,11 @@ export class CalendarComponent implements OnInit {
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  // @Output() priorityFilter = new EventEmitter();
-  // @Output() statusFilter = new EventEmitter();
+  @Output() priorityFilter = new EventEmitter();
+  @Output() statusFilter = new EventEmitter();
 
   @Input() projects: Campaign[] = [];
-  @Input() resources: Resource[]=[];
+  @Input() resources: Resource[] = [];
 
   constructor(
     private _calendarService: CalendarService,

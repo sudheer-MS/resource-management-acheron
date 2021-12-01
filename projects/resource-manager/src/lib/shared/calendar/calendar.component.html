@@ -25,7 +25,7 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter></lib-filter>
+    <lib-filter ></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion *ngFor="let campaign of currentMonthProjects">
         <mat-expansion-panel
