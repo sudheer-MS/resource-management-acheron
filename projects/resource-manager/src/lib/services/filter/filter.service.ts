@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { Priority } from '../../models/filter-models/priority/priority';
 import { Status } from '../../models/filter-models/status/status';
@@ -27,4 +26,14 @@ export class FilterService {
   );
 
   constructor() {}
+
+  onChangePriorityFilter = (priorityForm: Priority) => {
+    this.priorityFilter = priorityForm;
+    this.priorityFilter$.next(this.priorityFilter);
+  };
+
+  onChangeStatusFilter = (statusForm: Status) => {
+    this.statusFilter = statusForm;
+    this.statusFilter$.next(this.statusFilter);
+  };
 }
