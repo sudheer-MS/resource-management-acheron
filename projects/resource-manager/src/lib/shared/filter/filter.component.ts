@@ -22,9 +22,6 @@ export class FilterComponent implements OnInit {
   startDateForm: FormGroup;
   endDateForm: FormGroup;
 
-  @Output() priorityFilter = new EventEmitter();
-  @Output() statusFilter = new EventEmitter();
-
   highFilterCount = 0;
   lowFilterCount = 0;
   definedFilterCount = 0;
@@ -51,10 +48,13 @@ export class FilterComponent implements OnInit {
     this.priorityForm = this.formBuilder.group({
       high: false,
       low: false,
+      medium: false,
     });
     this.statusForm = this.formBuilder.group({
       defined: false,
       inProgress: false,
+      completed: false,
+      onHold: false,
     });
     this.categoryForm = this.formBuilder.group({
       na: false,
@@ -88,11 +88,7 @@ export class FilterComponent implements OnInit {
       val.toLowerCase().includes(value.toLowerCase())
     );
   }
-  onChangePriority = (priorityForm: FormGroup) => {
-    this.priorityFilter.emit(priorityForm.value);
-  };
+  onChangePriority = () => {};
 
-  onChangeStatus = (statusForm: FormGroup) => {
-    this.priorityFilter.emit(statusForm.value);
-  };
+  onChangeStatus = () => {};
 }
