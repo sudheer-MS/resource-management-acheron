@@ -14,6 +14,11 @@
                     <mat-checkbox formControlName="low" (change)="onChangePriority(priorityForm)">Low</mat-checkbox>
                     <p>{{ lowFilterCount }}</p>
                 </div>
+
+                <div [ngClass]="'filter-count-container'">
+                    <mat-checkbox formControlName="medium" (change)="onChangePriority(priorityForm)">Medium</mat-checkbox>
+                    <p>{{ lowFilterCount }}</p>
+                </div>
             </section>
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -39,12 +44,22 @@
             </mat-expansion-panel-header>
             <section [formGroup]="statusForm">
                 <div [ngClass]="'filter-count-container'">
-                    <mat-checkbox formControlName="defined">Defined</mat-checkbox>
+                    <mat-checkbox formControlName="defined" (change)="onChangeStatus(statusForm)">Defined</mat-checkbox>
                     <p>{{ definedFilterCount }}</p>
                 </div>
 
                 <div [ngClass]="'filter-count-container'">
-                    <mat-checkbox formControlName="inProgress">In Progress</mat-checkbox>
+                    <mat-checkbox formControlName="inProgress" (change)="onChangeStatus(statusForm)">In Progress</mat-checkbox>
+                    <p>{{ inProgressFilterCount }}</p>
+                </div>
+
+                <div [ngClass]="'filter-count-container'">
+                    <mat-checkbox formControlName="completed" (change)="onChangeStatus(statusForm)">Completed</mat-checkbox>
+                    <p>{{ inProgressFilterCount }}</p>
+                </div>
+
+                <div [ngClass]="'filter-count-container'">
+                    <mat-checkbox formControlName="onHold">OnHold</mat-checkbox>
                     <p>{{ inProgressFilterCount }}</p>
                 </div>
             </section>
