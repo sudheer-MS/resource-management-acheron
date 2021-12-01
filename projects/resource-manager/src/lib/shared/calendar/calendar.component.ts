@@ -17,7 +17,13 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { of } from 'rxjs';
+import { Campaign } from '../../models/campaigns/campaign';
+import { Priority } from '../../models/filter-models/priority/priority';
+import { Status } from '../../models/filter-models/status/status';
+import { Project } from '../../models/projects/project';
 import { CalendarService } from '../../services/calendar/calendar.service';
+import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 
@@ -44,14 +50,30 @@ export class CalendarComponent implements OnInit {
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
+  priorityFilter: Priority;
+  statusFilter: Status;
+
   @Input() projects: Object[] = [];
 
   constructor(
     private _calendarService: CalendarService,
     private headerService: HeaderService,
+    private _filterService: FilterService,
+
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
+    this.priorityFilter = {
+      high: false,
+      low: false,
+      medium: false,
+    };
+    this.statusFilter = {
+      defined: false,
+      inProgress: false,
+      completed: false,
+      onHold: false,
+    };
   }
 
   ngOnInit(): void {
@@ -82,6 +104,12 @@ export class CalendarComponent implements OnInit {
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
     );
+    this._filterService.priorityFilter$.subscribe(
+      (priorityFilter: Priority) => (this.priorityFilter = priorityFilter)
+    );
+    this._filterService.statusFilter$.subscribe(
+      (statusFilter: Status) => (this.statusFilter = statusFilter)
+    );
   }
 
   formatDate = (date: Date) => {
@@ -111,6 +139,15 @@ export class CalendarComponent implements OnInit {
         })
     );
   };
+
+  onChangePriorityFilter = () => {
+    for (let [key, value] of Object.entries(this.priorityFilter)) {
+      if (value == true) {
+        this.currentMonthProjects.filter((campaign: Campaign) => {});
+      }
+    }
+  };
+  onChangeStatusFilter = () => {};
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;

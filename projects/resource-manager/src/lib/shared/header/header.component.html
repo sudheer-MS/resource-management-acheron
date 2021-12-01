@@ -34,7 +34,7 @@
       <mat-chip *ngFor="let chip of filterChips" [removable]="removable"
         >{{ chip }}
         <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
+          <mat-icon (click)="removeChips(chip)">cancel</mat-icon>
         </button>
       </mat-chip></mat-chip-list
     >

@@ -8,6 +8,7 @@ import { CalendarService } from '../../services/calendar/calendar.service';
 import { HeaderService } from '../../services/header/header.service';
 import { Priority } from '../../models/filter-models/priority/priority';
 import { Status } from '../../models/filter-models/status/status';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'lib-header',
@@ -38,7 +39,7 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     private calendarService: CalendarService,
     private headerService: HeaderService,
-    private filterSevice: FilterService
+    private filterService: FilterService
   ) {
     this.calendarView = this.calendarService.calendarView;
   }
@@ -116,11 +117,11 @@ export class HeaderComponent implements OnInit {
       (currentWeekDate: Date) => (this.weekDate = currentWeekDate)
     );
 
-    this.filterSevice.priorityFilter$.subscribe((priorityFilter: Priority) => {
+    this.filterService.priorityFilter$.subscribe((priorityFilter: Priority) => {
       this.priorityFilter = priorityFilter;
       this.onchangePriorityFilter();
     });
-    this.filterSevice.statusFilter$.subscribe((statusFilter: Status) => {
+    this.filterService.statusFilter$.subscribe((statusFilter: Status) => {
       this.statusFilter = statusFilter;
       this.onchangeStatusFilter();
     });
@@ -152,5 +153,30 @@ export class HeaderComponent implements OnInit {
         }
       }
     }
+  }
+
+  removeChips(event: any) {
+    console.log('out');
+    // for (let [key, value] of Object.entries(this.statusFilter)) {
+    //  if (value == true ) {
+    //     if (this.filterChips.includes(key)) {
+    //       this.filterChips = this.filterChips.filter((chip) => key != chip);
+    //       console.log("in")
+    //     }
+    //   }
+    // }
+    this.filterChips;
+    console.log(event);
+    if (true) {
+      let v = this.priorityFilter;
+      if (this.filterChips.includes(event)) {
+        this.filterChips = this.filterChips.filter((chip) => event != chip);
+        this.filterService.unchecked.next(false);
+      }
+    }
+  }
+
+  high(ob: MatCheckboxChange) {
+    let v = true;
   }
 }

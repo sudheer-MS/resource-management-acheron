@@ -15,7 +15,7 @@ export class ProjectsService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProjects = (): Observable<Campaign[]> => {
-    const url = this.BASEURL + '/campaignVO';
+    const url = this.BASEURL + '/campaigns';
     return this.httpClient.get<Campaign[]>(url).pipe(
       map((campaigns) => {
         campaigns.map((campaign: Campaign) => {
