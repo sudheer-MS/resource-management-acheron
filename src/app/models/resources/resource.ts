@@ -7,10 +7,10 @@ export class Resource {
     public resourceId: number,
     public resourceName: string,
     public resourceType: string,
-    public taskList: Set<Task>,
     public resourceImage: string,
     public availability: Availability,
     public region: string,
-    public leave: Leave
+    public leave: Leave,
+    public taskList?: Task[]
   ) {}
 }

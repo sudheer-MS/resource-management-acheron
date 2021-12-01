@@ -6,16 +6,18 @@
         <mat-icon> unfold_less</mat-icon>
       </p>
     </div>
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'resources'">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Employees</mat-label>
+        <input matInput placeholder="Enter Employee Name" />
+        <mat-icon matPrefix>people</mat-icon>
+      </mat-form-field>
+    </div>
     <div ngClass="month-dates-container">
       <div
         [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
         *ngFor="let day of currentMonthDates"
       >
-        <div
-          *ngIf="formatDate(day) == currentDate"
-          ngClass="vertical-line"
-          [ngStyle]="{ marginLeft: VerticalTimeLeftSpace() }"
-        ></div>
         <p>{{ day | date: "EEE" }}</p>
         <p>{{ day | date: "d" }}</p>
         <hr />
@@ -107,6 +109,33 @@
       </mat-accordion>
     </div>
   </div>
+  <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
+    <div *ngFor="let resource of resources" ngClass="resource-container">
+      <mat-card ngClass="resource-info-card">
+        <img
+          [src]="resource.resourceImage"
+          ngClass="resource-image"
+          alt="employee-img"
+        />
+        <div>
+          <p>{{ resource.resourceName }}</p>
+          <p>{{ resource.resourceType }}</p>
+        </div>
+      </mat-card>
+      <div ngClass="availability-container">
+        <mat-card
+          [ngClass]="'task-cards'"
+          *ngFor="let task of resource.taskList"
+        >
+          <p>{{ task.taskName }}</p>
+        </mat-card>
+        <mat-card [ngClass]="'availability-card'">
+          <p>Available</p>
+          <p>{{ resource.availability.availableHours }} Hours per day</p>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="calendarView == 'week'">
@@ -117,6 +146,13 @@
         <mat-icon> unfold_less</mat-icon>
       </p>
     </div>
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'resources'">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Employees</mat-label>
+        <input matInput placeholder="Enter Employee Name" />
+        <mat-icon matPrefix>people</mat-icon>
+      </mat-form-field>
+    </div>
     <div ngClass="week-dates-container">
       <div
         [ngClass]="
@@ -124,11 +160,6 @@
         "
         *ngFor="let day of currentWeekDates"
       >
-        <div
-          *ngIf="formatDate(day) == currentDate"
-          ngClass="vertical-line"
-          [ngStyle]="{ marginLeft: verticalTimeWeekLeftSpace() }"
-        ></div>
         <p>{{ day | date: "EEEE" }}</p>
         <p>{{ day | date: "d" }}-{{ day | date: "MMM" }}</p>
         <hr />
@@ -219,6 +250,22 @@
           </div>
         </mat-expansion-panel>
       </mat-accordion>
+    </div>
+  </div>
+  <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
+    <div *ngFor="let resource of resources">
+      <mat-card ngClass="resource-info-card">
+        <img
+          [src]="resource.resourceImage"
+          ngClass="resource-image"
+          alt="employee-img"
+        />
+        <div>
+          <p>{{ resource.resourceName }}</p>
+          <p>{{ resource.resourceType }}</p>
+        </div>
+      </mat-card>
+      <hr />
     </div>
   </div>
 </div>

@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -17,11 +16,9 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
-import { of } from 'rxjs';
+
 import { Campaign } from '../../models/campaigns/campaign';
-import { Priority } from '../../models/filter-models/priority/priority';
-import { Status } from '../../models/filter-models/status/status';
-import { Project } from '../../models/projects/project';
+import { Resource } from '../../models/resources/resource';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
@@ -50,10 +47,11 @@ export class CalendarComponent implements OnInit {
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  priorityFilter: Priority;
-  statusFilter: Status;
+  // @Output() priorityFilter = new EventEmitter();
+  // @Output() statusFilter = new EventEmitter();
 
-  @Input() projects: Object[] = [];
+  @Input() projects: Campaign[] = [];
+  @Input() resources: Resource[]=[];
 
   constructor(
     private _calendarService: CalendarService,
@@ -63,17 +61,17 @@ export class CalendarComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
-    this.priorityFilter = {
-      high: false,
-      low: false,
-      medium: false,
-    };
-    this.statusFilter = {
-      defined: false,
-      inProgress: false,
-      completed: false,
-      onHold: false,
-    };
+    // this.priorityFilter = {
+    //   high: false,
+    //   low: false,
+    //   medium: false,
+    // };
+    // this.statusFilter = {
+    //   defined: false,
+    //   inProgress: false,
+    //   completed: false,
+    //   onHold: false,
+    // };
   }
 
   ngOnInit(): void {
@@ -104,12 +102,12 @@ export class CalendarComponent implements OnInit {
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
     );
-    this._filterService.priorityFilter$.subscribe(
-      (priorityFilter: Priority) => (this.priorityFilter = priorityFilter)
-    );
-    this._filterService.statusFilter$.subscribe(
-      (statusFilter: Status) => (this.statusFilter = statusFilter)
-    );
+    // this._filterService.priorityFilter$.subscribe(
+    //   (priorityFilter: Priority) => (this.priorityFilter = priorityFilter)
+    // );
+    // this._filterService.statusFilter$.subscribe(
+    //   (statusFilter: Status) => (this.statusFilter = statusFilter)
+    // );
   }
 
   formatDate = (date: Date) => {
@@ -140,14 +138,14 @@ export class CalendarComponent implements OnInit {
     );
   };
 
-  onChangePriorityFilter = () => {
-    for (let [key, value] of Object.entries(this.priorityFilter)) {
-      if (value == true) {
-        this.currentMonthProjects.filter((campaign: Campaign) => {});
-      }
-    }
-  };
-  onChangeStatusFilter = () => {};
+  // onChangePriorityFilter = () => {
+  //   for (let [key, value] of Object.entries(this.priorityFilter)) {
+  //     if (value == true) {
+  //       this.currentMonthProjects.filter((campaign: Campaign) => {});
+  //     }
+  //   }
+  // };
+  // onChangeStatusFilter = () => {};
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;

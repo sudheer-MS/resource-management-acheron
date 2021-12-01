@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Campaign } from './models/campaigns/campaign';
+import { Resource } from './models/resources/resource';
 import { HeaderService } from './services/header/header.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ResourceManagerComponent implements OnInit {
   tabValue: string;
 
   @Input() projects: Campaign[] = [];
-  @Input() resources: Object[] = [];
+  @Input() resources: Resource[] = [];
 
   constructor(private headerService: HeaderService) {
     this.tabValue = this.headerService.tabValue;

@@ -85,12 +85,18 @@
   font-size: 16px;
 }
 
-//
-//
 .filter-projects-container {
   display: flex;
   flex-direction: row;
   padding-top: 66px;
+}
+
+.filter-resources-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 66px;
+  overflow-y: scroll;
+  position: relative;
 }
 
 .projects-container {
@@ -138,8 +144,45 @@
   cursor: pointer;
 }
 
-.vertical-line {
-  border-left: 1px solid green;
-  height: 100%;
-  position: absolute;
+.filter-resource {
+  width: 14.9vw;
+  height: 605px;
+  background-color: #fafafa;
+  border: solid 1px rgb(194, 193, 193);
+}
+
+.resource-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(143, 143, 143);
+}
+
+.availability-container {
+  width: 85vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.resource-info-card {
+  width: 15vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.resource-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10%;
+}
+
+
+.availability-card{
+  background-color: rgb(5, 172, 5);
+  margin-right: 10px;
+  min-width: 220px;
+  max-height: 110px;
+  color: #ffffff;
+  font-family: Roboto;
+  cursor: pointer;
 }

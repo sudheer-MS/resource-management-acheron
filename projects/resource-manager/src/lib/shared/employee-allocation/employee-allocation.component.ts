@@ -4,9 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Availability } from '../../models/availability/availability';
 import { Resource } from '../../models/resources/resource';
 
-
-
-
 @Component({
   selector: 'lib-employee-allocation',
   templateUrl: './employee-allocation.component.html',
@@ -30,26 +27,7 @@ export class EmployeeAllocationComponent implements OnInit {
   }
   startDate = new Date(1990, 0, 1);
   selectedValue: string = '';
-  resources: Resource[] = [
-    {
-      resourceId: 1,
-      resourceName: 'James',
-      resourceType: 'Chef',
-      availability: Availability.CUSTOM,
-    },
-    {
-      resourceId: 2,
-      resourceName: 'Andy',
-      resourceType: 'Driver',
-      availability: Availability.CUSTOM,
-    },
-    {
-      resourceId: 3,
-      resourceName: 'Sam',
-      resourceType: 'Chef',
-      availability: Availability.CUSTOM,
-    },
-  ];
+  resources: Resource[] = [];
   statuses: string[] = ['DEFINED', 'IN_PROGRESS'];
   priorities: string[] = ['LOW', 'MEDIUM', 'HIGH'];
   ngOnInit(): void {}
