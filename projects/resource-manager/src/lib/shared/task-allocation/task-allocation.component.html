@@ -71,10 +71,7 @@
       <div [ngClass]="'each-row-container'">
         <div>
           <p [ngClass]="'label-name'">Actual Start Date</p>
-          <mat-form-field
-            appearance="fill"
-            [ngClass]="'label-margin'"
-          >
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
             <mat-label>Choose a date</mat-label>
             <input
               matInput
@@ -108,10 +105,7 @@
       <div [ngClass]="'each-row-container'">
         <div>
           <p [ngClass]="'label-name'">Allocation</p>
-          <mat-form-field
-            appearance="fill"
-            [ngClass]="'label-margin'"
-          >
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
             <mat-label>Select</mat-label>
             <mat-select formControlName="allocation">
               <mat-option value="one">Role</mat-option>
@@ -130,10 +124,7 @@
       <div [ngClass]="'each-row-container'">
         <div>
           <p [ngClass]="'label-name'">Status</p>
-          <mat-form-field
-            appearance="fill"
-            [ngClass]="'label-margin'"
-          >
+          <mat-form-field appearance="fill" [ngClass]="'label-margin'">
             <mat-label>Select</mat-label>
             <mat-select formControlName="status">
               <mat-option value="one">INPROGRESS</mat-option>
@@ -175,7 +166,6 @@
         mat-dialog-close
         color="primary"
         [ngClass]="'button'"
-        
       >
         Cancel
       </button>
