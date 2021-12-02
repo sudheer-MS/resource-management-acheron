@@ -122,7 +122,7 @@
           <p>{{ resource.resourceType }}</p>
         </div>
       </mat-card>
-      <div ngClass="availability-container">
+      <div ngClass="availability-container" >
         <mat-card
           [ngClass]="'task-cards'"
           *ngFor="let task of resource.taskList"
@@ -253,7 +253,7 @@
     </div>
   </div>
   <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
-    <div *ngFor="let resource of resources">
+    <div *ngFor="let resource of resources" ngClass="resource-container">
       <mat-card ngClass="resource-info-card">
         <img
           [src]="resource.resourceImage"
@@ -265,7 +265,18 @@
           <p>{{ resource.resourceType }}</p>
         </div>
       </mat-card>
-      <hr />
+      <div ngClass="availability-container">
+        <mat-card
+          [ngClass]="'task-cards'"
+          *ngFor="let task of resource.taskList"
+        >
+          <p>{{ task.taskName }}</p>
+        </mat-card>
+        <mat-card [ngClass]="'availability-card'">
+          <p>Available</p>
+          <p>{{ resource.availability.availableHours }} Hours per day</p>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>
