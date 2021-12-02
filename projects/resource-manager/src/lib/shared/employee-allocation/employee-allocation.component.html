@@ -1,396 +1,135 @@
-<!-- <div [ngClass]="'resource-allocation-container'">
-  <form [formGroup]="resourceAllocationForm">
-    <mat-toolbar [ngClass]="'resource-container'">
-      <p>Task Alpha - Employee Allocation</p>
-      <mat-icon aria-hidden="false" aria-label="close icon" mat-dialog-close
-        >close</mat-icon
-      >
-    </mat-toolbar>
-    <mat-dialog-content>
-      <div [ngClass]="'resource-content-container'">
-        <div [ngClass]="'drop-down-spacing'">
-          <div [ngClass]="'info-container'">
-            <p>Recommended Resources</p>
+<div [ngClass]="'resource-allocation-container'">
+    <form>
+        <mat-toolbar [ngClass]="'resource-container'">
+            <p>Task Alpha - Employee Allocation</p>
+            <mat-icon aria-hidden="false" aria-label="close icon" mat-dialog-close>close</mat-icon>
+        </mat-toolbar>
+        <div mat-dialog-content class="mat-typography">
+            <section [formGroup]="resourceAllocationForm">
+                <div [ngClass]="'drop-down-spacing'">
+                    <div [ngClass]="'info-container'">
+                        <p>Recommended Resources</p>
 
-            <mat-icon
-              mat-raised-icon
-              matTooltip="Employees suggested as per availability in that time and duration"
-              aria-label="icon that displays a tooltip when focused or hovered over"
-            >
-              info_outline
-            </mat-icon>
-          </div>
-          <mat-form-field appearance="outline">
-            <mat-label>Select a Resource</mat-label>
-            <mat-select formControlName="resource">
-              <mat-option *ngFor="let resource of resources" value="resource">
-                {{ resource.resourceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div [ngClass]="'drop-down-container'">
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Allocation</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Select</mat-label>
-              <mat-select name="allocation" formControlName="allocation">
-                <mat-option *ngFor="let resource of resources" value="resource">
-                  {{ resource.resourceName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Role</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Enter Role</mat-label>
-              <input matInput formControlName="role" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div [ngClass]="'drop-down-container'">
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Status</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Select</mat-label>
-              <mat-select name="status" formControlName="status">
-                <mat-option *ngFor="let status of statuses" value="status">
-                  {{ status }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+                        <mat-icon mat-raised-icon matTooltip="Employees suggested as per availability in that time and duration" aria-label="icon that displays a tooltip when focused or hovered over">
+                            info_outline
+                        </mat-icon>
+                    </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select a Resource</mat-label>
+                        <mat-select formControlName="resource">
+                            <mat-option *ngFor="let resource of resources" value="resource">
+                                {{ resource }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div [ngClass]="'resource-content-container'">
+                    <div [ngClass]="'drop-down-container'">
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Allocation</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select</mat-label>
+                                <mat-select name="allocation" formControlName="allocation">
+                                    <mat-option *ngFor="let resource of resources" value="resource">
+                                        {{ resource }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Role</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Enter Role</mat-label>
+                                <input matInput formControlName="role" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div [ngClass]="'drop-down-container'">
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Status</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select</mat-label>
+                                <mat-select name="status" formControlName="status">
+                                    <mat-option *ngFor="let status of statuses" value="status">
+                                        {{ status }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Priority</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Select</mat-label>
-              <mat-select name="priority" formControlName="priority">
-                <mat-option
-                  *ngFor="let priority of priorities"
-                  value="priority"
-                >
-                  {{ priority }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Priority</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select</mat-label>
+                                <mat-select name="priority" formControlName="priority">
+                                    <mat-option *ngFor="let priority of priorities" value="priority">
+                                        {{ priority }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-        <div [ngClass]="'drop-down-container'">
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Planned Start Date</p>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="plannedStartDate"
-                formControlName="plannedStartDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="plannedStartDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                #plannedStartDate
-                startView="year"
-                [startAt]="startDate"
-              ></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Planned End Date</p>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="plannedEndDate"
-                formControlName="plannedEndDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="plannedEndDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                #plannedEndDate
-                startView="year"
-                [startAt]="startDate"
-              ></mat-datepicker>
-            </mat-form-field>
-          </div>
+                    <div [ngClass]="'drop-down-container'">
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Planned Start Date</p>
+                            <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="startDate" formControlName="startDate" />
+                                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                                <mat-datepicker #startDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Planned End Date</p>
+                            <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+                                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                                <mat-datepicker #endDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div [ngClass]="'drop-down-container'">
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Actual Start Date</p>
+                            <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="actualStartDate" formControlName="actualStartDate" />
+                                <mat-datepicker-toggle matSuffix [for]="actualStartDate"></mat-datepicker-toggle>
+                                <mat-datepicker #actualStartDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Actual End Date</p>
+                            <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="actualEndDate" formControlName="actualEndDate" />
+                                <mat-datepicker-toggle matSuffix [for]="actualEndDate"></mat-datepicker-toggle>
+                                <mat-datepicker #actualEndDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <div [ngClass]="'drop-down-spacing'">
+                            <p>Description</p>
+                            <mat-form-field appearance="outline" [ngClass]="'description-container'">
+                                <textarea matInput placeholder="Items to be completed " formControlName="description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div [ngClass]="'drop-down-container'">
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Actual Start Date</p>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="actualStartDate"
-                formControlName="actualStartDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="actualStartDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                #actualStartDate
-                startView="year"
-                [startAt]="startDate"
-              ></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Actual End Date</p>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="actualEndDate"
-                formControlName="actualEndDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="actualEndDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                #actualEndDate
-                startView="year"
-                [startAt]="startDate"
-              ></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div>
-          <div [ngClass]="'drop-down-spacing'">
-            <p>Description</p>
-            <mat-form-field
-              appearance="outline"
-              [ngClass]="'description-container'"
-            >
-              <textarea
-                matInput
-                placeholder="Items to be completed "
-                formControlName="description"
-              ></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <mat-toolbar [ngClass]="'footer-container'">
-        <button mat-button mat-dialog-close [ngClass]="'cancel-button'">
-          <p>Cancel</p>
-        </button>
-        <button
-          mat-button
-          [mat-dialog-close]="true"
-          cdkFocusInitial
-          [ngClass]="'save-button'"
-        >
-          <p>Save</p>
-        </button>
-      </mat-toolbar>
-    </mat-dialog-actions>
-  </form>
-</div> -->
-<mat-toolbar [ngClass]="'task-title-container'" mat-dialog-title>
-    <div>
-      <h1 [ngClass]="'task-title'">Jenny - Task Allocation</h1>
-      <p [ngClass]="'available-hrs'">Available for 16 Hours</p>
-    </div>
-    <div>
-      <button
-        mat-dialog-close
-        mat-icon-button
-        color="primary"
-        aria-label="close task allocation"
-      >
-        <mat-icon>clear</mat-icon>
-      </button>
-    </div>
-  </mat-toolbar>
-  <form>
-    <div mat-dialog-content class="mat-typography">
-      <section
-        class="example-section"
-        [formGroup]="resourceAllocationForm"
-        [ngClass]="'form-container'"
-      >
-        <div>
-          <div [ngClass]="'recommended-label'">
-            <p [ngClass]="'label-name'">Recommended Tasks</p>
-            <mat-icon> info_outline </mat-icon>
-          </div>
-          <mat-form-field appearance="fill" [ngClass]="'label-width'">
-            <mat-label>Task</mat-label>
-            <mat-select formControlName="task">
-              <mat-option value="one">TASK A</mat-option>
-              <mat-option value="two">TASK B</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div [ngClass]="'each-row-container'">
-          <div>
-            <p [ngClass]="'label-name'">Planned Start Date</p>
-            <mat-form-field appearance="fill" [ngClass]="'label-margin'">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="startDate"
-                formControlName="startDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="startDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #startDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div>
-            <p [ngClass]="'label-name'">Planned End Date</p>
-            <mat-form-field appearance="fill" [ngClass]="'label-margin'">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="endDate"
-                formControlName="endDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="endDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #endDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div [ngClass]="'each-row-container'">
-          <div>
-            <p [ngClass]="'label-name'">Actual Start Date</p>
-            <mat-form-field
-              appearance="fill"
-              [ngClass]="'label-margin'"
-            >
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="actualStartDate"
-                formControlName="actualStartDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="actualStartDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #actualStartDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div>
-            <p [ngClass]="'label-name'">Actual End Date</p>
-            <mat-form-field appearance="fill" [ngClass]="'label-margin'">
-              <mat-label>Choose a date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="actualEndDate"
-                formControlName="actualEndDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="actualEndDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #actualEndDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div [ngClass]="'each-row-container'">
-          <div>
-            <p [ngClass]="'label-name'">Allocation</p>
-            <mat-form-field
-              appearance="fill"
-              [ngClass]="'label-margin'"
-            >
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="allocation">
-                <mat-option value="one">Role</mat-option>
-                <mat-option value="two">Role</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <p [ngClass]="'label-name'">Role</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Role</mat-label>
-              <input matInput formControlName="role" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div [ngClass]="'each-row-container'">
-          <div>
-            <p [ngClass]="'label-name'">Status</p>
-            <mat-form-field
-              appearance="fill"
-              [ngClass]="'label-margin'"
-            >
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="status">
-                <mat-option value="one">INPROGRESS</mat-option>
-                <mat-option value="two">ONHOLD</mat-option>
-                <mat-option value="two">COMPLETED</mat-option>
-                <mat-option value="two">DEFINED</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <p [ngClass]="'label-name'">Priority</p>
-            <mat-form-field appearance="fill" [ngClass]="'label-margin'">
-              <mat-label>Select</mat-label>
-              <mat-select formControlName="priority">
-                <mat-option value="one">HIGH</mat-option>
-                <mat-option value="two">LOW</mat-option>
-                <mat-option value="two">MEDIUM</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div>
-          <p [ngClass]="'label-name'">Description</p>
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            [ngClass]="'description-width'"
-          >
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description"></textarea>
-          </mat-form-field>
-        </div>
-      </section>
-    </div>
-    <div mat-dialog-actions>
-      <mat-toolbar [ngClass]="'footer-container'">
-        <button
-          mat-stroked-button
-          mat-dialog-close
-          color="primary"
-          [ngClass]="'button'"
-          
-        >
+        <div mat-dialog-actions>
+            <mat-toolbar [ngClass]="'footer-container'">
+                <button mat-stroked-button mat-dialog-close color="primary" [ngClass]="'button'">
           Cancel
         </button>
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          mat-dialog-close
-          cdkFocusInitial
-        >
-          Assign
+                <button mat-raised-button color="primary" type="submit" mat-dialog-close cdkFocusInitial>
+          Save
         </button>
-      </mat-toolbar>
-    </div>
-  </form>
-  
+            </mat-toolbar>
+        </div>
+    </form>
+</div>

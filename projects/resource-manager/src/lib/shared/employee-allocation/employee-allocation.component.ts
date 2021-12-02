@@ -27,8 +27,8 @@ export class EmployeeAllocationComponent implements OnInit {
   }
   startDate = new Date(1990, 0, 1);
   selectedValue: string = '';
-  resources: Resource[] = [];
-  statuses: string[] = ['DEFINED', 'IN_PROGRESS'];
+  resources = ['Amy', 'Sandy', 'Abhay'];
+  statuses: string[] = ['DEFINED', 'IN_PROGRESS', 'ON_HOLD', 'COMPLETED'];
   priorities: string[] = ['LOW', 'MEDIUM', 'HIGH'];
   ngOnInit(): void {}
 }

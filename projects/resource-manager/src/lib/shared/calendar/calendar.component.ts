@@ -265,7 +265,7 @@ export class CalendarComponent implements OnInit {
   openEmployeeDialog() {
     const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
       height: '100vh',
-      width: '40vw',
+      width: '37vw',
       panelClass: 'custom-dialog-container',
       position: {
         right: '0',
