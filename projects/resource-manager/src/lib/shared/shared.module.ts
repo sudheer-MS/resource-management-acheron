@@ -27,7 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -62,6 +62,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatTooltipModule,
     MatCardModule,
     MatChipsModule,
+    Ng2SearchPipeModule,
   ],
   exports: [
     CommonModule,
@@ -77,6 +78,7 @@ import { MatChipsModule } from '@angular/material/chips';
     DisplayFieldsComponent,
     TaskAllocationComponent,
     EmployeeAllocationComponent,
+    Ng2SearchPipeModule,
   ],
 })
 export class SharedModule {}

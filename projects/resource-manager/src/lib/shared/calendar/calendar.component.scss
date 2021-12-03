@@ -96,7 +96,7 @@
   flex-direction: column;
   padding-top: 66px;
   overflow-y: scroll;
-  position: relative;
+  // position: relative;
 }
 
 .projects-container {
@@ -176,16 +176,16 @@
   margin-right: 10%;
 }
 
-
-.availability-card{
+.availability-card {
   background-color: rgb(5, 172, 5);
   margin-right: 10px;
   color: #ffffff;
+  min-width: 220px;
   font-family: Roboto;
   cursor: pointer;
 }
 
-.custom-availability-card{
+.custom-availability-card {
   background-color: rgb(5, 172, 5);
   margin-right: 10px;
   min-width: 220px;
@@ -193,5 +193,10 @@
   color: #ffffff;
   font-family: Roboto;
   cursor: pointer;
- border-radius:5px;
+  border-radius: 5px;
+}
+
+.search-bar{
+  margin-top: 15px;
+  width: 210px;
 }

@@ -11,6 +11,6 @@ export class Project {
     public endDate: Date,
     public priority: Priority,
     public status: Status,
-    public tasks?: Task[]
+    public tasks: Task[]
   ) {}
 }

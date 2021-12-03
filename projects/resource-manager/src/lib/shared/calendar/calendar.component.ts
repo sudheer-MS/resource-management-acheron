@@ -32,6 +32,7 @@ import { EmployeeAllocationComponent } from '../employee-allocation/employee-all
 export class CalendarComponent implements OnInit {
   calendarView: string = 'month';
   tabValue: string;
+  searchText: string = '';
 
   currentDate = format(new Date(), 'MM/dd/yyyy');
 
@@ -43,6 +44,8 @@ export class CalendarComponent implements OnInit {
 
   currentWeekProjects: Campaign[] = [];
   currentMonthProjects: Campaign[] = [];
+
+  try: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
@@ -73,8 +76,18 @@ export class CalendarComponent implements OnInit {
     //   onHold: false,
     // };
   }
-  
+
   ngOnInit(): void {
+
+    this.projects.filter((nproject)=>{
+        if(nproject.campaignId==0){
+          this.try= new Array(nproject)
+        }
+        
+      })
+
+
+
     this.VerticalTimeLeftSpace();
     console.log(this.projects);
     this._calendarService.currentMonthDates$.subscribe(
@@ -117,6 +130,7 @@ export class CalendarComponent implements OnInit {
   };
 
   onChangeCurrentMonthProjects = () => {
+    
     this.currentMonthProjects = this.projects.filter(
       (eachTask: any) =>
         isSameMonth(eachTask.startDate, this.monthDate) ||
@@ -126,6 +140,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
+    this.try=this.currentMonthProjects
   };
 
   onChangeCurrentMonthResourceTask = () => {
