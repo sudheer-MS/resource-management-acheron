@@ -12,7 +12,6 @@ export class ResourceManagerComponent implements OnInit {
   tabValue: string;
 
   @Input() projects: Campaign[] = [];
-  @Input() resources: Resource[] = [];
 
   constructor(private headerService: HeaderService) {
     this.tabValue = this.headerService.tabValue;

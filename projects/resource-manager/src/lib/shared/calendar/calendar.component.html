@@ -25,7 +25,7 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter ></lib-filter>
+    <lib-filter></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion *ngFor="let campaign of currentMonthProjects">
         <mat-expansion-panel
@@ -110,29 +110,56 @@
     </div>
   </div>
   <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
-    <div *ngFor="let resource of resources" ngClass="resource-container">
-      <mat-card ngClass="resource-info-card">
-        <img
-          [src]="resource.resourceImage"
-          ngClass="resource-image"
-          alt="employee-img"
-        />
-        <div>
-          <p>{{ resource.resourceName }}</p>
-          <p>{{ resource.resourceType }}</p>
+    <div *ngFor="let campaign of projects">
+      <div *ngFor="let project of campaign.projects">
+        <div *ngFor="let task of project.tasks">
+          <div ngClass="resource-container">
+            <mat-card
+              ngClass="resource-info-card"
+              *ngIf="task.resource !== null"
+            >
+              <img
+                [src]="task.resource.resourceImage"
+                ngClass="resource-image"
+                alt="employee-img"
+              />
+              <div>
+                <p>{{ task.resource.resourceName }}</p>
+                <p>{{ task.resource.resourceType }}</p>
+              </div>
+            </mat-card>
+            <div
+              style="display: flex" 
+              *ngIf="
+                task.startDate.getMonth() == monthDate.getMonth() &&
+                task.startDate.getFullYear() == monthDate.getFullYear()
+              "
+            >
+              <mat-card ngClass="task-cards" *ngIf="task.resource !== null" >
+                <p>{{ task.taskName }}</p>
+                <p>{{ project.projectName }} - {{ campaign.campaignName }}</p>
+              </mat-card>
+             
+                <mat-card
+                *ngIf="task.resource !== null && task.resource.availability.availableType === 'Standard'"  ngClass="availability-card" 
+              >
+                <p>{{ task.resource.availability.availableType }}</p>
+                <p>
+                  {{ task.resource.availability.availableHours }} Hours per day
+                </p>
+              </mat-card>
+              <div
+              *ngIf="task.resource !== null && task.resource.availability.availableType === 'Custom'"  ngClass="custom-availability-card"
+            >
+              <p>{{ task.resource.availability.availableType }}</p>
+              <p>
+                {{ task.resource.availability.availableHours }} Hours per day
+              </p>
+            </div>
+            
+            </div>
+          </div>
         </div>
-      </mat-card>
-      <div ngClass="availability-container" >
-        <mat-card
-          [ngClass]="'task-cards'"
-          *ngFor="let task of resource.taskList"
-        >
-          <p>{{ task.taskName }}</p>
-        </mat-card>
-        <mat-card [ngClass]="'availability-card'">
-          <p>Available</p>
-          <p>{{ resource.availability.availableHours }} Hours per day</p>
-        </mat-card>
       </div>
     </div>
   </div>
@@ -253,7 +280,10 @@
     </div>
   </div>
   <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
-    <div *ngFor="let resource of resources" ngClass="resource-container">
+    <!-- <div
+      *ngFor="let resource of currentWeekResourceAvailability"
+      ngClass="resource-container"
+    >
       <mat-card ngClass="resource-info-card">
         <img
           [src]="resource.resourceImage"
@@ -277,6 +307,6 @@
           <p>{{ resource.availability.availableHours }} Hours per day</p>
         </mat-card>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

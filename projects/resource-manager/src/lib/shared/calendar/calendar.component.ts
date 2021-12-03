@@ -41,8 +41,8 @@ export class CalendarComponent implements OnInit {
   currentMonthDates: Date[] = [];
   currentWeekDates: Date[] = [];
 
-  currentWeekProjects: any[] = [];
-  currentMonthProjects: any[] = [];
+  currentWeekProjects: Campaign[] = [];
+  currentMonthProjects: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
@@ -76,10 +76,12 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.VerticalTimeLeftSpace();
+    console.log(this.projects);
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
         this.onChangeCurrentMonthProjects();
+        console.log(this.monthDate);
       }
     );
     this._calendarService.currentWeekDates$.subscribe(
@@ -126,6 +128,18 @@ export class CalendarComponent implements OnInit {
     );
   };
 
+  onChangeCurrentMonthResourceTask = () => {
+    // this.currentMonthResourceTask = this.resources.filter(
+    //   (eachResourceTask: any) =>
+    //     isSameMonth(eachResourceTask.task.startDate, this.monthDate) ||
+    //     isSameMonth(eachResourceTask.task.endDate, this.monthDate) ||
+    //     isWithinInterval(this.monthDate, {
+    //       start: eachResourceTask.task.startDate,
+    //       end: eachResourceTask.task.endDate,
+    //     })
+    // );
+  };
+
   onChangeCurrentWeekProjects = () => {
     this.currentWeekProjects = this.projects.filter(
       (eachTask: any) =>
@@ -136,6 +150,15 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
+  };
+
+  onFilteringCampaigns = () => {
+    // this.projects.filter((nproject)=>{
+    //   if(nproject.campaignId==0){
+    //     this.filterProjects=nproject;
+    //   }
+    //   console.log(this.filterProjects)
+    // })
   };
 
   // onChangePriorityFilter = () => {

@@ -23,6 +23,7 @@ export class AppComponent {
       .getAllProjects()
       .subscribe((responseProjects: Campaign[]) => {
         this.projects = responseProjects;
+        console.log(responseProjects);
       });
     this.resourceService
       .getAllResource()

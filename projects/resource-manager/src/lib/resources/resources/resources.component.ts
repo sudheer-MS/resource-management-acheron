@@ -7,7 +7,7 @@ import { Campaign } from '../../models/campaigns/campaign';
   styleUrls: ['./resources.component.scss'],
 })
 export class ResourcesComponent implements OnInit {
-  @Input() resources: Resource[] = [];
+  @Input() projects :Campaign[]=[];
   constructor() {}
 
   ngOnInit(): void {}
