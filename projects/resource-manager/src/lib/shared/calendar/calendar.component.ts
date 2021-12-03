@@ -73,7 +73,7 @@ export class CalendarComponent implements OnInit {
     //   onHold: false,
     // };
   }
-
+  
   ngOnInit(): void {
     this.VerticalTimeLeftSpace();
     console.log(this.projects);
