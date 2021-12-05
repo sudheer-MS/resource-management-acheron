@@ -155,28 +155,24 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  removeChips(event: any) {
-    console.log('out');
-    // for (let [key, value] of Object.entries(this.statusFilter)) {
-    //  if (value == true ) {
-    //     if (this.filterChips.includes(key)) {
-    //       this.filterChips = this.filterChips.filter((chip) => key != chip);
-    //       console.log("in")
-    //     }
-    //   }
-    // }
-    this.filterChips;
-    console.log(event);
-    if (true) {
-      let v = this.priorityFilter;
-      if (this.filterChips.includes(event)) {
-        this.filterChips = this.filterChips.filter((chip) => event != chip);
-        this.filterService.unchecked.next(false);
+  removeChips(chip:string){
+    this.filterChips
+    if (this.filterChips.includes(chip)) {
+      this.filterChips = this.filterChips.filter((nchip) => chip != nchip);
+    
+    
+
+    if(chip=="high"||chip=="low"||chip=="medium"){
+       this.priorityFilter[chip]=false
+      this.filterService.priorityFilter$.next(this.priorityFilter)
       }
+      else if (chip=="defined"||chip=="inProgress"||chip=="onHold"||chip=="completed"){
+        this.statusFilter[chip]=false
+        this.filterService.statusFilter$.next(this.statusFilter)
+      }
+
     }
   }
 
-  high(ob: MatCheckboxChange) {
-    let v = true;
-  }
+  
 }
