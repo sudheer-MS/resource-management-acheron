@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatCardModule,
     MatChipsModule,
     Ng2SearchPipeModule,
+    MatAutocompleteModule,
   ],
   exports: [
     CommonModule,

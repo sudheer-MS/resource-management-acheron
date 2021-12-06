@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -16,6 +17,8 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { Campaign } from '../../models/campaigns/campaign';
 import { Resource } from '../../models/resources/resource';
@@ -64,6 +67,7 @@ export class CalendarComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
+
     // this.priorityFilter = {
     //   high: false,
     //   low: false,
@@ -78,15 +82,11 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.projects.filter((nproject)=>{
-        if(nproject.campaignId==0){
-          this.try= new Array(nproject)
-        }
-        
-      })
-
-
+    this.projects.filter((nproject) => {
+      if (nproject.campaignId == 0) {
+        this.try = new Array(nproject);
+      }
+    });
 
     this.VerticalTimeLeftSpace();
     console.log(this.projects);
@@ -130,7 +130,6 @@ export class CalendarComponent implements OnInit {
   };
 
   onChangeCurrentMonthProjects = () => {
-    
     this.currentMonthProjects = this.projects.filter(
       (eachTask: any) =>
         isSameMonth(eachTask.startDate, this.monthDate) ||
@@ -140,7 +139,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    this.try=this.currentMonthProjects
+    this.try = this.currentMonthProjects;
   };
 
   onChangeCurrentMonthResourceTask = () => {
