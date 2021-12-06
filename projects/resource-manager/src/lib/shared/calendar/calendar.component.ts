@@ -53,8 +53,6 @@ export class CalendarComponent implements OnInit {
   currentMonthProjects: Campaign[] = [];
   currentMonthProjectsCopy: Campaign[] = [];
 
-  try: Campaign[] = [];
-
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
@@ -99,14 +97,9 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projects.filter((nproject) => {
-      if (nproject.campaignId == 0) {
-        this.try = new Array(nproject);
-      }
-    });
-
     this.VerticalTimeLeftSpace();
-    console.log(this.projects);
+    this.verticalTimeWeekLeftSpace();
+
     this._calendarService.currentMonthDates$.subscribe(
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
@@ -168,7 +161,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    this.try = this.currentMonthProjects;
+    this.currentMonthProjectsCopy = [...this.currentMonthProjects];
   };
 
   onChangeCurrentMonthResourceTask = () => {
