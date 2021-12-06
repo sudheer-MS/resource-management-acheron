@@ -52,6 +52,7 @@ export class CalendarComponent implements OnInit {
   currentWeekProjects: Campaign[] = [];
   currentMonthProjects: Campaign[] = [];
   currentMonthProjectsCopy: Campaign[] = [];
+  currentWeekProjectsCopy: Campaign[] = [];
 
   try: Campaign[] = [];
 
@@ -168,19 +169,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
-    this.try = this.currentMonthProjects;
-  };
-
-  onChangeCurrentMonthResourceTask = () => {
-    // this.currentMonthResourceTask = this.resources.filter(
-    //   (eachResourceTask: any) =>
-    //     isSameMonth(eachResourceTask.task.startDate, this.monthDate) ||
-    //     isSameMonth(eachResourceTask.task.endDate, this.monthDate) ||
-    //     isWithinInterval(this.monthDate, {
-    //       start: eachResourceTask.task.startDate,
-    //       end: eachResourceTask.task.endDate,
-    //     })
-    // );
+    this.currentMonthProjectsCopy = [...this.currentMonthProjects];
   };
 
   onChangeCurrentWeekProjects = () => {
@@ -193,6 +182,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
+    this.currentWeekProjectsCopy = [...this.currentWeekProjects];
   };
 
   onChangePriorityFilter = () => {
@@ -202,6 +192,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -216,7 +207,20 @@ export class CalendarComponent implements OnInit {
       }
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.priorityFilter)) {
+        if (
+          value &&
+          campaign.priority.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   };
 
   onChangeStatusFilter = () => {
@@ -226,6 +230,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -241,7 +246,21 @@ export class CalendarComponent implements OnInit {
       console.log(campaign);
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.statusFilter)) {
+        if (
+          value &&
+          campaign.status.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   };
   onChangeRegionFilter() {
     let temp: Campaign[] = [];
@@ -250,6 +269,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -265,7 +285,21 @@ export class CalendarComponent implements OnInit {
       console.log(campaign);
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.regionFilter)) {
+        if (
+          value &&
+          campaign.region == key.toUpperCase() &&
+          !temp.find((c) => c.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   }
 
   onFilteringCampaigns = () => {
