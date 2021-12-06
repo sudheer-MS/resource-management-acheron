@@ -21,7 +21,8 @@ export class FilterComponent implements OnInit {
   rangeForm: FormGroup;
   startDateForm: FormGroup;
   endDateForm: FormGroup;
- 
+  uncheck = false;
+  uncheckCondition = true;
 
   priorityFilter: Priority = {
     high: false,
@@ -78,7 +79,9 @@ export class FilterComponent implements OnInit {
     this.endDateForm = this.formBuilder.group({
       endDate: new FormControl(''),
     });
-   
+    this.filterService.unchecked.subscribe((uncheck) => {
+      this.uncheckCondition = uncheck;
+    });
   }
   ngOnInit(): void {
     // this.campaign.forEach((campaignVal) => {
@@ -95,16 +98,6 @@ export class FilterComponent implements OnInit {
     //     this.inProgressFilterCount++;
     //   }
     // });
-
-    
-    this.filterService.priorityFilter$.subscribe((priortyFilter:Priority)=>{
-      this.priorityForm.setValue(priortyFilter)
-      
-    })
-    this.filterService.statusFilter$.subscribe((statusFilter:Status)=>{
-      this.statusForm.setValue(statusFilter)
-      
-    })
   }
   onChangePriority = (priorityForm: FormGroup) => {
     this.priorityFilter = {

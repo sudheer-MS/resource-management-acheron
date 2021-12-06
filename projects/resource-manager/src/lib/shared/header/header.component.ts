@@ -40,7 +40,8 @@ export class HeaderComponent implements OnInit {
     private calendarService: CalendarService,
     private headerService: HeaderService,
     private filterService: FilterService
-  ) {
+  ) 
+  {
     this.calendarView = this.calendarService.calendarView;
   }
 
@@ -160,19 +161,14 @@ export class HeaderComponent implements OnInit {
     if (this.filterChips.includes(chip)) {
       this.filterChips = this.filterChips.filter((nchip) => chip != nchip);
     
-    
-
     if(chip=="high"||chip=="low"||chip=="medium"){
        this.priorityFilter[chip]=false
       this.filterService.priorityFilter$.next(this.priorityFilter)
       }
-      else if (chip=="defined"||chip=="inProgress"||chip=="onHold"||chip=="completed"){
-        this.statusFilter[chip]=false
-        this.filterService.statusFilter$.next(this.statusFilter)
-      }
-
     }
   }
 
-  
+  high(ob: MatCheckboxChange) {
+    let v = true;
+  }
 }
