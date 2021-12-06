@@ -187,7 +187,7 @@ export class CalendarComponent implements OnInit {
   monthLeftSpace = (startDate: Date): string => {
     let margin;
     let noOfDaysInCurrentMonth = getDaysInMonth(this.monthDate);
-    let eachContainerWidth = 85 / noOfDaysInCurrentMonth;
+    let eachContainerWidth = 84 / noOfDaysInCurrentMonth;
 
     // check if startDate and currentDate are equal
     if (
@@ -203,7 +203,7 @@ export class CalendarComponent implements OnInit {
 
   weekLeftSpace = (startDate: Date): string => {
     let margin;
-    let eachContainerWidth = 85 / 7;
+    let eachContainerWidth = 84 / 7;
 
     // check if startDate and currentDate are equal
     if (
@@ -230,7 +230,7 @@ export class CalendarComponent implements OnInit {
 
     // Check if startDate and endDate are in same month
     if (isSameMonth(startDate, endDate) && isSameYear(startDate, endDate)) {
-      let eachContainerWidth = 85 / noOfDaysInStartMonth;
+      let eachContainerWidth = 84 / noOfDaysInStartMonth;
       calculateDifference = differenceInDays(endDate, startDate);
       width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
@@ -240,7 +240,7 @@ export class CalendarComponent implements OnInit {
       isSameMonth(currentMonth, endDate) &&
       isSameYear(currentMonth.getFullYear(), endDate.getFullYear())
     ) {
-      let eachContainerWidth = 85 / noOfDaysInEndMonth;
+      let eachContainerWidth = 84 / noOfDaysInEndMonth;
       calculateDifference = differenceInDays(endDate, findStartDateOfEndMonth);
       width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;
@@ -250,7 +250,7 @@ export class CalendarComponent implements OnInit {
       isSameMonth(startDate, currentMonth) &&
       isSameYear(startDate, currentMonth)
     ) {
-      let eachContainerWidth = 85 / noOfDaysInStartMonth;
+      let eachContainerWidth = 84 / noOfDaysInStartMonth;
       calculateDifference = differenceInDays(
         findEndDateOfStartMonth,
         startDate
@@ -260,7 +260,7 @@ export class CalendarComponent implements OnInit {
     }
     // check if both startDate and endDate are not related to current month
     else {
-      let eachContainerWidth = 85 / noOfDaysInCurrentMonth;
+      let eachContainerWidth = 84 / noOfDaysInCurrentMonth;
       width = noOfDaysInCurrentMonth * eachContainerWidth + 'vw';
       return width;
     }
@@ -268,7 +268,7 @@ export class CalendarComponent implements OnInit {
 
   weekWidth = (startDate: Date, endDate: Date) => {
     let calculateDifference: number;
-    let eachContainerWidth = 85 / 7;
+    let eachContainerWidth = 84 / 7;
     let width;
 
     if (
@@ -316,7 +316,7 @@ export class CalendarComponent implements OnInit {
 
   VerticalTimeLeftSpace = () => {
     const currentDateTime = new Date();
-    let eachContainerWidth = 85 / getDaysInMonth(this.monthDate);
+    let eachContainerWidth = 84 / getDaysInMonth(this.monthDate);
     const eachHourWidth = eachContainerWidth / 24;
     const hoursDifference = differenceInHours(
       currentDateTime,
@@ -332,7 +332,7 @@ export class CalendarComponent implements OnInit {
 
   verticalTimeWeekLeftSpace = () => {
     const currentDateTime = new Date();
-    let eachContainerWidth = 85 / 7;
+    let eachContainerWidth = 84 / 7;
     const eachHourWidth = eachContainerWidth / 24;
     const hoursDifference = differenceInHours(
       currentDateTime,
