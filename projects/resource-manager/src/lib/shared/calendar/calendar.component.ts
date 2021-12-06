@@ -21,6 +21,10 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { Campaign } from '../../models/campaigns/campaign';
+import { DateFilter } from '../../models/filter-models/date/date-filter';
+import { PriorityFilter } from '../../models/filter-models/priority/priority';
+import { RegionFilter } from '../../models/filter-models/region/region-filter';
+import { StatusFilter } from '../../models/filter-models/status/status';
 import { Resource } from '../../models/resources/resource';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
@@ -47,14 +51,17 @@ export class CalendarComponent implements OnInit {
 
   currentWeekProjects: Campaign[] = [];
   currentMonthProjects: Campaign[] = [];
+  currentMonthProjectsCopy: Campaign[] = [];
 
   try: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
 
-  @Output() priorityFilter = new EventEmitter();
-  @Output() statusFilter = new EventEmitter();
+  priorityFilter: PriorityFilter;
+  statusFilter: StatusFilter;
+  regionFilter: RegionFilter;
+  dateFilter: DateFilter;
 
   @Input() projects: Campaign[] = [];
   @Input() resources: Resource[] = [];
@@ -67,18 +74,28 @@ export class CalendarComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
-
-    // this.priorityFilter = {
-    //   high: false,
-    //   low: false,
-    //   medium: false,
-    // };
-    // this.statusFilter = {
-    //   defined: false,
-    //   inProgress: false,
-    //   completed: false,
-    //   onHold: false,
-    // };
+    this.priorityFilter = {
+      high: false,
+      low: false,
+      medium: false,
+    };
+    this.statusFilter = {
+      defined: false,
+      inProgress: false,
+      completed: false,
+      onHold: false,
+    };
+    this.regionFilter = {
+      IMEA: false,
+      LATAM: false,
+      EMEA: false,
+      NAC: false,
+      EPAC: false,
+    };
+    this.dateFilter = {
+      startDate: new Date(),
+      endDate: new Date(),
+    };
   }
 
   ngOnInit(): void {
@@ -117,12 +134,24 @@ export class CalendarComponent implements OnInit {
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
     );
-    // this._filterService.priorityFilter$.subscribe(
-    //   (priorityFilter: Priority) => (this.priorityFilter = priorityFilter)
-    // );
-    // this._filterService.statusFilter$.subscribe(
-    //   (statusFilter: Status) => (this.statusFilter = statusFilter)
-    // );
+    this._filterService.priorityFilter$.subscribe(
+      (priorityFilter: PriorityFilter) => {
+        this.priorityFilter = priorityFilter;
+        this.onChangePriorityFilter();
+      }
+    );
+    this._filterService.statusFilter$.subscribe(
+      (statusFilter: StatusFilter) => {
+        this.statusFilter = statusFilter;
+        this.onChangeStatusFilter();
+      }
+    );
+    this._filterService.regionFilter$.subscribe(
+      (regionFilter: RegionFilter) => {
+        this.regionFilter = regionFilter;
+        this.onChangeRegionFilter();
+      }
+    );
   }
 
   formatDate = (date: Date) => {
@@ -165,6 +194,79 @@ export class CalendarComponent implements OnInit {
         })
     );
   };
+
+  onChangePriorityFilter = () => {
+    let temp: Campaign[] = [];
+    const isAllFlagsTurnedOff = Object.values(this.priorityFilter).every(
+      (val) => val === false
+    );
+    if (isAllFlagsTurnedOff) {
+      this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      return;
+    }
+    this.currentMonthProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.priorityFilter)) {
+        if (
+          value &&
+          campaign.priority.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+    });
+
+    this.currentMonthProjectsCopy = temp;
+  };
+
+  onChangeStatusFilter = () => {
+    let temp: Campaign[] = [];
+    const isAllFlagsTurnedOff = Object.values(this.statusFilter).every(
+      (val) => val === false
+    );
+    if (isAllFlagsTurnedOff) {
+      this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      return;
+    }
+    this.currentMonthProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.statusFilter)) {
+        if (
+          value &&
+          campaign.status.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
+    this.currentMonthProjectsCopy = temp;
+  };
+  onChangeRegionFilter() {
+    let temp: Campaign[] = [];
+    const isAllFlagsTurnedOff = Object.values(this.regionFilter).every(
+      (val) => val === false
+    );
+    if (isAllFlagsTurnedOff) {
+      this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      return;
+    }
+    this.currentMonthProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.regionFilter)) {
+        if (
+          value &&
+          campaign.region == key.toUpperCase() &&
+          !temp.find((c) => c.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
+    this.currentMonthProjectsCopy = temp;
+  }
 
   onFilteringCampaigns = () => {
     // this.projects.filter((nproject)=>{

@@ -1,4 +1,4 @@
-export class Status {
+export class StatusFilter {
   constructor(
     public defined: boolean,
     public inProgress: boolean,

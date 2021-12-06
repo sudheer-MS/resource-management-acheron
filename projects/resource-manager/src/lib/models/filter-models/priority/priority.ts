@@ -1,4 +1,4 @@
-export class Priority {
+export class PriorityFilter {
   constructor(
     public high: boolean,
     public low: boolean,

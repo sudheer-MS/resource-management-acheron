@@ -6,8 +6,8 @@ import { TaskAllocationComponent } from '../task-allocation/task-allocation.comp
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { HeaderService } from '../../services/header/header.service';
-import { Priority } from '../../models/filter-models/priority/priority';
-import { Status } from '../../models/filter-models/status/status';
+import { PriorityFilter } from '../../models/filter-models/priority/priority';
+import { StatusFilter } from '../../models/filter-models/status/status';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
@@ -23,13 +23,13 @@ export class HeaderComponent implements OnInit {
   weekDate: Date = new Date();
   filterChips: string[] = [];
 
-  priorityFilter: Priority = {
+  priorityFilter: PriorityFilter = {
     high: false,
     low: false,
     medium: false,
   };
 
-  statusFilter: Status = {
+  statusFilter: StatusFilter = {
     defined: false,
     inProgress: false,
     completed: false,
@@ -117,11 +117,13 @@ export class HeaderComponent implements OnInit {
       (currentWeekDate: Date) => (this.weekDate = currentWeekDate)
     );
 
-    this.filterService.priorityFilter$.subscribe((priorityFilter: Priority) => {
-      this.priorityFilter = priorityFilter;
-      this.onchangePriorityFilter();
-    });
-    this.filterService.statusFilter$.subscribe((statusFilter: Status) => {
+    this.filterService.priorityFilter$.subscribe(
+      (priorityFilter: PriorityFilter) => {
+        this.priorityFilter = priorityFilter;
+        this.onchangePriorityFilter();
+      }
+    );
+    this.filterService.statusFilter$.subscribe((statusFilter: StatusFilter) => {
       this.statusFilter = statusFilter;
       this.onchangeStatusFilter();
     });
@@ -155,14 +157,22 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  removeChips(chip: string) {
+  removeChips(event: any) {
+    console.log('out');
+    // for (let [key, value] of Object.entries(this.statusFilter)) {
+    //  if (value == true ) {
+    //     if (this.filterChips.includes(key)) {
+    //       this.filterChips = this.filterChips.filter((chip) => key != chip);
+    //       console.log("in")
+    //     }
+    //   }
+    // }
     this.filterChips;
-    if (this.filterChips.includes(chip)) {
-      this.filterChips = this.filterChips.filter((nchip) => chip != nchip);
-
-      if (chip == 'high' || chip == 'low' || chip == 'medium') {
-        this.priorityFilter[chip] = false;
-        this.filterService.priorityFilter$.next(this.priorityFilter);
+    console.log(event);
+    if (true) {
+      let v = this.priorityFilter;
+      if (this.filterChips.includes(event)) {
+        this.filterChips = this.filterChips.filter((chip) => event != chip);
       }
     }
   }

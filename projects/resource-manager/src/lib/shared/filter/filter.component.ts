@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Priority } from '../../models/filter-models/priority/priority';
-import { Status } from '../../models/filter-models/status/status';
+import { DateFilter } from '../../models/filter-models/date/date-filter';
+import { PriorityFilter } from '../../models/filter-models/priority/priority';
+import { RegionFilter } from '../../models/filter-models/region/region-filter';
+import { StatusFilter } from '../../models/filter-models/status/status';
 import { FilterService } from '../../services/filter/filter.service';
 
 @Component({
@@ -21,19 +23,29 @@ export class FilterComponent implements OnInit {
   rangeForm: FormGroup;
   startDateForm: FormGroup;
   endDateForm: FormGroup;
-  uncheck = false;
-  uncheckCondition = true;
 
-  priorityFilter: Priority = {
+  priorityFilter: PriorityFilter = {
     high: false,
     low: false,
     medium: false,
   };
-  statusFilter: Status = {
+  statusFilter: StatusFilter = {
     defined: false,
     inProgress: false,
     completed: false,
     onHold: false,
+  };
+
+  regionFilter: RegionFilter = {
+    IMEA: false,
+    LATAM: false,
+    EMEA: false,
+    NAC: false,
+    EPAC: false,
+  };
+  dateFilter: DateFilter = {
+    startDate: new Date(),
+    endDate: new Date(),
   };
 
   highFilterCount = 0;
@@ -79,9 +91,6 @@ export class FilterComponent implements OnInit {
     this.endDateForm = this.formBuilder.group({
       endDate: new FormControl(''),
     });
-    this.filterService.unchecked.subscribe((uncheck) => {
-      this.uncheckCondition = uncheck;
-    });
   }
   ngOnInit(): void {
     // this.campaign.forEach((campaignVal) => {
@@ -99,6 +108,7 @@ export class FilterComponent implements OnInit {
     //   }
     // });
   }
+
   onChangePriority = (priorityForm: FormGroup) => {
     this.priorityFilter = {
       high: priorityForm.value.high,
@@ -106,8 +116,18 @@ export class FilterComponent implements OnInit {
       medium: priorityForm.value.medium,
     };
     this.filterService.onChangePriorityFilter(this.priorityFilter);
+    this.filterService.priorityFilter$.next(this.priorityFilter);
   };
-
+  onChangeRegion = (regionForm: FormGroup) => {
+    this.regionFilter = {
+      IMEA: regionForm.value.IMEA,
+      LATAM: regionForm.value.LATAM,
+      EMEA: regionForm.value.EMEA,
+      NAC: regionForm.value.NAC,
+      EPAC: regionForm.value.EPAC,
+    };
+    this.filterService.onChangeRegionFilter(this.regionFilter);
+  };
   onChangeStatus = (statusForm: FormGroup) => {
     this.statusFilter = {
       defined: statusForm.value.defined,
@@ -118,10 +138,16 @@ export class FilterComponent implements OnInit {
     this.filterService.onChangeStatusFilter(this.statusFilter);
   };
 
+  onChangeDate = (dateForm: FormGroup) => {
+    this.dateFilter = {
+      startDate: dateForm.value.startDate,
+      endDate: dateForm.value.endDate,
+    };
+    this.filterService.onChangeDateFilter(this.dateFilter);
+  };
   search(event: any): void {
     let value = (event.target as HTMLInputElement).value;
     this.regions = this.regionCopy;
-
     this.regions = this.regions.filter((val) =>
       val.toLowerCase().includes(value.toLowerCase())
     );

@@ -11,6 +11,7 @@ export class Campaign {
     public endDate: Date,
     public priority: Priority,
     public status: Status,
+    public region: string,
     public projects: Project[]
   ) {}
 }
