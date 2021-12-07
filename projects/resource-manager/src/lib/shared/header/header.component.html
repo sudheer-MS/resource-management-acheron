@@ -46,6 +46,9 @@
     >
       Display Fields
     </button>
+
+    <input type="date" (change)="onClickToday($event)" />
+
     <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
       {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
     </h1>
