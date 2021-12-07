@@ -21,6 +21,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { Campaign } from '../../models/campaigns/campaign';
+import { Priority } from '../../models/enums/priority';
+import { Status } from '../../models/enums/status';
 import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
@@ -30,6 +32,7 @@ import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 import { HeaderService } from '../../services/header/header.service';
 import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
+import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
 
 @Component({
   selector: 'lib-calendar',
@@ -52,6 +55,7 @@ export class CalendarComponent implements OnInit {
   currentWeekProjects: Campaign[] = [];
   currentMonthProjects: Campaign[] = [];
   currentMonthProjectsCopy: Campaign[] = [];
+  currentWeekProjectsCopy: Campaign[] = [];
 
   projectPanelOpenState: boolean = false;
   campaignPanelOpenState: boolean = false;
@@ -79,9 +83,9 @@ export class CalendarComponent implements OnInit {
     };
     this.statusFilter = {
       defined: false,
-      inProgress: false,
+      in_progress: false,
       completed: false,
-      onHold: false,
+      on_hold: false,
     };
     this.regionFilter = {
       IMEA: false,
@@ -164,18 +168,6 @@ export class CalendarComponent implements OnInit {
     this.currentMonthProjectsCopy = [...this.currentMonthProjects];
   };
 
-  onChangeCurrentMonthResourceTask = () => {
-    // this.currentMonthResourceTask = this.resources.filter(
-    //   (eachResourceTask: any) =>
-    //     isSameMonth(eachResourceTask.task.startDate, this.monthDate) ||
-    //     isSameMonth(eachResourceTask.task.endDate, this.monthDate) ||
-    //     isWithinInterval(this.monthDate, {
-    //       start: eachResourceTask.task.startDate,
-    //       end: eachResourceTask.task.endDate,
-    //     })
-    // );
-  };
-
   onChangeCurrentWeekProjects = () => {
     this.currentWeekProjects = this.projects.filter(
       (eachTask: any) =>
@@ -186,6 +178,7 @@ export class CalendarComponent implements OnInit {
           end: eachTask.endDate,
         })
     );
+    this.currentWeekProjectsCopy = [...this.currentWeekProjects];
   };
 
   onChangePriorityFilter = () => {
@@ -195,6 +188,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -209,7 +203,20 @@ export class CalendarComponent implements OnInit {
       }
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.priorityFilter)) {
+        if (
+          value &&
+          campaign.priority.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   };
 
   onChangeStatusFilter = () => {
@@ -219,6 +226,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -234,7 +242,21 @@ export class CalendarComponent implements OnInit {
       console.log(campaign);
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.statusFilter)) {
+        if (
+          value &&
+          campaign.status.toString() == key.toUpperCase() &&
+          !temp.find((nCampaign) => nCampaign.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   };
   onChangeRegionFilter() {
     let temp: Campaign[] = [];
@@ -243,6 +265,7 @@ export class CalendarComponent implements OnInit {
     );
     if (isAllFlagsTurnedOff) {
       this.currentMonthProjectsCopy = [...this.currentMonthProjects];
+      this.currentWeekProjectsCopy = [...this.currentWeekProjects];
       return;
     }
     this.currentMonthProjects.forEach((campaign) => {
@@ -258,7 +281,21 @@ export class CalendarComponent implements OnInit {
       console.log(campaign);
     });
 
+    this.currentWeekProjects.forEach((campaign) => {
+      for (let [key, value] of Object.entries(this.regionFilter)) {
+        if (
+          value &&
+          campaign.region == key.toUpperCase() &&
+          !temp.find((c) => c.campaignId == campaign.campaignId)
+        ) {
+          temp.push(campaign);
+        }
+      }
+      console.log(campaign);
+    });
+
     this.currentMonthProjectsCopy = temp;
+    this.currentWeekProjectsCopy = temp;
   }
 
   onFilteringCampaigns = () => {
@@ -408,7 +445,20 @@ export class CalendarComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+  openTaskAllocation() {
+    const dialogRef = this.dialog.open(TaskAllocationComponent, {
+      height: '100vh',
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      position: {
+        right: '0',
+      },
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   VerticalTimeLeftSpace = () => {
     const currentDateTime = new Date();
     let eachContainerWidth = 84 / getDaysInMonth(this.monthDate);

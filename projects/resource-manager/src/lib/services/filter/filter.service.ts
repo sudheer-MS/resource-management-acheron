@@ -29,9 +29,9 @@ export class FilterService {
 
   statusFilter: StatusFilter = {
     defined: false,
-    inProgress: false,
+    in_progress: false,
     completed: false,
-    onHold: false,
+    on_hold: false,
   };
   statusFilter$: BehaviorSubject<StatusFilter> =
     new BehaviorSubject<StatusFilter>(this.statusFilter);

@@ -31,9 +31,9 @@ export class HeaderComponent implements OnInit {
 
   statusFilter: StatusFilter = {
     defined: false,
-    inProgress: false,
+    in_progress: false,
     completed: false,
-    onHold: false,
+    on_hold: false,
   };
   constructor(
     public dialog: MatDialog,
@@ -55,36 +55,6 @@ export class HeaderComponent implements OnInit {
   onToggle = (currentTabValue: string) => {
     this.headerService.onChangeTabValue(currentTabValue);
   };
-
-  openTaskAllocation() {
-    const dialogRef = this.dialog.open(TaskAllocationComponent, {
-      height: '100vh',
-      width: '40vw',
-      panelClass: 'custom-dialog-container',
-      position: {
-        right: '0',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(EmployeeAllocationComponent, {
-      height: '100vh',
-      width: '40vw',
-      panelClass: 'custom-dialog-container',
-      position: {
-        right: '0',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
 
   onClickNextMonth = (): void => {
     this.calendarService.onClickNextMonth();
@@ -157,22 +127,22 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  removeChips(event: any) {
-    console.log('out');
-    // for (let [key, value] of Object.entries(this.statusFilter)) {
-    //  if (value == true ) {
-    //     if (this.filterChips.includes(key)) {
-    //       this.filterChips = this.filterChips.filter((chip) => key != chip);
-    //       console.log("in")
-    //     }
-    //   }
-    // }
+  removeChips(chip: string) {
     this.filterChips;
-    console.log(event);
-    if (true) {
-      let v = this.priorityFilter;
-      if (this.filterChips.includes(event)) {
-        this.filterChips = this.filterChips.filter((chip) => event != chip);
+    if (this.filterChips.includes(chip)) {
+      this.filterChips = this.filterChips.filter((nchip) => chip != nchip);
+
+      if (chip == 'high' || chip == 'low' || chip == 'medium') {
+        this.priorityFilter[chip] = false;
+        this.filterService.priorityFilter$.next(this.priorityFilter);
+      } else if (
+        chip == 'defined' ||
+        chip == 'in_progress' ||
+        chip == 'on_hold' ||
+        chip == 'completed'
+      ) {
+        this.statusFilter[chip] = false;
+        this.filterService.statusFilter$.next(this.statusFilter);
       }
     }
   }

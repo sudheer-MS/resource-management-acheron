@@ -1,8 +1,8 @@
 export class StatusFilter {
   constructor(
     public defined: boolean,
-    public inProgress: boolean,
+    public in_progress: boolean,
     public completed: boolean,
-    public onHold: boolean
+    public on_hold: boolean
   ) {}
 }

@@ -98,7 +98,11 @@
         </div>
 
         <div [ngClass]="'filter-count-container'">
-          <mat-checkbox formControlName="onHold">OnHold</mat-checkbox>
+          <mat-checkbox
+            formControlName="onHold"
+            (change)="onChangeStatus(statusForm)"
+            >OnHold</mat-checkbox
+          >
           <p>{{ inProgressFilterCount }}</p>
         </div>
       </section>

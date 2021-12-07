@@ -31,9 +31,9 @@ export class FilterComponent implements OnInit {
   };
   statusFilter: StatusFilter = {
     defined: false,
-    inProgress: false,
+    in_progress: false,
     completed: false,
-    onHold: false,
+    on_hold: false,
   };
 
   regionFilter: RegionFilter = {
@@ -107,6 +107,15 @@ export class FilterComponent implements OnInit {
     //     this.inProgressFilterCount++;
     //   }
     // });
+
+    this.filterService.priorityFilter$.subscribe(
+      (priorityFilter: PriorityFilter) => {
+        this.priorityForm.setValue(priorityFilter);
+      }
+    );
+    this.filterService.statusFilter$.subscribe((statusFilter: StatusFilter) => {
+      this.statusForm.setValue(statusFilter);
+    });
   }
 
   onChangePriority = (priorityForm: FormGroup) => {
@@ -131,9 +140,9 @@ export class FilterComponent implements OnInit {
   onChangeStatus = (statusForm: FormGroup) => {
     this.statusFilter = {
       defined: statusForm.value.defined,
-      inProgress: statusForm.value.inProgress,
+      in_progress: statusForm.value.inProgress,
       completed: statusForm.value.completed,
-      onHold: statusForm.value.onHold,
+      on_hold: statusForm.value.onHold,
     };
     this.filterService.onChangeStatusFilter(this.statusFilter);
   };
