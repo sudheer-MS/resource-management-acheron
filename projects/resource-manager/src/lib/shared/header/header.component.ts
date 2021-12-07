@@ -72,6 +72,19 @@ export class HeaderComponent implements OnInit {
     this.calendarService.onClickPreviousWeek();
   };
 
+  onClickToday(event: any) {
+    console.log(event)
+    this.calendarService.monthDate$.next(new Date(event.target.value));
+    this.calendarService.weekDate$.next(new Date(event.target.value));
+
+    this.calendarService.currentMonthDates$.next(
+      this.calendarService.getMonthData(new Date(event.target.value))
+    );
+    this.calendarService.currentWeekDates$.next(
+      this.calendarService.getWeekData(new Date(event.target.value))
+    );
+  }
+
   onClickCalendarViewButton = (currentCalendarView: string): void => {
     this.calendarService.onChangeCalendarView(currentCalendarView);
   };
