@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -17,12 +16,8 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 import { Campaign } from '../../models/campaigns/campaign';
-import { Priority } from '../../models/enums/priority';
-import { Status } from '../../models/enums/status';
 import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
@@ -414,7 +409,7 @@ export class CalendarComponent implements OnInit {
     } else if (isSameWeek(endDate, this.weekDate)) {
       calculateDifference = differenceInDays(
         endDate,
-        startOfWeek(this.weekDate)
+        startOfWeek(this.weekDate, { weekStartsOn: 1 })
       );
       width = (calculateDifference + 1) * eachContainerWidth + 'vw';
       return width;

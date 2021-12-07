@@ -10,8 +10,6 @@ import {
   subDays,
   endOfWeek,
   startOfDay,
-  isWithinInterval,
-  isSameWeek,
 } from 'date-fns';
 import { BehaviorSubject } from 'rxjs';
 
@@ -30,7 +28,7 @@ export class CalendarService {
   weekDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(this.weekDate);
 
   takeWeek(start: Date) {
-    let date = startOfWeek(startOfDay(start));
+    let date = startOfWeek(startOfDay(start), { weekStartsOn: 1 });
 
     return function () {
       const week = [...Array(7)].map((_, i) => addDays(date, i));
@@ -49,7 +47,7 @@ export class CalendarService {
 
     return function () {
       function takeWeek(start = new Date()) {
-        let date = startOfWeek(startOfDay(start));
+        let date = startOfWeek(startOfDay(start), { weekStartsOn: 1 });
 
         return function () {
           const week = [...Array(7)].map((_, i) => addDays(date, i));
@@ -111,7 +109,7 @@ export class CalendarService {
   };
 
   onClickPreviousWeek = (): void => {
-    let firstDayWeek = startOfWeek(this.weekDate);
+    let firstDayWeek = startOfWeek(this.weekDate, { weekStartsOn: 1 });
     this.weekDate = subDays(firstDayWeek, 1);
     this.weekDate$.next(this.weekDate);
     this.getWeekData(this.weekDate);
