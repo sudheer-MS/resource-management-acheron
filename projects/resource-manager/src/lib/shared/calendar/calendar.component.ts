@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -22,6 +30,7 @@ import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
 import { StatusFilter } from '../../models/filter-models/status/status';
+import { Project } from '../../models/projects/project';
 import { Resource } from '../../models/resources/resource';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
@@ -34,7 +43,7 @@ import { TaskAllocationComponent } from '../task-allocation/task-allocation.comp
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnChanges {
   calendarView: string = 'month';
   tabValue: string;
   searchText: string = '';
@@ -95,6 +104,11 @@ export class CalendarComponent implements OnInit {
     };
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.onChangeCurrentMonthProjects();
+    this.onChangeCurrentWeekProjects();
+  }
+
   ngOnInit(): void {
     this.VerticalTimeLeftSpace();
     this.verticalTimeWeekLeftSpace();
@@ -103,7 +117,6 @@ export class CalendarComponent implements OnInit {
       (currentMonthDates: Date[]) => {
         this.currentMonthDates = currentMonthDates;
         this.onChangeCurrentMonthProjects();
-        console.log(this.monthDate);
       }
     );
     this._calendarService.currentWeekDates$.subscribe(
@@ -152,12 +165,12 @@ export class CalendarComponent implements OnInit {
 
   onChangeCurrentMonthProjects = () => {
     this.currentMonthProjects = this.projects.filter(
-      (eachTask: any) =>
-        isSameMonth(eachTask.startDate, this.monthDate) ||
-        isSameMonth(eachTask.endDate, this.monthDate) ||
+      (eachCampaign: Campaign) =>
+        isSameMonth(eachCampaign.startDate, this.monthDate) ||
+        isSameMonth(eachCampaign.endDate, this.monthDate) ||
         isWithinInterval(this.monthDate, {
-          start: eachTask.startDate,
-          end: eachTask.endDate,
+          start: eachCampaign.startDate,
+          end: eachCampaign.endDate,
         })
     );
     this.currentMonthProjectsCopy = [...this.currentMonthProjects];

@@ -65,9 +65,9 @@ export class FilterComponent implements OnInit {
     });
     this.statusForm = this.formBuilder.group({
       defined: false,
-      inProgress: false,
+      in_progress: false,
       completed: false,
-      onHold: false,
+      on_hold: false,
     });
     this.categoryForm = this.formBuilder.group({
       na: false,
