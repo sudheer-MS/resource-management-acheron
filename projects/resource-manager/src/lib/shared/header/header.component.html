@@ -47,14 +47,16 @@
       Display Fields
     </button>
 
-    <input type="date" (change)="onClickToday($event)" />
-
-    <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
-      {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
-    </h1>
-    <h1 *ngIf="calendarView == 'week'" [ngStyle]="{ marginRight: '10px' }">
-      {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
-    </h1>
+    <input type="date" (change)="onClickToday($event)" [ngStyle]="{ marginRight: '10px' }"/>
+    <div style="width: '150px' ;text-align: center;">
+      <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
+        {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
+      </h1>
+      <h1 *ngIf="calendarView == 'week'" [ngStyle]="{ marginRight: '10px' }">
+        {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
+      </h1>
+    </div>
+  
     <div [ngClass]="'toolbar'" *ngIf="calendarView == 'month'">
       <button
         type="button"
