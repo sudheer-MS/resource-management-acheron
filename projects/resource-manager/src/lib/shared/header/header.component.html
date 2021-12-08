@@ -30,7 +30,7 @@
   <div>
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let chip of filterChips" [removable]="removable"
-        >{{ chip }}
+        >{{ chip | uppercase }}
         <button matChipRemove>
           <mat-icon (click)="removeChips(chip)">cancel</mat-icon>
         </button>
@@ -47,8 +47,12 @@
       Display Fields
     </button>
 
-    <input type="date" (change)="onClickToday($event)" [ngStyle]="{ marginRight: '10px' }"/>
-    <div style="width: '150px' ;text-align: center;">
+    <input
+      type="date"
+      (change)="onClickToday($event)"
+      [ngStyle]="{ marginRight: '10px' }"
+    />
+    <div style="width: '150px'; text-align: center">
       <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
         {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
       </h1>
@@ -56,7 +60,7 @@
         {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
       </h1>
     </div>
-  
+
     <div [ngClass]="'toolbar'" *ngIf="calendarView == 'month'">
       <button
         type="button"
