@@ -2,8 +2,6 @@ import { FilterService } from './../../services/filter/filter.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayFieldsComponent } from '../display-fields/display-fields.component';
-import { TaskAllocationComponent } from '../task-allocation/task-allocation.component';
-import { EmployeeAllocationComponent } from '../employee-allocation/employee-allocation.component';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { HeaderService } from '../../services/header/header.service';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';

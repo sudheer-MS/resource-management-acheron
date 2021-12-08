@@ -1,10 +1,8 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -302,24 +300,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.currentMonthProjectsCopy = temp;
     this.currentWeekProjectsCopy = temp;
   }
-
-  onFilteringCampaigns = () => {
-    // this.projects.filter((nproject)=>{
-    //   if(nproject.campaignId==0){
-    //     this.filterProjects=nproject;
-    //   }
-    //   console.log(this.filterProjects)
-    // })
-  };
-
-  // onChangePriorityFilter = () => {
-  //   for (let [key, value] of Object.entries(this.priorityFilter)) {
-  //     if (value == true) {
-  //       this.currentMonthProjects.filter((campaign: Campaign) => {});
-  //     }
-  //   }
-  // };
-  // onChangeStatusFilter = () => {};
 
   monthLeftSpace = (startDate: Date): string => {
     let margin;

@@ -1,10 +1,8 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -13,7 +11,6 @@ import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
 import { StatusFilter } from '../../models/filter-models/status/status';
-import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 
 @Component({
@@ -248,6 +245,7 @@ export class FilterComponent implements OnInit, OnChanges {
     };
     this.filterService.onChangeDateFilter(this.dateFilter);
   };
+
   search(event: any): void {
     let value = (event.target as HTMLInputElement).value;
     this.regions = this.regionCopy;
