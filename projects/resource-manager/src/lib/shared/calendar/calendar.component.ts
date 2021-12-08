@@ -247,7 +247,6 @@ export class CalendarComponent implements OnInit, OnChanges {
           temp.push(campaign);
         }
       }
-      console.log(campaign);
     });
 
     this.currentWeekProjects.forEach((campaign) => {
@@ -260,7 +259,6 @@ export class CalendarComponent implements OnInit, OnChanges {
           temp.push(campaign);
         }
       }
-      console.log(campaign);
     });
 
     this.currentMonthProjectsCopy = temp;

@@ -34,7 +34,10 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter></lib-filter>
+    <lib-filter
+      [weekProjects]="currentWeekProjects"
+      [monthProjects]="currentMonthProjects"
+    ></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion *ngFor="let campaign of currentMonthProjectsCopy">
         <mat-expansion-panel

@@ -1,6 +1,6 @@
 export enum Status {
   DEFINED = 'DEFINED',
-  INPROGRESS = 'IN_PROGRESS',
+  IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
-  ONHOLD = 'ON_HOLD',
+  ON_HOLD = 'ON_HOLD',
 }

@@ -1,5 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Campaign } from '../../models/campaigns/campaign';
 import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
@@ -11,8 +20,7 @@ import { FilterService } from '../../services/filter/filter.service';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent implements OnInit {
-  campaign: Object[] = [];
+export class FilterComponent implements OnInit, OnChanges {
   panelOpenState: boolean = false;
   regions = ['IMEA', 'LATAM', 'EMEA', 'NAC', 'EPAC'];
   regionCopy = this.regions;
@@ -48,11 +56,21 @@ export class FilterComponent implements OnInit {
     endDate: new Date(),
   };
 
-  highFilterCount = 0;
-  lowFilterCount = 0;
-  definedFilterCount = 0;
-  inProgressFilterCount = 0;
-  regionFilterCount = 0;
+  @Input() weekProjects: Campaign[] = [];
+  @Input() monthProjects: Campaign[] = [];
+
+  priorityCount: any = {
+    high: 0,
+    low: 0,
+    medium: 0,
+  };
+
+  statusCount: any = {
+    defined: 0,
+    in_progress: 0,
+    completed: 0,
+    on_hold: 0,
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -92,22 +110,28 @@ export class FilterComponent implements OnInit {
       endDate: new FormControl(''),
     });
   }
-  ngOnInit(): void {
-    // this.campaign.forEach((campaignVal) => {
-    //   if (campaignVal.priority == 'HIGH') {
-    //     this.highFilterCount++;
-    //   }
-    //   if (campaignVal.priority == 'LOW') {
-    //     this.lowFilterCount++;
-    //   }
-    //   if (campaignVal.status == 'DEFINED') {
-    //     this.definedFilterCount++;
-    //   }
-    //   if (campaignVal.status == 'IN_PROGRESS') {
-    //     this.inProgressFilterCount++;
-    //   }
-    // });
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.priorityCount = {
+      high: 0,
+      low: 0,
+      medium: 0,
+    };
+
+    this.statusCount = {
+      defined: 0,
+      in_progress: 0,
+      completed: 0,
+      on_hold: 0,
+    };
+
+    this.weekProjects.forEach((campaignVal) => {
+      this.priorityCount[campaignVal.priority.toLowerCase()] += 1;
+      this.statusCount[campaignVal.status.toLowerCase()] += 1;
+    });
+  }
+
+  ngOnInit(): void {
     this.filterService.priorityFilter$.subscribe(
       (priorityFilter: PriorityFilter) => {
         this.priorityForm.setValue(priorityFilter);
@@ -140,9 +164,9 @@ export class FilterComponent implements OnInit {
   onChangeStatus = (statusForm: FormGroup) => {
     this.statusFilter = {
       defined: statusForm.value.defined,
-      in_progress: statusForm.value.inProgress,
+      in_progress: statusForm.value.in_progress,
       completed: statusForm.value.completed,
-      on_hold: statusForm.value.onHold,
+      on_hold: statusForm.value.on_hold,
     };
     this.filterService.onChangeStatusFilter(this.statusFilter);
   };
