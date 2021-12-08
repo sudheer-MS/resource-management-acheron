@@ -72,11 +72,23 @@
               (input)="search($event)"
             />
           </mat-form-field>
-          <p *ngFor="let region of regions">
-            <mat-checkbox [formControlName]="region"
+          <div
+            [ngClass]="'filter-count-container'"
+            *ngFor="let region of regions"
+          >
+            <mat-checkbox
+              [formControlName]="region"
+              (change)="onChangeRegion(regionForm)"
               >{{ region }}
             </mat-checkbox>
-          </p>
+            <p>
+              {{
+                calendarView == "month"
+                  ? monthRegionCount[region]
+                  : weekRegionCount[region]
+              }}
+            </p>
+          </div>
         </div>
       </section>
     </mat-expansion-panel>

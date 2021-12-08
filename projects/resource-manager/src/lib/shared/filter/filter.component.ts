@@ -62,6 +62,22 @@ export class FilterComponent implements OnInit, OnChanges {
   @Input() weekProjects: Campaign[] = [];
   @Input() monthProjects: Campaign[] = [];
 
+  monthRegionCount: any = {
+    IMEA: 0,
+    LATAM: 0,
+    EMEA: 0,
+    NAC: 0,
+    EPAC: 0,
+  };
+
+  weekRegionCount: any = {
+    IMEA: 0,
+    LATAM: 0,
+    EMEA: 0,
+    NAC: 0,
+    EPAC: 0,
+  };
+
   monthPriorityCount: any = {
     high: 0,
     low: 0,
@@ -128,6 +144,22 @@ export class FilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.monthRegionCount = {
+      IMEA: 0,
+      LATAM: 0,
+      EMEA: 0,
+      NAC: 0,
+      EPAC: 0,
+    };
+
+    this.weekRegionCount = {
+      IMEA: 0,
+      LATAM: 0,
+      EMEA: 0,
+      NAC: 0,
+      EPAC: 0,
+    };
+
     this.monthPriorityCount = {
       high: 0,
       low: 0,
@@ -157,11 +189,13 @@ export class FilterComponent implements OnInit, OnChanges {
     this.monthProjects.forEach((campaignVal) => {
       this.monthPriorityCount[campaignVal.priority.toLowerCase()] += 1;
       this.monthStatusCount[campaignVal.status.toLowerCase()] += 1;
+      this.monthRegionCount[campaignVal.region] += 1;
     });
 
     this.weekProjects.forEach((campaignVal) => {
       this.weekPriorityCount[campaignVal.priority.toLowerCase()] += 1;
       this.weekStatusCount[campaignVal.status.toLowerCase()] += 1;
+      this.weekRegionCount[campaignVal.region] += 1;
     });
   }
 
@@ -185,6 +219,7 @@ export class FilterComponent implements OnInit, OnChanges {
     this.filterService.onChangePriorityFilter(this.priorityFilter);
     this.filterService.priorityFilter$.next(this.priorityFilter);
   };
+
   onChangeRegion = (regionForm: FormGroup) => {
     this.regionFilter = {
       IMEA: regionForm.value.IMEA,
@@ -193,8 +228,9 @@ export class FilterComponent implements OnInit, OnChanges {
       NAC: regionForm.value.NAC,
       EPAC: regionForm.value.EPAC,
     };
-    this.filterService.onChangeRegionFilter(this.regionFilter);
+    this.filterService.regionFilter$.next(this.regionFilter);
   };
+
   onChangeStatus = (statusForm: FormGroup) => {
     this.statusFilter = {
       defined: statusForm.value.defined,

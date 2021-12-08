@@ -265,6 +265,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.currentWeekProjectsCopy = temp;
   };
   onChangeRegionFilter() {
+    console.log(this.regionFilter);
     let temp: Campaign[] = [];
     const isAllFlagsTurnedOff = Object.values(this.regionFilter).every(
       (val) => val === false
@@ -284,7 +285,6 @@ export class CalendarComponent implements OnInit, OnChanges {
           temp.push(campaign);
         }
       }
-      console.log(campaign);
     });
 
     this.currentWeekProjects.forEach((campaign) => {
@@ -297,7 +297,6 @@ export class CalendarComponent implements OnInit, OnChanges {
           temp.push(campaign);
         }
       }
-      console.log(campaign);
     });
 
     this.currentMonthProjectsCopy = temp;
