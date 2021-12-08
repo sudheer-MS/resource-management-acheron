@@ -13,6 +13,7 @@ import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
 import { StatusFilter } from '../../models/filter-models/status/status';
+import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
 
 @Component({
@@ -56,16 +57,31 @@ export class FilterComponent implements OnInit, OnChanges {
     endDate: new Date(),
   };
 
+  @Input() calendarView: string = '';
+
   @Input() weekProjects: Campaign[] = [];
   @Input() monthProjects: Campaign[] = [];
 
-  priorityCount: any = {
+  monthPriorityCount: any = {
     high: 0,
     low: 0,
     medium: 0,
   };
 
-  statusCount: any = {
+  monthStatusCount: any = {
+    defined: 0,
+    in_progress: 0,
+    completed: 0,
+    on_hold: 0,
+  };
+
+  weekPriorityCount: any = {
+    high: 0,
+    low: 0,
+    medium: 0,
+  };
+
+  weekStatusCount: any = {
     defined: 0,
     in_progress: 0,
     completed: 0,
@@ -112,22 +128,40 @@ export class FilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.priorityCount = {
+    this.monthPriorityCount = {
       high: 0,
       low: 0,
       medium: 0,
     };
 
-    this.statusCount = {
+    this.monthStatusCount = {
       defined: 0,
       in_progress: 0,
       completed: 0,
       on_hold: 0,
     };
 
+    this.weekPriorityCount = {
+      high: 0,
+      low: 0,
+      medium: 0,
+    };
+
+    this.weekStatusCount = {
+      defined: 0,
+      in_progress: 0,
+      completed: 0,
+      on_hold: 0,
+    };
+
+    this.monthProjects.forEach((campaignVal) => {
+      this.monthPriorityCount[campaignVal.priority.toLowerCase()] += 1;
+      this.monthStatusCount[campaignVal.status.toLowerCase()] += 1;
+    });
+
     this.weekProjects.forEach((campaignVal) => {
-      this.priorityCount[campaignVal.priority.toLowerCase()] += 1;
-      this.statusCount[campaignVal.status.toLowerCase()] += 1;
+      this.weekPriorityCount[campaignVal.priority.toLowerCase()] += 1;
+      this.weekStatusCount[campaignVal.status.toLowerCase()] += 1;
     });
   }
 

@@ -35,6 +35,7 @@
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
     <lib-filter
+      [calendarView]="calendarView"
       [weekProjects]="currentWeekProjects"
       [monthProjects]="currentMonthProjects"
     ></lib-filter>
@@ -218,7 +219,11 @@
     </div>
   </div>
   <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
-    <lib-filter></lib-filter>
+    <lib-filter
+      [calendarView]="calendarView"
+      [weekProjects]="currentWeekProjects"
+      [monthProjects]="currentMonthProjects"
+    ></lib-filter>
     <div [ngClass]="'projects-container'">
       <mat-accordion
         *ngFor="let campaign of currentWeekProjectsCopy"
