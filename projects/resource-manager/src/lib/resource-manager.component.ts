@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Campaign } from './models/campaigns/campaign';
 import { Resource } from './models/resources/resource';
+import { CalendarService } from './services/calendar/calendar.service';
 import { HeaderService } from './services/header/header.service';
 
 @Component({
@@ -13,8 +14,26 @@ export class ResourceManagerComponent implements OnInit {
 
   @Input() projects: Campaign[] = [];
 
-  constructor(private headerService: HeaderService) {
+  @Output() date :EventEmitter<Date> =new EventEmitter<Date>();
+
+  @Output() calendarView:EventEmitter<string> =new EventEmitter<string>();
+
+  constructor(private headerService: HeaderService, private calendarService:CalendarService) {
     this.tabValue = this.headerService.tabValue;
+    
+    this.calendarService.calendarView$.subscribe(
+      (currentCalendarView: string) => (this.calendarView.emit(currentCalendarView))
+    );
+
+    this.calendarService.monthDate$.subscribe(
+      (currentMonthDate: Date) => (this.date.emit(currentMonthDate))
+    );
+
+    this.calendarService.weekDate$.subscribe(
+      (currentWeekDate: Date) => (this.date.emit(currentWeekDate))
+    );
+
+    
   }
 
   ngOnInit(): void {

@@ -1,4 +1,2 @@
 <app-navbar></app-navbar>
-<lib-resource-manager
-  [projects]="projects"
-></lib-resource-manager>
+<lib-resource-manager [projects]="projects" (date)="onChangeDate($event)" (calendarView)="onChangeCalendarView($event)"></lib-resource-manager>

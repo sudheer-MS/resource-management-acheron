@@ -105,6 +105,11 @@ export class CalendarComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.onChangeCurrentMonthProjects();
     this.onChangeCurrentWeekProjects();
+    // this.currentMonthProjects = changes.projects.currentValue
+    // this.currentWeekProjects =  changes.projects.currentValue
+
+    // this.currentWeekProjectsCopy =    this.currentWeekProjects
+    // this.currentMonthProjectsCopy = this.currentMonthProjects
   }
 
   ngOnInit(): void {
@@ -117,12 +122,14 @@ export class CalendarComponent implements OnInit, OnChanges {
         this.onChangeCurrentMonthProjects();
       }
     );
+
     this._calendarService.currentWeekDates$.subscribe(
       (currentWeekDates: Date[]) => {
         this.currentWeekDates = currentWeekDates;
         this.onChangeCurrentWeekProjects();
       }
     );
+
     this._calendarService.calendarView$.subscribe(
       (currentCalendarView: string) => (this.calendarView = currentCalendarView)
     );
@@ -134,21 +141,25 @@ export class CalendarComponent implements OnInit, OnChanges {
     this._calendarService.weekDate$.subscribe(
       (currentWeekDate: Date) => (this.weekDate = currentWeekDate)
     );
+
     this.headerService.tabValue$.subscribe(
       (currentTabValue: string) => (this.tabValue = currentTabValue)
     );
+
     this._filterService.priorityFilter$.subscribe(
       (priorityFilter: PriorityFilter) => {
         this.priorityFilter = priorityFilter;
         this.onChangePriorityFilter();
       }
     );
+
     this._filterService.statusFilter$.subscribe(
       (statusFilter: StatusFilter) => {
         this.statusFilter = statusFilter;
         this.onChangeStatusFilter();
       }
     );
+
     this._filterService.regionFilter$.subscribe(
       (regionFilter: RegionFilter) => {
         this.regionFilter = regionFilter;
@@ -263,7 +274,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.currentWeekProjectsCopy = temp;
   };
   onChangeRegionFilter() {
-    console.log(this.regionFilter);
     let temp: Campaign[] = [];
     const isAllFlagsTurnedOff = Object.values(this.regionFilter).every(
       (val) => val === false

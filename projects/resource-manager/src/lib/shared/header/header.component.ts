@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
     completed: false,
     on_hold: false,
   };
+
   constructor(
     public dialog: MatDialog,
     private calendarService: CalendarService,
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickCalendarViewButton = (currentCalendarView: string): void => {
-    this.calendarService.onChangeCalendarView(currentCalendarView);
+    this.calendarService.calendarView$.next(currentCalendarView);
   };
 
   ngOnInit(): void {
