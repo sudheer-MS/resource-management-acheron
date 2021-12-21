@@ -12,17 +12,8 @@ export class ResourcesService {
 
   constructor(private _http: HttpClient) {}
 
-  getAllResource = (): Observable<Resource[]> => {
-    const url = this.baseUrl + '/resources/without-task';
-    return this._http.get<Resource[]>(url).pipe(
-      map((resources) => {
-        resources.map((resource: Resource) => {
-          resource.availability.startDate = new Date(resource.availability.startDate);
-          resource.availability.endDate = new Date(resource.availability.endDate);
-          return resource;
-        });
-        return resources;
-      })
-    );
+  getAllResource = (pageNo: number, limit: number): Observable<Resource[]> => {
+    const url = this.baseUrl + `/resources?page-no=${pageNo}&limit=${limit}`;
+    return this._http.get<Resource[]>(url);
   };
 }

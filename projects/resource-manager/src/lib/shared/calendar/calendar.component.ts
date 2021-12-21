@@ -1,11 +1,14 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 import {
   differenceInDays,
@@ -22,13 +25,11 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
-
 import { Campaign } from '../../models/campaigns/campaign';
 import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
 import { StatusFilter } from '../../models/filter-models/status/status';
-import { Project } from '../../models/projects/project';
 import { Resource } from '../../models/resources/resource';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { FilterService } from '../../services/filter/filter.service';
@@ -44,7 +45,7 @@ import { TaskAllocationComponent } from '../task-allocation/task-allocation.comp
 export class CalendarComponent implements OnInit, OnChanges {
   calendarView: string = 'month';
   tabValue: string;
-  searchText: string = '';
+  searchText: string = ''; //third party filter applied
 
   currentDate = format(new Date(), 'MM/dd/yyyy');
 
@@ -68,13 +69,14 @@ export class CalendarComponent implements OnInit, OnChanges {
   dateFilter: DateFilter;
 
   @Input() projects: Campaign[] = [];
-  @Input() resources: Resource[] = [];
+  resources: Resource[] = [];
+
+  @Input() resourcesResponse: any;
 
   constructor(
     private _calendarService: CalendarService,
     private headerService: HeaderService,
     private _filterService: FilterService,
-
     public dialog: MatDialog
   ) {
     this.tabValue = this.headerService.tabValue;
@@ -105,6 +107,15 @@ export class CalendarComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.onChangeCurrentMonthProjects();
     this.onChangeCurrentWeekProjects();
+    if (changes.resourcesResponse) {
+      // this._calendarService.pageEvent$.next({
+      //   length: this.resourcesResponse.totalElements,
+      //   pageSize: this.resourcesResponse.size,
+      //   pageIndex: this.resourcesResponse.number,
+      // });
+      this.resources = this.resourcesResponse.content;
+    }
+
     // this.currentMonthProjects = changes.projects.currentValue
     // this.currentWeekProjects =  changes.projects.currentValue
 
@@ -166,6 +177,10 @@ export class CalendarComponent implements OnInit, OnChanges {
         this.onChangeRegionFilter();
       }
     );
+  }
+
+  onChangePaginator(pageEvent: PageEvent) {
+    this._calendarService.pageEvent$.next(pageEvent);
   }
 
   formatDate = (date: Date) => {

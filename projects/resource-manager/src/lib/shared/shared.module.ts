@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatChipsModule,
     Ng2SearchPipeModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
   ],
   exports: [
     CommonModule,

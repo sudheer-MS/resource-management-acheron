@@ -1,3 +1,4 @@
+import { Campaign } from '../campaigns/campaign';
 import { Priority } from '../enums/priority';
 import { Status } from '../enums/status';
 import { Task } from '../tasks/task';
@@ -11,6 +12,7 @@ export class Project {
     public endDate: Date,
     public priority: Priority,
     public status: Status,
-    public tasks: Task[]
+    public tasks: Task[],
+    public campaign: Campaign
   ) {}
 }

@@ -1,5 +1,6 @@
 import { Priority } from '../enums/priority';
 import { Status } from '../enums/status';
+import { Project } from '../projects/project';
 import { Resource } from '../resources/resource';
 
 export class Task {
@@ -12,6 +13,7 @@ export class Task {
     public duration: number,
     public priority: Priority,
     public status: Status,
-    public resource: Resource
+    public resource: Resource,
+    public project: Project
   ) {}
 }

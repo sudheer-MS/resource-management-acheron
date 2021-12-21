@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import {
   isSameMonth,
   startOfMonth,
@@ -26,6 +27,12 @@ export class CalendarService {
   monthDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(this.monthDate);
   weekDate: Date = new Date();
   weekDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(this.weekDate);
+
+  pageEvent$: BehaviorSubject<PageEvent> = new BehaviorSubject<PageEvent>({
+    pageIndex: 0,
+    pageSize: 0,
+    length: 0,
+  });
 
   takeWeek(start: Date) {
     let date = startOfWeek(startOfDay(start), { weekStartsOn: 1 });
