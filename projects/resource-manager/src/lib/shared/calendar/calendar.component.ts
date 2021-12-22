@@ -18,6 +18,7 @@ import {
   format,
   getDay,
   getDaysInMonth,
+  getWeeksInMonth,
   isSameMonth,
   isSameWeek,
   isSameYear,
@@ -26,6 +27,7 @@ import {
   startOfWeek,
 } from 'date-fns';
 import { Campaign } from '../../models/campaigns/campaign';
+import { Task } from '../../models/tasks/task';
 import { DateFilter } from '../../models/filter-models/date/date-filter';
 import { PriorityFilter } from '../../models/filter-models/priority/priority';
 import { RegionFilter } from '../../models/filter-models/region/region-filter';
@@ -70,6 +72,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   @Input() projects: Campaign[] = [];
   resources: Resource[] = [];
+  resourcesCopy: Resource[] = [];
 
   @Input() resourcesResponse: any;
 
@@ -179,6 +182,25 @@ export class CalendarComponent implements OnInit, OnChanges {
     );
   }
 
+  filterResourceTasksAndLeaves() {
+    const tempResources: Resource[] = [];
+
+    this.resources.forEach((resource) => {
+      resource.taskList = resource.taskList.filter(
+        (task) =>
+          isSameMonth(new Date(task.startDate), this.monthDate) ||
+          isSameMonth(new Date(task.endDate), this.monthDate) ||
+          isWithinInterval(this.monthDate, {
+            start: new Date(task.startDate),
+            end: new Date(task.endDate),
+          })
+      );
+      tempResources.push(resource);
+    });
+
+    this.resourcesCopy = tempResources;
+  }
+
   onChangePaginator(pageEvent: PageEvent) {
     this._calendarService.pageEvent$.next(pageEvent);
   }
@@ -199,7 +221,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     );
     this.currentMonthProjectsCopy = [...this.currentMonthProjects];
   };
-
   onChangeCurrentWeekProjects = () => {
     this.currentWeekProjects = this.projects.filter(
       (eachTask: any) =>
@@ -212,7 +233,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     );
     this.currentWeekProjectsCopy = [...this.currentWeekProjects];
   };
-
   onChangePriorityFilter = () => {
     let temp: Campaign[] = [];
     const isAllFlagsTurnedOff = Object.values(this.priorityFilter).every(
@@ -250,7 +270,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.currentMonthProjectsCopy = temp;
     this.currentWeekProjectsCopy = temp;
   };
-
   onChangeStatusFilter = () => {
     let temp: Campaign[] = [];
     const isAllFlagsTurnedOff = Object.values(this.statusFilter).every(
@@ -484,7 +503,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     const leftSpace = eachHourWidth * hoursDifference;
     return `${leftSpace}vw`;
   };
-
   verticalTimeWeekLeftSpace = () => {
     const currentDateTime = new Date();
     let eachContainerWidth = 84 / 7;

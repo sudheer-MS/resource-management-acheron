@@ -139,8 +139,22 @@
 
 .task-card {
   min-width: 220px;
-  max-height: 110px;
+  max-height: 100px;
   background-color: #ab94ff;
+  color: #ffffff;
+  font-family: Roboto;
+  cursor: pointer;
+}
+
+.leaves-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.leave-card {
+  min-width: 220px;
+  max-height: 100px;
+  background-color: #d5cff1;
   color: #ffffff;
   font-family: Roboto;
   cursor: pointer;
@@ -148,7 +162,7 @@
 
 .resource-card {
   min-width: 220px;
-  max-height: 110px;
+  max-height: 100px;
   background-color: #65b86e;
   color: #ffffff;
   font-family: Roboto;
@@ -169,6 +183,11 @@
   position: relative;
 }
 
+.resource-cards-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .resource-container {
   display: flex;
   flex-direction: row;
@@ -183,8 +202,10 @@
 
 .resource-info-card {
   width: 15vw;
+  max-height: 100px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .resource-image {
@@ -232,4 +253,9 @@
   bottom: 0;
   width: 100%;
   z-index: 1;
+}
+
+.status-text {
+  font-size: 10px;
+  color: #ab94ff;
 }

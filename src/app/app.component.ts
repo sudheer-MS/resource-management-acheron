@@ -49,14 +49,12 @@ export class AppComponent {
 
   onChangeDate(date: Date) {
     if (this.currentView == 'month') {
-      console.log('month api');
       this.projectsService
         .getAllProjectsByInterval(startOfMonth(date), endOfMonth(date))
         .subscribe(
           (responseProjects: Campaign[]) => (this.projects = responseProjects)
         );
     } else {
-      console.log('week api');
       this.projectsService
         .getAllProjectsByInterval(startOfWeek(date), endOfWeek(date))
         .subscribe(

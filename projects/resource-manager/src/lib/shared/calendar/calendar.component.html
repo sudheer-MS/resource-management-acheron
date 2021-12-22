@@ -141,20 +141,37 @@
             <p>{{ resource.resourceName }}</p>
             <p>{{ resource.resourceType }}</p>
           </div>
+          <div>
+            <span ngClass="status-text">
+              Status:
+              <span>{{
+                resource.availability.availableStatus | titlecase
+              }}</span>
+            </span>
+            <span ngClass="status-text">
+              {{ resource.availability.availableHours }} hours a day
+            </span>
+          </div>
         </mat-card>
-        <div ngClass="task-container">
-          <mat-card ngClass="resource-card">
-            <p>{{ resource.availability.availableStatus }}</p>
-            <p>{{ resource.availability.availableHours }} hours a day</p>
-          </mat-card>
-          <mat-card ngClass="task-card" *ngFor="let task of resource.taskList">
-            <p>{{ task.taskName }}</p>
-            <p>{{ task.duration }} Hrs</p>
-            <p>
-              {{ task.project.projectName }} -
-              {{ task.project.campaign.campaignName }}
-            </p>
-          </mat-card>
+        <div ngClass="resource-cards-container">
+          <div ngClass="task-container">
+            <mat-card
+              ngClass="task-card"
+              *ngFor="let task of resource.taskList"
+            >
+              <p>{{ task.taskName }}</p>
+              <p>
+                {{ task.project.projectName }} -
+                {{ task.project.campaign.campaignName }}
+              </p>
+            </mat-card>
+          </div>
+          <div ngClass="leaves-container">
+            <mat-card ngClass="leave-card" *ngFor="let leave of resource.leave">
+              <p>Leave Start: {{ leave.startDate | date }}</p>
+              <p>End: {{ leave.endDate | date }}</p>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
@@ -310,20 +327,37 @@
             <p>{{ resource.resourceName }}</p>
             <p>{{ resource.resourceType }}</p>
           </div>
+          <div>
+            <span ngClass="status-text">
+              Status:
+              <span>{{
+                resource.availability.availableStatus | titlecase
+              }}</span>
+            </span>
+            <span ngClass="status-text">
+              {{ resource.availability.availableHours }} hours a day
+            </span>
+          </div>
         </mat-card>
-        <div ngClass="task-container">
-          <mat-card ngClass="resource-card">
-            <p>{{ resource.availability.availableStatus }}</p>
-            <p>{{ resource.availability.availableHours }} hours a day</p>
-          </mat-card>
-          <mat-card ngClass="task-card" *ngFor="let task of resource.taskList">
-            <p>{{ task.taskName }}</p>
-            <p>{{ task.duration }} Hrs</p>
-            <p>
-              {{ task.project.projectName }} -
-              {{ task.project.campaign.campaignName }}
-            </p>
-          </mat-card>
+        <div ngClass="resource-cards-container">
+          <div ngClass="task-container">
+            <mat-card
+              ngClass="task-card"
+              *ngFor="let task of resource.taskList"
+            >
+              <p>{{ task.taskName }}</p>
+              <p>
+                {{ task.project.projectName }} -
+                {{ task.project.campaign.campaignName }}
+              </p>
+            </mat-card>
+          </div>
+          <div ngClass="leaves-container">
+            <mat-card ngClass="leave-card" *ngFor="let leave of resource.leave">
+              <p>Leave Start: {{ leave.startDate | date }}</p>
+              <p>End: {{ leave.endDate | date }}</p>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>

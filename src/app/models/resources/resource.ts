@@ -10,7 +10,7 @@ export class Resource {
     public resourceImage: string,
     public availability: Availability,
     public region: string,
-    public leave: Leave,
-    public taskList?: Task[]
+    public leave: Leave[],
+    public taskList: Task[]
   ) {}
 }
